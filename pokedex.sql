@@ -1,3 +1,22 @@
+-- Drop tables if they exist
+DROP TABLE IF EXISTS MOVE_HAS_STATUS_EFFECT;
+DROP TABLE IF EXISTS POKEMON_EXHIBIT_A_NATURE;
+DROP TABLE IF EXISTS POKEMON_BEARS_TYPE;
+DROP TABLE IF EXISTS POKEMON_INHABITS_HABITAT;
+DROP TABLE IF EXISTS POKEMON_POSSESSES_ABILITY;
+DROP TABLE IF EXISTS TYPE_EFFICACY;
+DROP TABLE IF EXISTS MOVESET;
+DROP TABLE IF EXISTS EVOLUTION;
+DROP TABLE IF EXISTS MOVE;
+DROP TABLE IF EXISTS STATUS_EFFECT;
+DROP TABLE IF EXISTS NATURE;
+DROP TABLE IF EXISTS TYPE;
+DROP TABLE IF EXISTS GENERATION;
+DROP TABLE IF EXISTS METHOD;
+DROP TABLE IF EXISTS HABITAT;
+DROP TABLE IF EXISTS ABILITIES;
+DROP TABLE IF EXISTS POKEMON;
+
 -- Create POKEMON table
 CREATE TABLE POKEMON (
     pok_id INT PRIMARY KEY,
@@ -65,6 +84,17 @@ CREATE TABLE EVOLUTION (
     FOREIGN KEY (evol_pok_id) REFERENCES POKEMON(pok_id)
 );
 
+-- Create MOVE table
+CREATE TABLE MOVE (
+    move_id INT PRIMARY KEY,
+    type_id INT,
+    move_name VARCHAR(50) NOT NULL UNIQUE,
+    move_pp INT CHECK (move_pp >= 0),
+    move_power INT CHECK (move_power >= 0),
+    move_accuracy FLOAT CHECK (move_accuracy >= 0 AND move_accuracy <= 100),
+    FOREIGN KEY (type_id) REFERENCES TYPE(type_id)
+);
+
 -- Create MOVESET table
 CREATE TABLE MOVESET (
     pok_id INT,
@@ -79,17 +109,6 @@ CREATE TABLE MOVESET (
     FOREIGN KEY (method_id) REFERENCES METHOD(method_id)
 );
 
--- Create MOVE table
-CREATE TABLE MOVE (
-    move_id INT PRIMARY KEY,
-    type_id INT,
-    move_name VARCHAR(50) NOT NULL UNIQUE,
-    move_pp INT CHECK (move_pp >= 0),
-    move_power INT CHECK (move_power >= 0),
-    move_accuracy FLOAT CHECK (move_accuracy >= 0 AND move_accuracy <= 100),
-    FOREIGN KEY (type_id) REFERENCES TYPE(type_id)
-);
-
 -- Create TYPE EFFICACY table
 CREATE TABLE TYPE_EFFICACY (
     type_id INT,
@@ -97,7 +116,7 @@ CREATE TABLE TYPE_EFFICACY (
     dmg_factor FLOAT CHECK (dmg_factor >= 0),
     PRIMARY KEY (type_id, target_type_id),
     FOREIGN KEY (type_id) REFERENCES TYPE(type_id),
-    FOREIGN KEY (target_type_id) REFERENCES TYPE(target_type_id)
+    FOREIGN KEY (target_type_id) REFERENCES TYPE(type_id)
 );
 
 -- Create POKEMON POSSESSES ABILITY table
