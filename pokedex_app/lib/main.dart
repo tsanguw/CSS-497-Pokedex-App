@@ -15,16 +15,47 @@ class MainApp extends StatelessWidget {
   }
 }
 
+enum Section {
+  POKEMON,
+  MOVES,
+  ABILITIES,
+  ITEMS,
+  NATURES,
+}
+
 class MyHomePage extends StatefulWidget {
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  String _selectedTitle = 'Pokedex'; // Initial title
+  Section _selectedSection = Section.POKEMON; // Set default page to Pokémon
 
   @override
   Widget build(BuildContext context) {
+    Widget body;
+
+    switch (_selectedSection) {
+      case Section.POKEMON:
+        body = Center(child: Text('Welcome to the Pokemon Page!'));
+        break;
+      case Section.MOVES:
+        body = Center(child: Text('Welcome to the Moves Page!'));
+        break;
+      case Section.ABILITIES:
+        body = Center(child: Text('Welcome to the Abilities Page!'));
+        break;
+      case Section.ITEMS:
+        body = Center(child: Text('Welcome to the Items Page!'));
+        break;
+      case Section.NATURES:
+        body = Center(child: Text('Welcome to the Natures Page!'));
+        break;
+      default:
+        body = Center(child: Text('Welcome to the Pokemon Page!'));
+        break;
+    }
+
     return Scaffold(
       appBar: AppBar(
         leading: Builder(
@@ -39,24 +70,22 @@ class _MyHomePageState extends State<MyHomePage> {
           },
         ),
         centerTitle: true,
-        title: Text(_selectedTitle, style: TextStyle(color: Colors.white)),
+        title: Text(
+          'Pokedex',
+          style: TextStyle(color: Colors.white),
+        ),
         backgroundColor: Colors.red,
       ),
       drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
-            const DrawerHeader(
-              decoration: BoxDecoration(
-                color: Colors.red,
-              ),
-              child: Text('Pokedex', style: TextStyle(color: Colors.white)),
-            ),
+            buildDrawerHeader(),
             ListTile(
               title: const Text('Pokemon'),
               onTap: () {
                 setState(() {
-                  _selectedTitle = 'Pokemon';
+                  _selectedSection = Section.POKEMON;
                 });
                 Navigator.of(context).pop(); // Close the drawer
               },
@@ -65,7 +94,7 @@ class _MyHomePageState extends State<MyHomePage> {
               title: const Text('Moves'),
               onTap: () {
                 setState(() {
-                  _selectedTitle = 'Moves';
+                  _selectedSection = Section.MOVES;
                 });
                 Navigator.of(context).pop(); // Close the drawer
               },
@@ -74,7 +103,7 @@ class _MyHomePageState extends State<MyHomePage> {
               title: const Text('Abilities'),
               onTap: () {
                 setState(() {
-                  _selectedTitle = 'Abilities';
+                  _selectedSection = Section.ABILITIES;
                 });
                 Navigator.of(context).pop(); // Close the drawer
               },
@@ -83,7 +112,7 @@ class _MyHomePageState extends State<MyHomePage> {
               title: const Text('Items'),
               onTap: () {
                 setState(() {
-                  _selectedTitle = 'Items';
+                  _selectedSection = Section.ITEMS;
                 });
                 Navigator.of(context).pop(); // Close the drawer
               },
@@ -92,7 +121,7 @@ class _MyHomePageState extends State<MyHomePage> {
               title: const Text('Natures'),
               onTap: () {
                 setState(() {
-                  _selectedTitle = 'Natures';
+                  _selectedSection = Section.NATURES;
                 });
                 Navigator.of(context).pop(); // Close the drawer
               },
@@ -100,9 +129,19 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
-      body: Center(
-        child: Text('Hello World!'),
+      body: Container(
+        child: body,
       ),
     );
   }
+}
+
+// Define the custom DrawerHeader function
+Widget buildDrawerHeader() {
+  return const DrawerHeader(
+    decoration: BoxDecoration(
+      color: Colors.red,
+    ),
+    child: Text('Pokedex', style: TextStyle(color: Colors.white)),
+  );
 }
