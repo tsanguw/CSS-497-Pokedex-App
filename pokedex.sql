@@ -1,4 +1,6 @@
 -- Drop tables if they exist
+DROP TABLE IF EXISTS TEAM;
+DROP TABLE IF EXISTS TRAINER;
 DROP TABLE IF EXISTS MOVE_HAS_STATUS_EFFECT;
 DROP TABLE IF EXISTS POKEMON_EXHIBIT_A_NATURE;
 DROP TABLE IF EXISTS POKEMON_BEARS_TYPE;
@@ -7,6 +9,8 @@ DROP TABLE IF EXISTS POKEMON_POSSESSES_ABILITY;
 DROP TABLE IF EXISTS TYPE_EFFICACY;
 DROP TABLE IF EXISTS MOVESET;
 DROP TABLE IF EXISTS EVOLUTION;
+DROP TABLE IF EXISTS ITEM_CATEGORY;
+DROP TABLE IF EXISTS ITEM;
 DROP TABLE IF EXISTS MOVE;
 DROP TABLE IF EXISTS STATUS_EFFECT;
 DROP TABLE IF EXISTS NATURE;
@@ -15,6 +19,8 @@ DROP TABLE IF EXISTS GENERATION;
 DROP TABLE IF EXISTS METHOD;
 DROP TABLE IF EXISTS HABITAT;
 DROP TABLE IF EXISTS ABILITIES;
+DROP TABLE IF EXISTS INDIVIDUAL_VALUES;
+DROP TABLE IF EXISTS BASE_STATS;
 DROP TABLE IF EXISTS POKEMON;
 
 -- Create POKEMON table
@@ -164,4 +170,71 @@ CREATE TABLE MOVE_HAS_STATUS_EFFECT (
     PRIMARY KEY (move_id, stat_id),
     FOREIGN KEY (move_id) REFERENCES MOVE(move_id),
     FOREIGN KEY (stat_id) REFERENCES STATUS_EFFECT(stat_id)
+);
+
+-- Create TRAINER table
+CREATE TABLE TRAINER (
+    trainer_id INT PRIMARY KEY,
+    trainer_name VARCHAR(50) NOT NULL,
+    trainer_gym_name VARCHAR(50),
+    trainer_gen INT,
+    FOREIGN KEY (trainer_gen) REFERENCES GENERATION(gen_id)
+);
+
+-- Create TEAM table
+CREATE TABLE TEAM (
+    trainer_id INT,
+    pok_id INT,
+    position INT CHECK (position >= 1 AND position <= 6),
+    PRIMARY KEY (trainer_id, position),
+    FOREIGN KEY (trainer_id) REFERENCES TRAINER(trainer_id),
+    FOREIGN KEY (pok_id) REFERENCES POKEMON(pok_id)
+);
+
+-- Create ITEM table
+CREATE TABLE ITEM (
+    item_id INT PRIMARY KEY,
+    item_name VARCHAR(50) NOT NULL UNIQUE,
+    item_desc TEXT
+);
+
+-- Create ITEM CATEGORY table
+CREATE TABLE ITEM_CATEGORY (
+    item_cat_id INT PRIMARY KEY,
+    item_cat_name VARCHAR(50) NOT NULL UNIQUE
+);
+
+-- Create relationship between ITEM and ITEM_CATEGORY
+CREATE TABLE ITEM_HAS_CATEGORY (
+    item_id INT,
+    item_cat_id INT,
+    PRIMARY KEY (item_id, item_cat_id),
+    FOREIGN KEY (item_id) REFERENCES ITEM(item_id),
+    FOREIGN KEY (item_cat_id) REFERENCES ITEM_CATEGORY(item_cat_id)
+);
+
+-- Create BASE STATS table
+CREATE TABLE BASE_STATS (
+    b_hp INT CHECK (b_hp >= 0),
+    b_atk INT CHECK (b_atk >= 0),
+    b_def INT CHECK (b_def >= 0),
+    b_sp_atk INT CHECK (b_sp_atk >= 0),
+    b_sp_def INT CHECK (b_sp_def >= 0),
+    b_speed INT CHECK (b_speed >= 0),
+    pok_id INT,
+    PRIMARY KEY (pok_id),
+    FOREIGN KEY (pok_id) REFERENCES POKEMON(pok_id)
+);
+
+-- Create INDIVIDUAL VALUES table
+CREATE TABLE INDIVIDUAL_VALUES (
+    iv_hp INT CHECK (iv_hp >= 0),
+    iv_atk INT CHECK (iv_atk >= 0),
+    iv_def INT CHECK (iv_def >= 0),
+    iv_sp_atk INT CHECK (iv_sp_atk >= 0),
+    iv_sp_def INT CHECK (iv_sp_def >= 0),
+    iv_speed INT CHECK (iv_speed >= 0),
+    pok_id INT,
+    PRIMARY KEY (pok_id),
+    FOREIGN KEY (pok_id) REFERENCES POKEMON(pok_id)
 );
