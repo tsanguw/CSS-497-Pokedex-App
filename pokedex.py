@@ -6,6 +6,7 @@ BASE_URL = "https://pokeapi.co/api/v2/"
 GEN_LIMIT = 1
 
 def get_types():
+    print("-- Inserts for TABLE: TYPES")
     response = requests.get(f"{BASE_URL}type")
     data = response.json()
     
@@ -29,6 +30,7 @@ def get_types():
         print(insert)
 
 def get_habitats():
+    print("-- Inserts for TABLE: HABITATS")
     response = requests.get(f"{BASE_URL}pokemon-habitat")
     data = response.json()
     
@@ -48,7 +50,8 @@ def get_habitats():
     for insert in sql_inserts:
         print(insert)
 
-def get_methods():
+def get_evol_methods():
+    print("-- Inserts for TABLE: EVOL_METHODS")
     response = requests.get(f"{BASE_URL}evolution-trigger")
     data = response.json()
     
@@ -59,16 +62,37 @@ def get_methods():
         method_response = requests.get(method_url)
         method_data = method_response.json()
 
-        method_id = method_data['id']
-        method_name = method_data['name']
+        evol_method_id = method_data['id']
+        evol_method_name = method_data['name']
 
-        sql_insert = f"INSERT INTO METHOD (method_id, method_name) VALUES ({method_id}, '{method_name}');"
+        sql_insert = f"INSERT INTO EVOLUTION METHOD (evol_method_id, evol_method_name) VALUES ({evol_method_id}, '{evol_method_name}');"
         sql_inserts.append(sql_insert)
 
     for insert in sql_inserts:
         print(insert)
 
+def get_move_methods():
+    print("-- Inserts for TABLE: MOVE_METHODS")
+    response = requests.get(f"{BASE_URL}/move-learn-method/")
+    if response.status_code != 200:
+        print(f"Error fetching data: {response.status_code}")
+        return
+
+    move_methods_data = response.json()
+    insert_statements = []
+
+    for method in move_methods_data['results']:
+        method_name = method['name']
+        method_url = method['url']
+        method_id = method_url.split('/')[-2]  # Extracting method id from the URL
+        
+        insert_statements.append(f"INSERT INTO MOVE_METHOD (move_method_id, move_method_name) VALUES ({method_id}, '{method_name}');")
+
+    for statement in insert_statements:
+        print(statement)
+
 def get_generations():
+    print("-- Inserts for TABLE: GENERATIONS")
     response = requests.get(f"{BASE_URL}generation")
     data = response.json()
     
@@ -89,6 +113,7 @@ def get_generations():
         print(insert)
 
 def get_natures():
+    print("-- Inserts for TABLE: NATURES")
     response = requests.get(f"{BASE_URL}nature")
     data = response.json()
     
@@ -109,6 +134,7 @@ def get_natures():
         print(insert)
 
 def get_status_effects():
+    print("-- Inserts for TABLE: STATUS_EFFECTS")
     response = requests.get(f"{BASE_URL}move-ailment")
     data = response.json()
     
@@ -130,6 +156,7 @@ def get_status_effects():
         print(insert)
 
 def get_pokemon(limit=GEN_LIMIT):
+    print("-- Inserts for TABLE: POKEMON")
     sql_inserts = []
     
     response = requests.get(f"{BASE_URL}generation/{limit}")
@@ -162,6 +189,7 @@ def get_pokemon(limit=GEN_LIMIT):
         print(insert)
 
 def get_items():
+    print("-- Inserts for TABLE: ITEMS")
     response = requests.get(f"{BASE_URL}item")
     data = response.json()
     
@@ -184,6 +212,7 @@ def get_items():
         print(insert)
 
 def get_item_categories():
+    print("-- Inserts for TABLE: ITEM_CATEGORIES")
     response = requests.get(f"{BASE_URL}item-category")
     data = response.json()
     
@@ -204,6 +233,7 @@ def get_item_categories():
         print(insert)
 
 def get_type_efficacy():
+    print("-- Inserts for TABLE: TYPE_EFFICACY")
     response = requests.get(f"{BASE_URL}type")
     data = response.json()
     
@@ -244,6 +274,7 @@ def get_type_efficacy():
         print(insert)
 
 def get_evolutions(limit=GEN_LIMIT):
+    print("-- Inserts for TABLE: EVOLUTIONS")
     sql_inserts = []
 
     # Fetch generation data to filter by generation
@@ -267,8 +298,9 @@ def get_evolutions(limit=GEN_LIMIT):
         def extract_evolution(chain, pre_evol_pok_id=None):
             pok_id = int(chain['species']['url'].split('/')[-2])
             if pre_evol_pok_id:
-                evol_min_lvl = chain['evolution_details'][0]['min_level'] if chain['evolution_details'] else None
-                sql_insert = f"INSERT INTO EVOLUTION (pok_id, pre_evol_pok_id, evol_pok_id, evol_min_lvl) VALUES ({pok_id}, {pre_evol_pok_id}, {pok_id}, {evol_min_lvl if evol_min_lvl else 'NULL'});"
+                evol_min_lvl = chain['evolution_details'][0]['min_level'] if chain['evolution_details'] else 'NULL'
+                evol_method_id = chain['evolution_details'][0]['trigger']['url'].split('/')[-2] if chain['evolution_details'] else 'NULL'
+                sql_insert = f"INSERT INTO EVOLUTION (pok_id, pre_evol_pok_id, evol_pok_id, evol_min_lvl, evol_method_id) VALUES ({pok_id}, {pre_evol_pok_id}, {pok_id}, {evol_min_lvl}, {evol_method_id});"
                 sql_inserts.append(sql_insert)
             for evolves_to in chain['evolves_to']:
                 extract_evolution(evolves_to, pok_id)
@@ -279,6 +311,7 @@ def get_evolutions(limit=GEN_LIMIT):
         print(insert)
 
 def get_abilities(limit=GEN_LIMIT):
+    # print("-- Inserts for TABLE: ABILITIES")
     sql_inserts = []
 
     response = requests.get(f"{BASE_URL}generation/{limit}")
@@ -302,6 +335,7 @@ def get_abilities(limit=GEN_LIMIT):
         print(insert)
 
 def get_base_stats(limit=GEN_LIMIT):
+    print("-- Inserts for TABLE: BASE_STATS")
     sql_inserts = []
 
     response = requests.get(f"{BASE_URL}generation/{limit}")
@@ -330,6 +364,7 @@ def get_base_stats(limit=GEN_LIMIT):
         print(insert)
 
 def get_individual_values(limit=GEN_LIMIT):
+    print("-- Inserts for TABLE: INDIVIDUAL_VALUES")
     sql_inserts = []
 
     response = requests.get(f"{BASE_URL}generation/{limit}")
@@ -351,6 +386,7 @@ def get_individual_values(limit=GEN_LIMIT):
         print(insert)
 
 def get_moves(limit=GEN_LIMIT):
+    print("-- Inserts for TABLE: MOVES")
     sql_inserts = []
 
     # Fetch generation data to filter by generation
@@ -377,52 +413,56 @@ def get_moves(limit=GEN_LIMIT):
     for insert in sql_inserts:
         print(insert)
 
-def get_movesets(limit=GEN_LIMIT):
-    sql_inserts = []
+def get_movesets(pokemon_name):
+    print("-- Inserts for TABLE: MOVESET")
+    # Fetch data from PokeAPI for the given pokemon
+    response = requests.get(f"{BASE_URL}/pokemon/{pokemon_name.lower()}")
+    pokemon_data = response.json()
+    pok_id = pokemon_data['id']
 
-    response = requests.get(f"{BASE_URL}generation/{limit}")
-    generation_data = response.json()
-    species_urls = [species['url'] for species in generation_data['pokemon_species']]
-    
-    for species_url in species_urls:
-        response = requests.get(species_url.replace('pokemon-species', 'pokemon'))
-        if response.status_code != 200:
-            continue
-        pokemon_data = response.json()
-        pok_id = pokemon_data['id']
+    # Prepare the SQL insert statement
+    insert_statements = set()  # Using a set to avoid duplicates
 
-        for move in pokemon_data['moves']:
-            move_id = int(move['move']['url'].split('/')[-2])
-            for version_detail in move['version_group_details']:
-                method_id = int(version_detail['move_learn_method']['url'].split('/')[-2])
-                version_group_url = version_detail['version_group']['url']
-                version_group_response = requests.get(version_group_url)
-                version_group_data = version_group_response.json()
-                gen_id = int(version_group_data['generation']['url'].split('/')[-2])
-                level_learned_at = version_detail['level_learned_at']
+    for move in pokemon_data['moves']:
+        move_name = move['move']['name']
+        move_id = move['move']['url'].split('/')[-2]  # Extracting move id from the URL
 
-                # Only include moves with valid learn methods and level
-                if method_id and (level_learned_at is not None or method_id != 1):  # 1 is for leveling up, which should have a level
-                    sql_insert = f"INSERT INTO MOVESET (pok_id, gen_id, move_id, method_id, level_learned) VALUES ({pok_id}, {gen_id}, {move_id}, {method_id}, {level_learned_at});"
-                    sql_inserts.append(sql_insert)
+        for version_group in move['version_group_details']:
+            method_name = version_group['move_learn_method']['name']
+            method_id = version_group['move_learn_method']['url'].split('/')[-2]  # Extracting method id from the URL
 
-    for insert in sql_inserts:
-        print(insert)
+            # Get the generation the move is learned from the URL
+            gen = requests.get(f"{BASE_URL}/version-group/{version_group['version_group']['name']}/")
+            data = gen.json()
+            gen_url = data['generation']['url']  # Extracting gen id from the URL
+            gen_response = requests.get(gen_url)
+            gen_data = gen_response.json()
+            gen_id = gen_data['id']
+
+            level_learned = version_group['level_learned_at']
+
+            # Create a unique tuple and add it to the set
+            insert_statements.add((pok_id, gen_id, move_id, method_id, level_learned))
+
+    # Print out the SQL statements
+    for statement in insert_statements:
+        print(f"INSERT INTO MOVESET (pok_id, gen_id, move_id, move_method_id, level_learned) VALUES ({statement[0]}, {statement[1]}, {statement[2]}, {statement[3]}, {statement[4]});")
 
 # Call the functions to get data and generate SQL inserts
-get_types()
-get_habitats()
-get_methods()
-get_generations()
-get_natures()
-get_status_effects()
-get_pokemon()
+# get_types()
+# get_habitats()
+# get_evol_methods()
+# get_move_methods()
+# get_generations()
+# get_natures()
+# get_status_effects()
+# get_pokemon()
 # get_items()
-get_item_categories()
-get_type_efficacy()
-get_evolutions()
+# get_item_categories()
+# get_type_efficacy()
+# get_evolutions()
 get_abilities()
-get_base_stats()
-get_individual_values()
-get_moves()
-# get_movesets()
+# get_base_stats()
+# get_individual_values()
+# get_moves()
+# get_movesets('bulbasaur')
