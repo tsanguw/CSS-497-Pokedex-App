@@ -65,7 +65,7 @@ def get_evol_methods():
         evol_method_id = method_data['id']
         evol_method_name = method_data['name']
 
-        sql_insert = f"INSERT INTO EVOLUTION METHOD (evol_method_id, evol_method_name) VALUES ({evol_method_id}, '{evol_method_name}');"
+        sql_insert = f"INSERT INTO EVOLUTION_METHOD (evol_method_id, evol_method_name) VALUES ({evol_method_id}, '{evol_method_name}');"
         sql_inserts.append(sql_insert)
 
     for insert in sql_inserts:
@@ -500,7 +500,7 @@ def get_gen_movesets(limit=GEN_LIMIT):
 # Functions to get data and generate SQL inserts
 # get_types()
 # get_habitats()
-# get_evol_methods()
+get_evol_methods()
 # get_move_methods()
 # get_generations()
 # get_natures()
@@ -516,7 +516,7 @@ def get_gen_movesets(limit=GEN_LIMIT):
 # get_abilities()
 # get_base_stats()
 # get_individual_values()
-get_moves()
+# get_moves()
 
 # Moveset functions
 # get_gen_movesets()
