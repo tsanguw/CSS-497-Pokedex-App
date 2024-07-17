@@ -311,7 +311,7 @@ def get_evolutions(limit=GEN_LIMIT):
         print(insert)
 
 def get_abilities(limit=GEN_LIMIT):
-    # print("-- Inserts for TABLE: ABILITIES")
+    print("-- Inserts for TABLE: ABILITIES")
     sql_inserts = []
 
     response = requests.get(f"{BASE_URL}generation/{limit}")
@@ -414,41 +414,90 @@ def get_moves(limit=GEN_LIMIT):
         print(insert)
 
 def get_movesets(pokemon_name):
-    print("-- Inserts for TABLE: MOVESET")
-    # Fetch data from PokeAPI for the given pokemon
-    response = requests.get(f"{BASE_URL}/pokemon/{pokemon_name.lower()}")
-    pokemon_data = response.json()
-    pok_id = pokemon_data['id']
+    print(f"-- Fetching movesets for {pokemon_name}")
+    insert_statements = []
 
+    try:
+        # Fetch data from PokeAPI for the given pokemon
+        response = requests.get(f"{BASE_URL}/pokemon/{pokemon_name.lower()}")
+        response.raise_for_status()
+        pokemon_data = response.json()
+        pok_id = pokemon_data['id']
+    except requests.RequestException as e:
+        print(f"Error fetching data for {pokemon_name}: {e}")
+        return insert_statements
+    
     # Prepare the SQL insert statement
-    insert_statements = set()  # Using a set to avoid duplicates
-
     for move in pokemon_data['moves']:
         move_name = move['move']['name']
+        # print(move_name)
         move_id = move['move']['url'].split('/')[-2]  # Extracting move id from the URL
 
         for version_group in move['version_group_details']:
             method_name = version_group['move_learn_method']['name']
             method_id = version_group['move_learn_method']['url'].split('/')[-2]  # Extracting method id from the URL
 
-            # Get the generation the move is learned from the URL
-            gen = requests.get(f"{BASE_URL}/version-group/{version_group['version_group']['name']}/")
-            data = gen.json()
-            gen_url = data['generation']['url']  # Extracting gen id from the URL
-            gen_response = requests.get(gen_url)
-            gen_data = gen_response.json()
-            gen_id = gen_data['id']
+            try:
+                # Get the generation the move is learned from the URL
+                gen_response = requests.get(f"{BASE_URL}/version-group/{version_group['version_group']['name']}/")
+                gen_response.raise_for_status()
+                gen_data = gen_response.json()
+                gen_url = gen_data['generation']['url']  # Extracting gen id from the URL
+                
+                gen_response = requests.get(gen_url)
+                gen_response.raise_for_status()
+                gen_data = gen_response.json()
+                gen_id = gen_data['id']
+            except requests.RequestException as e:
+                print(f"Error fetching generation data for version group {version_group['version_group']['name']}: {e}")
+                continue
 
             level_learned = version_group['level_learned_at']
 
-            # Create a unique tuple and add it to the set
-            insert_statements.add((pok_id, gen_id, move_id, method_id, level_learned))
+            # Create a unique tuple and add it to the list
+            insert_statements.append(f"INSERT INTO MOVESET (pok_id, gen_id, move_id, move_method_id, level_learned) VALUES ({pok_id}, {gen_id}, {move_id}, {method_id}, {level_learned});")
 
-    # Print out the SQL statements
-    for statement in insert_statements:
-        print(f"INSERT INTO MOVESET (pok_id, gen_id, move_id, move_method_id, level_learned) VALUES ({statement[0]}, {statement[1]}, {statement[2]}, {statement[3]}, {statement[4]});")
+            for insert_statement in insert_statements:
+                print(insert_statement)
 
-# Call the functions to get data and generate SQL inserts
+    return insert_statements
+
+def get_gen_movesets(limit=GEN_LIMIT):
+    print(f"-- Fetching movesets for all Pokémon from generation {limit}")
+    all_inserts = []
+
+    try:
+        # Fetch data from PokeAPI for the specified generation
+        response = requests.get(f"{BASE_URL}/generation/{limit}")
+        response.raise_for_status()
+        generation_data = response.json()
+        pokemon_species = generation_data['pokemon_species']
+    except requests.RequestException as e:
+        print(f"Error fetching data for generation {limit}: {e}")
+        return
+    
+    # Get the names of all Pokémon in the specified generation
+    pokemon_names = [species['name'] for species in pokemon_species]
+
+    for pokemon_name in pokemon_names:
+        print(pokemon_name)
+    
+    # Use the get_pokemon_moveset function to get movesets for each Pokémon
+    for pokemon_name in pokemon_names:
+        print(pokemon_name)
+        inserts = get_movesets(pokemon_name)
+        all_inserts.extend(inserts)
+
+    # Write all insert statements to a SQL file
+    file_name = f"gen-{limit}-movesets.sql"
+    with open(file_name, 'w') as file:
+        file.write("-- Inserts for TABLE: MOVESET\n")
+        for insert in all_inserts:
+            file.write(insert + "\n")
+
+    print(f"SQL inserts for generation {limit} saved to {file_name}")
+
+# Functions to get data and generate SQL inserts
 # get_types()
 # get_habitats()
 # get_evol_methods()
@@ -460,9 +509,15 @@ def get_movesets(pokemon_name):
 # get_items()
 # get_item_categories()
 # get_type_efficacy()
+
+# Gen-specific functions to get data and generate SQL inserts
+# get_pokemon()
 # get_evolutions()
-get_abilities()
+# get_abilities()
 # get_base_stats()
 # get_individual_values()
-# get_moves()
-# get_movesets('bulbasaur')
+get_moves()
+
+# Moveset functions
+# get_gen_movesets()
+# get_movesets('squirtle')
