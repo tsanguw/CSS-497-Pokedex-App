@@ -213,22 +213,28 @@ def get_items():
 
 def get_item_categories():
     print("-- Inserts for TABLE: ITEM_CATEGORIES")
-    response = requests.get(f"{BASE_URL}item-category")
-    data = response.json()
+    url = f"{BASE_URL}item-category"
     
     sql_inserts = []
-
-    for item_cat_info in data['results']:
-        item_cat_url = item_cat_info['url']
-        item_cat_response = requests.get(item_cat_url)
-        item_cat_data = item_cat_response.json()
-
-        item_cat_id = item_cat_data['id']
-        item_cat_name = item_cat_data['name']
-
-        sql_insert = f"INSERT INTO ITEM_CATEGORY (item_cat_id, item_cat_name) VALUES ({item_cat_id}, '{item_cat_name}');"
-        sql_inserts.append(sql_insert)
-
+    
+    while url:
+        response = requests.get(url)
+        data = response.json()
+        
+        for item_cat_info in data['results']:
+            item_cat_url = item_cat_info['url']
+            item_cat_response = requests.get(item_cat_url)
+            item_cat_data = item_cat_response.json()
+    
+            item_cat_id = item_cat_data['id']
+            item_cat_name = item_cat_data['name']
+    
+            sql_insert = f"INSERT INTO ITEM_CATEGORY (item_cat_id, item_cat_name) VALUES ({item_cat_id}, '{item_cat_name}');"
+            sql_inserts.append(sql_insert)
+        
+        # Check for the next page
+        url = data.get('next')
+    
     for insert in sql_inserts:
         print(insert)
 
@@ -507,7 +513,7 @@ def get_gen_movesets(limit=GEN_LIMIT):
 # get_status_effects()
 # get_pokemon()
 # get_items()
-# get_item_categories()
+get_item_categories()
 # get_type_efficacy()
 
 # Gen-specific functions to get data and generate SQL inserts
