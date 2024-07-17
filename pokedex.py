@@ -500,7 +500,7 @@ def get_gen_movesets(limit=GEN_LIMIT):
 # Functions to get data and generate SQL inserts
 # get_types()
 # get_habitats()
-get_evol_methods()
+# get_evol_methods()
 # get_move_methods()
 # get_generations()
 # get_natures()

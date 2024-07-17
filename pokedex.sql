@@ -201,24 +201,18 @@ CREATE TABLE TEAM (
 
 -- Create ITEM table
 CREATE TABLE ITEM (
-    item_id INT PRIMARY KEY,
+    item_id INT,
     item_name VARCHAR(50) NOT NULL UNIQUE,
-    item_desc TEXT
+    item_desc TEXT,
+    item_cat_id INT,
+    PRIMARY KEY (item_id, item_cat_id),
+    FOREIGN KEY (item_cat_id) REFERENCES ITEM_CATEGORY(item_cat_id)
 );
 
 -- Create ITEM CATEGORY table
 CREATE TABLE ITEM_CATEGORY (
     item_cat_id INT PRIMARY KEY,
     item_cat_name VARCHAR(50) NOT NULL UNIQUE
-);
-
--- Create relationship between ITEM and ITEM_CATEGORY
-CREATE TABLE ITEM_HAS_CATEGORY (
-    item_id INT,
-    item_cat_id INT,
-    PRIMARY KEY (item_id, item_cat_id),
-    FOREIGN KEY (item_id) REFERENCES ITEM(item_id),
-    FOREIGN KEY (item_cat_id) REFERENCES ITEM_CATEGORY(item_cat_id)
 );
 
 -- Create BASE STATS table
