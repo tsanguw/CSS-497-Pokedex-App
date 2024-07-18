@@ -189,27 +189,69 @@ def get_pokemon(limit=GEN_LIMIT):
         print(insert)
 
 def get_items():
-    print("-- Inserts for TABLE: ITEMS")
-    response = requests.get(f"{BASE_URL}item")
-    data = response.json()
+    print("-- Generating SQL file for TABLE: ITEMS")
+    url = f"{BASE_URL}item"
     
     sql_inserts = []
+    
+    while url:
+        try:
+            response = requests.get(url)
+            response.raise_for_status()
+            data = response.json()
+        except requests.RequestException as e:
+            print(f"Error fetching data from {url}: {e}")
+            break
+        except ValueError:
+            print(f"Invalid JSON response from {url}")
+            break
+        
+        for item_info in data['results']:
+            item_url = item_info['url']
+            try:
+                item_response = requests.get(item_url)
+                item_response.raise_for_status()
+                if not item_response.content.strip():  # Check if the response content is empty
+                    print(f"Empty response from {item_url}")
+                    continue
+                item_data = item_response.json()
+            except requests.RequestException as e:
+                print(f"Error fetching item data from {item_url}: {e}")
+                continue
+            except ValueError:
+                print(f"Invalid JSON response from {item_url}")
+                continue
 
-    for item_info in data['results']:
-        item_url = item_info['url']
-        item_response = requests.get(item_url)
-        item_data = item_response.json()
+            item_id = item_data['id']
+            item_name = item_data['name'].replace("'", "''")
 
-        item_id = item_data['id']
-        item_name = item_data['name']
-        item_desc = item_data['effect_entries'][0]['short_effect'] if item_data['effect_entries'] else ''
-        item_category_id = int(item_data['category']['url'].split('/')[-2])
+            # Attempt to find the English description in flavor_text_entries
+            item_desc = ''
+            for entry in item_data['flavor_text_entries']:
+                if entry['language']['name'] == 'en':
+                    item_desc = entry['text'].replace("'", "''")
+                    break
 
-        sql_insert = f"INSERT INTO ITEM (item_id, item_name, item_desc, item_category_id) VALUES ({item_id}, '{item_name}', '{item_desc}', {item_category_id});"
-        sql_inserts.append(sql_insert)
+            # If no English flavor text entry is found, use the short_effect from effect_entries if available
+            if not item_desc and item_data['effect_entries']:
+                item_desc = item_data['effect_entries'][0]['short_effect'].replace("'", "''")
 
-    for insert in sql_inserts:
-        print(insert)
+            item_category_id = int(item_data['category']['url'].split('/')[-2])
+
+            sql_insert = f"INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES ({item_id}, '{item_name}', '{item_desc}', {item_category_id});"
+            sql_inserts.append(sql_insert)
+        
+        # Check for the next page
+        url = data.get('next')
+    
+    # Write all insert statements to a SQL file in append mode with UTF-8 encoding
+    file_name = "item-inserts.sql"
+    with open(file_name, 'a', encoding='utf-8') as file:  # Use 'utf-8' encoding
+        file.write("-- Inserts for TABLE: ITEMS\n")
+        for insert in sql_inserts:
+            file.write(insert + "\n")
+
+    print(f"SQL inserts saved to {file_name}")
 
 def get_item_categories():
     print("-- Inserts for TABLE: ITEM_CATEGORIES")
@@ -512,9 +554,10 @@ def get_gen_movesets(limit=GEN_LIMIT):
 # get_natures()
 # get_status_effects()
 # get_pokemon()
-# get_items()
-get_item_categories()
+# get_item_categories()
 # get_type_efficacy()
+get_items()
+
 
 # Gen-specific functions to get data and generate SQL inserts
 # get_pokemon()
