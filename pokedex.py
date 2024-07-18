@@ -346,7 +346,8 @@ def get_evolutions(limit=GEN_LIMIT):
         def extract_evolution(chain, pre_evol_pok_id=None):
             pok_id = int(chain['species']['url'].split('/')[-2])
             if pre_evol_pok_id:
-                evol_min_lvl = chain['evolution_details'][0]['min_level'] if chain['evolution_details'] else 'NULL'
+                evol_min_lvl = chain['evolution_details'][0].get('min_level') if chain['evolution_details'] else None
+                evol_min_lvl = 'NULL' if evol_min_lvl is None else evol_min_lvl
                 evol_method_id = chain['evolution_details'][0]['trigger']['url'].split('/')[-2] if chain['evolution_details'] else 'NULL'
                 sql_insert = f"INSERT INTO EVOLUTION (pok_id, pre_evol_pok_id, evol_pok_id, evol_min_lvl, evol_method_id) VALUES ({pok_id}, {pre_evol_pok_id}, {pok_id}, {evol_min_lvl}, {evol_method_id});"
                 sql_inserts.append(sql_insert)
@@ -557,12 +558,12 @@ def get_gen_movesets(limit=GEN_LIMIT):
 # get_type_efficacy()
 
 # Gen-specific functions to get data and generate SQL inserts
-# get_pokemon()
-# get_evolutions()
-# get_abilities()
-# get_base_stats()
-# get_individual_values()
-# get_moves()
+get_pokemon()
+get_evolutions()
+get_abilities()
+get_base_stats()
+get_individual_values()
+get_moves()
 
 # Functions to get data and generate SQL inserts in seperate files
 # get_items()

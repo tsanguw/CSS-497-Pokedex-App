@@ -283,3 +283,4 @@ INSERT INTO TYPE_EFFICACY (type_id, target_type_id, dmg_factor) VALUES (18, 17, 
 INSERT INTO TYPE_EFFICACY (type_id, target_type_id, dmg_factor) VALUES (18, 4, 0.5);
 INSERT INTO TYPE_EFFICACY (type_id, target_type_id, dmg_factor) VALUES (18, 9, 0.5);
 INSERT INTO TYPE_EFFICACY (type_id, target_type_id, dmg_factor) VALUES (18, 10, 0.5);
+

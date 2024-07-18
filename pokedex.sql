@@ -9,8 +9,9 @@ DROP TABLE IF EXISTS POKEMON_POSSESSES_ABILITY;
 DROP TABLE IF EXISTS TYPE_EFFICACY;
 DROP TABLE IF EXISTS MOVESET;
 DROP TABLE IF EXISTS EVOLUTION;
-DROP TABLE IF EXISTS ITEM_CATEGORY;
+DROP TABLE IF EXISTS ITEM_HAS_CATEGORY;
 DROP TABLE IF EXISTS ITEM;
+DROP TABLE IF EXISTS ITEM_CATEGORY;
 DROP TABLE IF EXISTS MOVE;
 DROP TABLE IF EXISTS STATUS_EFFECT;
 DROP TABLE IF EXISTS NATURE;
@@ -56,8 +57,8 @@ CREATE TABLE MOVE_METHOD (
 
 -- Create EVOLUTION METHOD table
 CREATE TABLE EVOLUTION_METHOD (
-    evolution_method_id INT PRIMARY KEY,
-    evolution_method_name VARCHAR(50) NOT NULL UNIQUE
+    evol_method_id INT PRIMARY KEY,
+    evol_method_name VARCHAR(50) NOT NULL UNIQUE
 );
 
 -- Create GENERATION table
@@ -91,10 +92,12 @@ CREATE TABLE EVOLUTION (
     pre_evol_pok_id INT,
     evol_pok_id INT,
     evol_min_lvl INT CHECK (evol_min_lvl >= 0),
-    PRIMARY KEY (pok_id, pre_evol_pok_id, evol_pok_id),
+    evol_method_id INT,
+    PRIMARY KEY (pok_id, pre_evol_pok_id, evol_pok_id, evol_method_id),
     FOREIGN KEY (pok_id) REFERENCES POKEMON(pok_id),
     FOREIGN KEY (pre_evol_pok_id) REFERENCES POKEMON(pok_id),
-    FOREIGN KEY (evol_pok_id) REFERENCES POKEMON(pok_id)
+    FOREIGN KEY (evol_pok_id) REFERENCES POKEMON(pok_id),
+    FOREIGN KEY (evol_method_id) REFERENCES EVOLUTION_METHOD(evol_method_id)
 );
 
 -- Create MOVE table
@@ -199,6 +202,12 @@ CREATE TABLE TEAM (
     FOREIGN KEY (pok_id) REFERENCES POKEMON(pok_id)
 );
 
+-- Create ITEM CATEGORY table
+CREATE TABLE ITEM_CATEGORY (
+    item_cat_id INT PRIMARY KEY,
+    item_cat_name VARCHAR(50) NOT NULL UNIQUE
+);
+
 -- Create ITEM table
 CREATE TABLE ITEM (
     item_id INT,
@@ -207,12 +216,6 @@ CREATE TABLE ITEM (
     item_cat_id INT,
     PRIMARY KEY (item_id, item_cat_id),
     FOREIGN KEY (item_cat_id) REFERENCES ITEM_CATEGORY(item_cat_id)
-);
-
--- Create ITEM CATEGORY table
-CREATE TABLE ITEM_CATEGORY (
-    item_cat_id INT PRIMARY KEY,
-    item_cat_name VARCHAR(50) NOT NULL UNIQUE
 );
 
 -- Create BASE STATS table
