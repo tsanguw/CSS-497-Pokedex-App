@@ -545,7 +545,7 @@ def get_gen_movesets(limit=GEN_LIMIT):
 
     print(f"SQL inserts for generation {limit} saved to {file_name}")
 
-# Functions to get data and generate SQL inserts
+# Functions to get data and generate SQL inserts for pokedex-inserts.sql
 # get_types()
 # get_habitats()
 # get_evol_methods()
@@ -553,11 +553,8 @@ def get_gen_movesets(limit=GEN_LIMIT):
 # get_generations()
 # get_natures()
 # get_status_effects()
-# get_pokemon()
 # get_item_categories()
 # get_type_efficacy()
-get_items()
-
 
 # Gen-specific functions to get data and generate SQL inserts
 # get_pokemon()
@@ -566,6 +563,9 @@ get_items()
 # get_base_stats()
 # get_individual_values()
 # get_moves()
+
+# Functions to get data and generate SQL inserts in seperate files
+# get_items()
 
 # Moveset functions
 # get_gen_movesets()
