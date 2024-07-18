@@ -196,8 +196,9 @@ CREATE TABLE TRAINER (
 CREATE TABLE TEAM (
     trainer_id INT,
     pok_id INT,
+    pok_lvl INT CHECK (pok_lvl >= 1),
     position INT CHECK (position >= 1 AND position <= 6),
-    PRIMARY KEY (trainer_id, position),
+    PRIMARY KEY (trainer_id, pok_id, position),
     FOREIGN KEY (trainer_id) REFERENCES TRAINER(trainer_id),
     FOREIGN KEY (pok_id) REFERENCES POKEMON(pok_id)
 );
