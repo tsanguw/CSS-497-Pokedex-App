@@ -175,14 +175,25 @@ def get_pokemon(limit=GEN_LIMIT):
         pok_weight = pokemon_data['weight']
         pok_base_exp = pokemon_data['base_experience']
         
-        # Extract effort values
-        pok_ev = 0
+        # Extract effort values and structure them as a string
+        ev_list = []
+        stat_names = {
+            'hp': 'HP',
+            'attack': 'Attack',
+            'defense': 'Defense',
+            'special-attack': 'Special-Attack',
+            'special-defense': 'Special-Defense',
+            'speed': 'Speed'
+        }
+
         for stat in pokemon_data['stats']:
             if stat['effort'] > 0:
-                pok_ev = stat['effort']
-                break
+                stat_name = stat_names.get(stat['stat']['name'], stat['stat']['name'].capitalize())
+                ev_list.append(f"{stat_name}+{stat['effort']}")
 
-        sql_insert = f"INSERT INTO POKEMON (pok_id, pok_name, pok_height, pok_weight, pok_base_exp, pok_ev) VALUES ({pok_id}, '{pok_name}', {pok_height}, {pok_weight}, {pok_base_exp}, {pok_ev});"
+        pok_ev = ','.join(ev_list) if ev_list else 'None'
+
+        sql_insert = f"INSERT INTO POKEMON (pok_id, pok_name, pok_height, pok_weight, pok_base_exp, pok_ev) VALUES ({pok_id}, '{pok_name}', {pok_height}, {pok_weight}, {pok_base_exp}, '{pok_ev}');"
         sql_inserts.append(sql_insert)
 
     for insert in sql_inserts:
@@ -559,11 +570,11 @@ def get_gen_movesets(limit=GEN_LIMIT):
 
 # Gen-specific functions to get data and generate SQL inserts
 get_pokemon()
-get_evolutions()
-get_abilities()
-get_base_stats()
-get_individual_values()
-get_moves()
+# get_evolutions()
+# get_abilities()
+# get_base_stats()
+# get_individual_values()
+# get_moves()
 
 # Functions to get data and generate SQL inserts in seperate files
 # get_items()

@@ -32,7 +32,7 @@ CREATE TABLE POKEMON (
     pok_height FLOAT CHECK (pok_height >= 0),
     pok_weight FLOAT CHECK (pok_weight >= 0),
     pok_base_exp INT CHECK (pok_base_exp >= 0),
-    pok_ev INT CHECK (pok_ev >= 0)
+    pok_ev VARCHAR(50)
 );
 
 -- Create ABILITIES table
@@ -91,7 +91,7 @@ CREATE TABLE EVOLUTION (
     pok_id INT,
     pre_evol_pok_id INT,
     evol_pok_id INT,
-    evol_min_lvl INT CHECK (evol_min_lvl >= 0),
+    evol_min_lvl INT NULL CHECK (evol_min_lvl >= 0),
     evol_method_id INT,
     PRIMARY KEY (pok_id, pre_evol_pok_id, evol_pok_id, evol_method_id),
     FOREIGN KEY (pok_id) REFERENCES POKEMON(pok_id),
