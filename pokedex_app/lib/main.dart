@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sqflite/sqflite.dart';
 
 void main() {
   runApp(const MainApp());
@@ -21,6 +22,9 @@ enum Section {
   ABILITIES,
   ITEMS,
   NATURES,
+  LOCATIONS,
+  GYMLEADERS,
+  DAMAGECALCULATOR,
 }
 
 class MyHomePage extends StatefulWidget {
@@ -37,22 +41,31 @@ class _MyHomePageState extends State<MyHomePage> {
 
     switch (_selectedSection) {
       case Section.POKEMON:
-        body = Center(child: Text('Welcome to the Pokemon Page!'));
+        body = PokemonPage();
         break;
       case Section.MOVES:
-        body = Center(child: Text('Welcome to the Moves Page!'));
+        body = MovesPage();
         break;
       case Section.ABILITIES:
-        body = Center(child: Text('Welcome to the Abilities Page!'));
+        body = AbilitiesPage();
         break;
       case Section.ITEMS:
-        body = Center(child: Text('Welcome to the Items Page!'));
+        body = ItemsPage();
         break;
       case Section.NATURES:
-        body = Center(child: Text('Welcome to the Natures Page!'));
+        body = NaturesPage();
+        break;
+      case Section.LOCATIONS:
+        body = LocationsPage();
+        break;
+      case Section.GYMLEADERS:
+        body = GymLeadersPage();
+        break;
+      case Section.DAMAGECALCULATOR:
+        body = DamageCalculatorPage();
         break;
       default:
-        body = Center(child: Text('Welcome to the Pokemon Page!'));
+        body = Center(child: Text('Default Page!'));
         break;
     }
 
@@ -126,6 +139,33 @@ class _MyHomePageState extends State<MyHomePage> {
                 Navigator.of(context).pop(); // Close the drawer
               },
             ),
+            ListTile(
+              title: const Text('Locations'),
+              onTap: () {
+                setState(() {
+                  _selectedSection = Section.LOCATIONS;
+                });
+                Navigator.of(context).pop(); // Close the drawer
+              },
+            ),
+            ListTile(
+              title: const Text('Gym Leaders'),
+              onTap: () {
+                setState(() {
+                  _selectedSection = Section.GYMLEADERS;
+                });
+                Navigator.of(context).pop(); // Close the drawer
+              },
+            ),
+            ListTile(
+              title: const Text('Damage Calculator'),
+              onTap: () {
+                setState(() {
+                  _selectedSection = Section.DAMAGECALCULATOR;
+                });
+                Navigator.of(context).pop(); // Close the drawer
+              },
+            ),
           ],
         ),
       ),
@@ -144,4 +184,77 @@ Widget buildDrawerHeader() {
     ),
     child: Text('Pokedex', style: TextStyle(color: Colors.white)),
   );
+}
+
+// Define separate pages as StatelessWidget or StatefulWidget classes
+class PokemonPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Text('Welcome to the Pokemon Page!'),
+    );
+  }
+}
+
+class MovesPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Text('Welcome to the Moves Page!'),
+    );
+  }
+}
+
+class AbilitiesPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Text('Welcome to the Abilities Page!'),
+    );
+  }
+}
+
+class ItemsPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Text('Welcome to the Items Page!'),
+    );
+  }
+}
+
+class NaturesPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Text('Welcome to the Natures Page!'),
+    );
+  }
+}
+
+class LocationsPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Text('Welcome to the Locations Page!'),
+    );
+  }
+}
+
+class GymLeadersPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Text('Welcome to the Gym Leaders Page!'),
+    );
+  }
+}
+
+class DamageCalculatorPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Text('Welcome to the Damage Calculator Page!'),
+    );
+  }
 }
