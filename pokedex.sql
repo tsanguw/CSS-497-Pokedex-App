@@ -145,15 +145,6 @@ CREATE TABLE POKEMON_POSSESSES_ABILITY (
     FOREIGN KEY (abi_id) REFERENCES ABILITIES(abi_id)
 );
 
--- Create POKEMON INHABITS HABITAT table
-CREATE TABLE POKEMON_INHABITS_HABITAT (
-    pok_id INT,
-    hab_id INT,
-    PRIMARY KEY (pok_id, hab_id),
-    FOREIGN KEY (pok_id) REFERENCES POKEMON(pok_id),
-    FOREIGN KEY (hab_id) REFERENCES HABITAT(hab_id)
-);
-
 -- Create POKEMON BEARS TYPE table
 CREATE TABLE POKEMON_BEARS_TYPE (
     pok_id INT,
@@ -170,16 +161,6 @@ CREATE TABLE POKEMON_EXHIBIT_A_NATURE (
     PRIMARY KEY (pok_id, nat_id),
     FOREIGN KEY (pok_id) REFERENCES POKEMON(pok_id),
     FOREIGN KEY (nat_id) REFERENCES NATURE(nat_id)
-);
-
--- Create MOVE HAS STATUS EFFECT table
-CREATE TABLE MOVE_HAS_STATUS_EFFECT (
-    move_id INT,
-    stat_id INT,
-    effect_chance FLOAT CHECK (effect_chance >= 0 AND effect_chance <= 100),
-    PRIMARY KEY (move_id, stat_id),
-    FOREIGN KEY (move_id) REFERENCES MOVE(move_id),
-    FOREIGN KEY (stat_id) REFERENCES STATUS_EFFECT(stat_id)
 );
 
 -- Create TRAINER table
