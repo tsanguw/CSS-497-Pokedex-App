@@ -22,6 +22,7 @@ DROP TABLE IF EXISTS EVOLUTION_METHOD;
 DROP TABLE IF EXISTS HABITAT;
 DROP TABLE IF EXISTS ABILITIES;
 DROP TABLE IF EXISTS INDIVIDUAL_VALUES;
+DROP TABLE IF EXISTS EFFORT_VALUES;
 DROP TABLE IF EXISTS BASE_STATS;
 DROP TABLE IF EXISTS POKEMON;
 
@@ -224,4 +225,18 @@ CREATE TABLE INDIVIDUAL_VALUES (
     pok_id INT,
     PRIMARY KEY (pok_id),
     FOREIGN KEY (pok_id) REFERENCES POKEMON(pok_id)
+);
+
+-- Create EFFORT VALUES table
+CREATE TABLE EFFORT_VALUES (
+    ev_hp INT CHECK (ev_hp >= 0),
+    ev_atk INT CHECK (ev_atk >= 0),
+    ev_def INT CHECK (ev_def >= 0),
+    ev_sp_atk INT CHECK (ev_sp_atk >= 0),
+    ev_sp_def INT CHECK (ev_sp_def >= 0),
+    ev_speed INT CHECK (ev_speed >= 0),
+    pok_id INT,
+    PRIMARY KEY (pok_id),
+    FOREIGN KEY (pok_id) REFERENCES POKEMON(pok_id),
+    CHECK (ev_hp + ev_atk + ev_def + ev_sp_atk + ev_sp_def + ev_speed <= 510)
 );

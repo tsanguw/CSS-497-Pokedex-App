@@ -445,6 +445,36 @@ def get_individual_values(limit=GEN_LIMIT):
     for insert in sql_inserts:
         print(insert)
 
+def get_effort_values(limit=GEN_LIMIT):
+    print("-- Inserts for TABLE: EFFORT_VALUES")
+    
+    # Fetch generation data to filter by generation
+    response = requests.get(f"{BASE_URL}generation/{limit}")
+    if response.status_code != 200:
+        print(f"Error fetching generation data: {response.status_code}")
+        return
+
+    generation_data = response.json()
+    species_urls = [species['url'] for species in generation_data['pokemon_species']]
+    
+    sql_inserts = []
+
+    for species_url in species_urls:
+        response = requests.get(species_url.replace('pokemon-species', 'pokemon'))
+        if response.status_code != 200:
+            continue
+        pokemon_data = response.json()
+        pok_id = pokemon_data['id']
+        
+        # Default EVs set to 0
+        ev_hp = ev_atk = ev_def = ev_sp_atk = ev_sp_def = ev_speed = 0
+        
+        sql_insert = f"""INSERT INTO EFFORT_VALUES (pok_id, ev_hp, ev_atk, ev_def, ev_sp_atk, ev_sp_def, ev_speed) VALUES ({pok_id}, {ev_hp}, {ev_atk}, {ev_def}, {ev_sp_atk}, {ev_sp_def}, {ev_speed});"""
+        sql_inserts.append(sql_insert)
+
+    for insert in sql_inserts:
+        print(insert)
+
 def get_moves(limit=GEN_LIMIT):
     print("-- Inserts for TABLE: MOVES")
     sql_inserts = []
@@ -625,9 +655,10 @@ def get_pok_types(limit=GEN_LIMIT):
 # get_abilities()
 # get_base_stats()
 # get_individual_values()
+get_effort_values()
 # get_moves()
 # get_pok_abilities()
-get_pok_types()
+# get_pok_types()
 
 
 # Functions to get data and generate SQL inserts in seperate files
