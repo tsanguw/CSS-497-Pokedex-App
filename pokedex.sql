@@ -229,12 +229,12 @@ CREATE TABLE INDIVIDUAL_VALUES (
 
 -- Create EFFORT VALUES table
 CREATE TABLE EFFORT_VALUES (
-    ev_hp INT CHECK (ev_hp >= 0),
-    ev_atk INT CHECK (ev_atk >= 0),
-    ev_def INT CHECK (ev_def >= 0),
-    ev_sp_atk INT CHECK (ev_sp_atk >= 0),
-    ev_sp_def INT CHECK (ev_sp_def >= 0),
-    ev_speed INT CHECK (ev_speed >= 0),
+    ev_hp INT CHECK (ev_hp >= 0 AND ev_hp <= 252),
+    ev_atk INT CHECK (ev_atk >= 0 AND ev_atk <= 252),
+    ev_def INT CHECK (ev_def >= 0 AND ev_def <= 252),
+    ev_sp_atk INT CHECK (ev_sp_atk >= 0 AND ev_sp_atk <= 252),
+    ev_sp_def INT CHECK (ev_sp_def >= 0 AND ev_sp_def <= 252),
+    ev_speed INT CHECK (ev_speed >= 0 AND ev_speed <= 252),
     pok_id INT,
     PRIMARY KEY (pok_id),
     FOREIGN KEY (pok_id) REFERENCES POKEMON(pok_id),
