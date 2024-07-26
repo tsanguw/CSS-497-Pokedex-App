@@ -68,7 +68,7 @@ class _MyHomePageState extends State<MyHomePage> {
         body = DamageCalculatorPage();
         break;
       default:
-        body = Center(child: Text('Default Page!'));
+        body = const Center(child: Text('Default Page!'));
         break;
     }
 
@@ -86,7 +86,7 @@ class _MyHomePageState extends State<MyHomePage> {
           },
         ),
         centerTitle: true,
-        title: Text(
+        title: const Text(
           'Pokedex',
           style: TextStyle(color: Colors.white),
         ),
@@ -207,8 +207,8 @@ class PokemonPage extends StatelessWidget {
             itemBuilder: (context, index) {
               final pokemon = snapshot.data![index];
               return ListTile(
-                title: Text(pokemon['pok_name']),
-                subtitle: Text('Height: ${pokemon['pok_height']} | Weight: ${pokemon['pok_weight']}'),
+                title: Text('${pokemon['pok_id']}. ${pokemon['pok_name']}'),
+                subtitle: Text('Type: ${pokemon['types']} | Height: ${pokemon['pok_height']} | Weight: ${pokemon['pok_weight']}'),
               );
             },
           );
@@ -236,7 +236,7 @@ class MovesPage extends StatelessWidget {
             itemBuilder: (context, index) {
               final move = snapshot.data![index];
               return ListTile(
-                title: Text(move['move_name']),
+                title: Text('${move['move_name'] ?? 'N/A'} | damage class - ${move['move_type'] ?? 'N/A'}'),
                 subtitle: Text('Power: ${move['move_power'] ?? 'N/A'} | Accuracy: ${move['move_accuracy'] ?? 'N/A'}% | PP: ${move['move_pp'] ?? 'N/A'}'),
               );
             },
@@ -279,8 +279,30 @@ class AbilitiesPage extends StatelessWidget {
 class ItemsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text('Welcome to the Items Page!'),
+    return FutureBuilder<List<Map<String, dynamic>>>(
+      future: DatabaseHelper().getAllItems(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Center(child: CircularProgressIndicator());
+        } else if (snapshot.hasError) {
+          return Center(child: Text('Error: ${snapshot.error}'));
+        } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+          return Center(child: Text('No items found.'));
+        } else {
+          return ListView.builder(
+            itemCount: snapshot.data!.length,
+            itemBuilder: (context, index) {
+              final item = snapshot.data![index];
+              return ListTile(
+                title: Text('${item['item_name']} | category: ${item['item_cat_name']} '),
+                subtitle: Text(
+                  'Description: ${item['item_desc'] ?? 'No description available'}',
+                ),
+              );
+            },
+          );
+        }
+      },
     );
   }
 }
@@ -304,6 +326,7 @@ class NaturesPage extends StatelessWidget {
               final nature = snapshot.data![index];
               return ListTile(
                 title: Text(nature['nat_name']),
+                subtitle: Text('+ ${nature['nat_increase'] ?? 'N/A'} | - ${nature['nat_decrease'] ?? 'N/A'}'),
               );
             },
           );
@@ -325,8 +348,30 @@ class LocationsPage extends StatelessWidget {
 class GymLeadersPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text('Welcome to the Gym Leaders Page!'),
+    return FutureBuilder<List<Map<String, dynamic>>>(
+      future: DatabaseHelper().getAllGymLeaders(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Center(child: CircularProgressIndicator());
+        } else if (snapshot.hasError) {
+          return Center(child: Text('Error: ${snapshot.error}'));
+        } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+          return Center(child: Text('No gym leaders found.'));
+        } else {
+          return ListView.builder(
+            itemCount: snapshot.data!.length,
+            itemBuilder: (context, index) {
+              final gymLeader = snapshot.data![index];
+              return ListTile(
+                title: Text(gymLeader['trainer_name']),
+                subtitle: Text(
+                  'Gym: ${gymLeader['trainer_gym_name']} | Game: ${gymLeader['trainer_game']} | Gen: ${gymLeader['trainer_gen']}',
+                ),
+              );
+            },
+          );
+        }
+      },
     );
   }
 }

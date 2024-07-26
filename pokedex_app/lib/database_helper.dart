@@ -52,7 +52,25 @@ class DatabaseHelper {
 
   Future<List<Map<String, dynamic>>> getAllPokemon() async {
     final db = await database;
-    return await db.query('POKEMON');
+    final result = await db.rawQuery('''
+      SELECT 
+        P.pok_id,
+        P.pok_name,
+        P.pok_height,
+        P.pok_weight,
+        GROUP_CONCAT(T.type_name, ', ') AS types
+      FROM 
+        POKEMON P
+      JOIN 
+        POKEMON_BEARS_TYPE PBT ON P.pok_id = PBT.pok_id
+      JOIN 
+        TYPE T ON PBT.type_id = T.type_id
+      GROUP BY 
+        P.pok_id, P.pok_name
+      ORDER BY 
+        P.pok_id ASC
+    ''');
+    return result;
   }
 
   Future<List<Map<String, dynamic>>> getAllMoves() async {
@@ -68,5 +86,39 @@ class DatabaseHelper {
   Future<List<Map<String, dynamic>>> getAllNatures() async {
     final db = await database;
     return await db.query('NATURE');
+  }
+
+  Future<List<Map<String, dynamic>>> getAllItems() async {
+    final db = await database;
+    final result = await db.rawQuery('''
+      SELECT 
+        I.item_id,
+        I.item_name,
+        I.item_desc,
+        IC.item_cat_name
+      FROM 
+        ITEM I
+      JOIN 
+        ITEM_CATEGORY IC ON I.item_cat_id = IC.item_cat_id
+      LIMIT 10
+    ''');
+    return result;
+  }
+
+  Future<List<Map<String, dynamic>>> getAllGymLeaders() async {
+    final db = await database;
+    final result = await db.rawQuery('''
+      SELECT 
+        trainer_id,
+        trainer_name,
+        trainer_gym_name,
+        trainer_game,
+        trainer_gen
+      FROM 
+        TRAINER
+      WHERE 
+        trainer_gym_name IS NOT NULL
+    ''');
+    return result;
   }
 }
