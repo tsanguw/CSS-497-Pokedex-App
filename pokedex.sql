@@ -77,7 +77,9 @@ CREATE TABLE TYPE (
 -- Create NATURE table
 CREATE TABLE NATURE (
     nat_id INT PRIMARY KEY,
-    nat_name VARCHAR(50) NOT NULL UNIQUE
+    nat_name VARCHAR(50) NOT NULL UNIQUE,
+    nat_increase VARCHAR(50),
+    nat_decrease VARCHAR(50)
 );
 
 -- Create STATUS EFFECT table
@@ -109,6 +111,7 @@ CREATE TABLE MOVE (
     move_pp INT CHECK (move_pp >= 0),
     move_power INT CHECK (move_power >= 0),
     move_accuracy FLOAT CHECK (move_accuracy >= 0 AND move_accuracy <= 100),
+    move_type VARCHAR(50),
     FOREIGN KEY (type_id) REFERENCES TYPE(type_id)
 );
 

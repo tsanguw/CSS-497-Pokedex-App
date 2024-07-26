@@ -127,7 +127,15 @@ def get_natures():
         nat_id = nature_data['id']
         nat_name = nature_data['name']
 
-        sql_insert = f"INSERT INTO NATURE (nat_id, nat_name) VALUES ({nat_id}, '{nat_name}');"
+        # Determine increased and decreased stats
+        nat_increase = ''
+        nat_decrease = ''
+        if nature_data['increased_stat']:
+            nat_increase = nature_data['increased_stat']['name'].replace("'", "''")
+        if nature_data['decreased_stat']:
+            nat_decrease = nature_data['decreased_stat']['name'].replace("'", "''")
+
+        sql_insert = f"INSERT INTO NATURE (nat_id, nat_name, nat_increase, nat_decrease) VALUES ({nat_id}, '{nat_name}', '{nat_increase}', '{nat_decrease}');"
         sql_inserts.append(sql_insert)
 
     for insert in sql_inserts:
@@ -496,8 +504,9 @@ def get_moves(limit=GEN_LIMIT):
         move_power = move_data['power'] if move_data['power'] else 'NULL'
         move_accuracy = move_data['accuracy'] if move_data['accuracy'] else 'NULL'
         type_id = int(move_data['type']['url'].split('/')[-2])
+        move_type = move_data['damage_class']['name'].replace("'", "''")
 
-        sql_insert = f"INSERT INTO MOVE (move_id, move_name, move_pp, move_power, move_accuracy, type_id) VALUES ({move_id}, '{move_name}', {move_pp}, {move_power}, {move_accuracy}, {type_id});"
+        sql_insert = f"INSERT INTO MOVE (move_id, type_id, move_name, move_pp, move_power, move_accuracy, move_type) VALUES ({move_id}, {type_id}, '{move_name}', {move_pp}, {move_power}, {move_accuracy}, '{move_type}');"
         sql_inserts.append(sql_insert)
 
     for insert in sql_inserts:
@@ -644,7 +653,7 @@ def get_pok_types(limit=GEN_LIMIT):
 # get_evol_methods()
 # get_move_methods()
 # get_generations()
-# get_natures()
+get_natures()
 # get_status_effects()
 # get_item_categories()
 # get_type_efficacy()
@@ -655,7 +664,7 @@ def get_pok_types(limit=GEN_LIMIT):
 # get_abilities()
 # get_base_stats()
 # get_individual_values()
-get_effort_values()
+# get_effort_values()
 # get_moves()
 # get_pok_abilities()
 # get_pok_types()
