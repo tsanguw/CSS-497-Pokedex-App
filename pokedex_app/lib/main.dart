@@ -1,5 +1,8 @@
+// ignore_for_file: constant_identifier_names
+
 import 'package:flutter/material.dart';
 import 'package:sqflite/sqflite.dart';
+import 'database_helper.dart';
 
 void main() {
   runApp(const MainApp());
@@ -186,12 +189,31 @@ Widget buildDrawerHeader() {
   );
 }
 
-// Define separate pages as StatelessWidget or StatefulWidget classes
 class PokemonPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text('Welcome to the Pokemon Page!'),
+    return FutureBuilder<List<Map<String, dynamic>>>(
+      future: DatabaseHelper().getAllPokemon(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Center(child: CircularProgressIndicator());
+        } else if (snapshot.hasError) {
+          return Center(child: Text('Error: ${snapshot.error}'));
+        } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+          return Center(child: Text('No Pokémon found.'));
+        } else {
+          return ListView.builder(
+            itemCount: snapshot.data!.length,
+            itemBuilder: (context, index) {
+              final pokemon = snapshot.data![index];
+              return ListTile(
+                title: Text(pokemon['pok_name']),
+                subtitle: Text('Height: ${pokemon['pok_height']} | Weight: ${pokemon['pok_weight']}'),
+              );
+            },
+          );
+        }
+      },
     );
   }
 }
@@ -199,8 +221,28 @@ class PokemonPage extends StatelessWidget {
 class MovesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text('Welcome to the Moves Page!'),
+    return FutureBuilder<List<Map<String, dynamic>>>(
+      future: DatabaseHelper().getAllMoves(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Center(child: CircularProgressIndicator());
+        } else if (snapshot.hasError) {
+          return Center(child: Text('Error: ${snapshot.error}'));
+        } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+          return Center(child: Text('No moves found.'));
+        } else {
+          return ListView.builder(
+            itemCount: snapshot.data!.length,
+            itemBuilder: (context, index) {
+              final move = snapshot.data![index];
+              return ListTile(
+                title: Text(move['move_name']),
+                subtitle: Text('Power: ${move['move_power'] ?? 'N/A'} | Accuracy: ${move['move_accuracy'] ?? 'N/A'}% | PP: ${move['move_pp'] ?? 'N/A'}'),
+              );
+            },
+          );
+        }
+      },
     );
   }
 }
@@ -208,8 +250,28 @@ class MovesPage extends StatelessWidget {
 class AbilitiesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text('Welcome to the Abilities Page!'),
+    return FutureBuilder<List<Map<String, dynamic>>>(
+      future: DatabaseHelper().getAllAbilities(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Center(child: CircularProgressIndicator());
+        } else if (snapshot.hasError) {
+          return Center(child: Text('Error: ${snapshot.error}'));
+        } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+          return Center(child: Text('No abilities found.'));
+        } else {
+          return ListView.builder(
+            itemCount: snapshot.data!.length,
+            itemBuilder: (context, index) {
+              final ability = snapshot.data![index];
+              return ListTile(
+                title: Text(ability['abi_name']),
+                subtitle: Text(ability['abi_desc'] ?? 'No description available'),
+              );
+            },
+          );
+        }
+      },
     );
   }
 }
@@ -226,8 +288,27 @@ class ItemsPage extends StatelessWidget {
 class NaturesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text('Welcome to the Natures Page!'),
+    return FutureBuilder<List<Map<String, dynamic>>>(
+      future: DatabaseHelper().getAllNatures(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Center(child: CircularProgressIndicator());
+        } else if (snapshot.hasError) {
+          return Center(child: Text('Error: ${snapshot.error}'));
+        } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+          return Center(child: Text('No natures found.'));
+        } else {
+          return ListView.builder(
+            itemCount: snapshot.data!.length,
+            itemBuilder: (context, index) {
+              final nature = snapshot.data![index];
+              return ListTile(
+                title: Text(nature['nat_name']),
+              );
+            },
+          );
+        }
+      },
     );
   }
 }
