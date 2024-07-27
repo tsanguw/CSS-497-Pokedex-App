@@ -236,8 +236,14 @@ class MovesPage extends StatelessWidget {
             itemBuilder: (context, index) {
               final move = snapshot.data![index];
               return ListTile(
-                title: Text('${move['move_name'] ?? 'N/A'} | damage class - ${move['move_type'] ?? 'N/A'}'),
-                subtitle: Text('Power: ${move['move_power'] ?? 'N/A'} | Accuracy: ${move['move_accuracy'] ?? 'N/A'}% | PP: ${move['move_pp'] ?? 'N/A'}'),
+                title: Text('${move['move_name'] ?? 'N/A'} | type - ${move['type_name'] ?? 'N/A'}'),
+                subtitle: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('Damage class - ${move['move_type'] ?? 'N/A'} | Power: ${move['move_power'] ?? 'N/A'} | Accuracy: ${move['move_accuracy'] ?? 'N/A'}% | PP: ${move['move_pp'] ?? 'N/A'}'),
+                    Text('${move['move_effect'] ?? 'No description available'}'),
+                  ],
+                ),
               );
             },
           );
@@ -326,7 +332,7 @@ class NaturesPage extends StatelessWidget {
               final nature = snapshot.data![index];
               return ListTile(
                 title: Text(nature['nat_name']),
-                subtitle: Text('+ ${nature['nat_increase'] ?? 'N/A'} | - ${nature['nat_decrease'] ?? 'N/A'}'),
+                subtitle: Text('Increase: ${nature['nat_increase'] ?? 'N/A'} | Decrease: ${nature['nat_decrease'] ?? 'N/A'}'),
               );
             },
           );

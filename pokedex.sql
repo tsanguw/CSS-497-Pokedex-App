@@ -112,6 +112,7 @@ CREATE TABLE MOVE (
     move_power INT CHECK (move_power >= 0),
     move_accuracy FLOAT CHECK (move_accuracy >= 0 AND move_accuracy <= 100),
     move_type VARCHAR(50),
+    move_effect VARCHAR(50),
     FOREIGN KEY (type_id) REFERENCES TYPE(type_id)
 );
 

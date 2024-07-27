@@ -75,7 +75,22 @@ class DatabaseHelper {
 
   Future<List<Map<String, dynamic>>> getAllMoves() async {
     final db = await database;
-    return await db.query('MOVE');
+    final result = await db.rawQuery('''
+      SELECT 
+        M.move_name,
+        M.move_type,
+        M.move_power,
+        M.move_accuracy,
+        M.move_pp,
+        M.move_effect,
+        M.type_id,
+        T.type_name
+      FROM 
+        MOVE M
+      JOIN 
+        TYPE T ON M.type_id = T.type_id
+    ''');
+    return result;
   }
 
   Future<List<Map<String, dynamic>>> getAllAbilities() async {
