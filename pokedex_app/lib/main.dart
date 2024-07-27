@@ -98,6 +98,7 @@ class _MyHomePageState extends State<MyHomePage> {
           children: [
             buildDrawerHeader(),
             ListTile(
+              leading: Icon(Icons.catching_pokemon),
               title: const Text('Pokemon'),
               onTap: () {
                 setState(() {
@@ -107,6 +108,7 @@ class _MyHomePageState extends State<MyHomePage> {
               },
             ),
             ListTile(
+              leading: Icon(Icons.flash_on),
               title: const Text('Moves'),
               onTap: () {
                 setState(() {
@@ -116,6 +118,7 @@ class _MyHomePageState extends State<MyHomePage> {
               },
             ),
             ListTile(
+              leading: Icon(Icons.star),
               title: const Text('Abilities'),
               onTap: () {
                 setState(() {
@@ -125,15 +128,7 @@ class _MyHomePageState extends State<MyHomePage> {
               },
             ),
             ListTile(
-              title: const Text('Items'),
-              onTap: () {
-                setState(() {
-                  _selectedSection = Section.ITEMS;
-                });
-                Navigator.of(context).pop(); // Close the drawer
-              },
-            ),
-            ListTile(
+              leading: Icon(Icons.energy_savings_leaf),
               title: const Text('Natures'),
               onTap: () {
                 setState(() {
@@ -143,6 +138,17 @@ class _MyHomePageState extends State<MyHomePage> {
               },
             ),
             ListTile(
+              leading: Icon(Icons.backpack),
+              title: const Text('Items'),
+              onTap: () {
+                setState(() {
+                  _selectedSection = Section.ITEMS;
+                });
+                Navigator.of(context).pop(); // Close the drawer
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.map),
               title: const Text('Locations'),
               onTap: () {
                 setState(() {
@@ -152,6 +158,7 @@ class _MyHomePageState extends State<MyHomePage> {
               },
             ),
             ListTile(
+              leading: Icon(Icons.stadium),
               title: const Text('Gym Leaders'),
               onTap: () {
                 setState(() {
@@ -161,6 +168,7 @@ class _MyHomePageState extends State<MyHomePage> {
               },
             ),
             ListTile(
+              leading: Icon(Icons.calculate),
               title: const Text('Damage Calculator'),
               onTap: () {
                 setState(() {
@@ -208,12 +216,116 @@ class PokemonPage extends StatelessWidget {
               final pokemon = snapshot.data![index];
               return ListTile(
                 title: Text('${pokemon['pok_id']}. ${pokemon['pok_name']}'),
-                subtitle: Text('Type: ${pokemon['types']} | Height: ${pokemon['pok_height']} | Weight: ${pokemon['pok_weight']}'),
+                subtitle: Text('Type: ${pokemon['types']} | Height: ${pokemon['pok_height']} m | Weight: ${pokemon['pok_weight']} kg'),
+                onTap: () async {
+                  final pokemonDetails = await DatabaseHelper().getPokemonDetails(pokemon['pok_id']);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => PokemonDetailPage(
+                        pokemon: pokemonDetails['pokemon'],
+                        evolutions: pokemonDetails['evolutions'],
+                        abilities: pokemonDetails['abilities'],
+                        resistances: pokemonDetails['resistances'],
+                        weaknesses: pokemonDetails['weaknesses'],
+                      ),
+                    ),
+                  );
+                },
               );
             },
           );
         }
       },
+    );
+  }
+}
+
+class PokemonDetailPage extends StatelessWidget {
+  final Map<String, dynamic> pokemon;
+  final List<Map<String, dynamic>> evolutions;
+  final List<Map<String, dynamic>> abilities;
+  final List<Map<String, dynamic>> weaknesses;
+  final List<Map<String, dynamic>> resistances;
+
+  PokemonDetailPage({
+    required this.pokemon,
+    required this.evolutions,
+    required this.abilities,
+    required this.weaknesses,
+    required this.resistances,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(pokemon['pok_name']),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('Name: ${pokemon['pok_name']}', style: TextStyle(fontSize: 24)),
+              SizedBox(height: 8),
+              Text('Type: ${pokemon['types']}', style: TextStyle(fontSize: 18)),
+              SizedBox(height: 8),
+              Text('Height: ${pokemon['pok_height'].toString()} meters', style: TextStyle(fontSize: 18)),
+              SizedBox(height: 8),
+              Text('Weight: ${pokemon['pok_weight'].toString()} kg', style: TextStyle(fontSize: 18)),
+              SizedBox(height: 16),
+              Text('Base Stats:', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+              SizedBox(height: 8),
+              Text('HP: ${pokemon['b_hp']}', style: TextStyle(fontSize: 18)),
+              Text('Attack: ${pokemon['b_atk']}', style: TextStyle(fontSize: 18)),
+              Text('Defense: ${pokemon['b_def']}', style: TextStyle(fontSize: 18)),
+              Text('Special Attack: ${pokemon['b_sp_atk']}', style: TextStyle(fontSize: 18)),
+              Text('Special Defense: ${pokemon['b_sp_def']}', style: TextStyle(fontSize: 18)),
+              Text('Speed: ${pokemon['b_speed']}', style: TextStyle(fontSize: 18)),
+              SizedBox(height: 16),
+              Text('Abilities:', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+              SizedBox(height: 8),
+              for (var ability in abilities)
+                ListTile(
+                  title: Text(
+                    ability['abi_name'],
+                    style: TextStyle(
+                      fontWeight: ability['is_hidden'] == 1 ? FontWeight.bold : FontWeight.normal,
+                      color: ability['is_hidden'] == 1 ? Colors.red : Colors.black,
+                    ),
+                  ),
+                  subtitle: Text(
+                    ability['is_hidden'] == 1 ? 'Hidden Ability' : 'Normal Ability',
+                  ),
+                ),
+              SizedBox(height: 16),
+              Text('Evolutions:', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+              SizedBox(height: 8),
+              for (var evolution in evolutions)
+                ListTile(
+                  title: Text(
+                    '${evolution['pre_evol_pok_name'] ?? 'N/A'} -> ${evolution['evol_pok_name'] ?? 'N/A'}',
+                  ),
+                  subtitle: Text(
+                    'Min Level: ${evolution['evol_min_lvl'] ?? 'N/A'} | Method: ${evolution['evol_method_name'] ?? 'N/A'}',
+                  ),
+                ),
+              SizedBox(height: 16),
+              Text('Weaknesses:', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+              SizedBox(height: 8),
+              for (var weakness in weaknesses)
+                Text('${weakness['type_name']} (x${weakness['effectiveness']})', style: TextStyle(fontSize: 18)),
+              SizedBox(height: 16),
+              Text('Resistances:', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+              SizedBox(height: 8),
+              for (var resistance in resistances)
+                Text('${resistance['type_name']} (x${resistance['effectiveness']})', style: TextStyle(fontSize: 18)),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
@@ -373,11 +485,62 @@ class GymLeadersPage extends StatelessWidget {
                 subtitle: Text(
                   'Gym: ${gymLeader['trainer_gym_name']} | Game: ${gymLeader['trainer_game']} | Gen: ${gymLeader['trainer_gen']}',
                 ),
+                onTap: () async {
+                  final gymLeaderDetails = await DatabaseHelper().getGymLeaderDetails(gymLeader['trainer_id']);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => GymLeaderDetailPage(gymLeader: gymLeaderDetails),
+                    ),
+                  );
+                },
               );
             },
           );
         }
       },
+    );
+  }
+}
+
+class GymLeaderDetailPage extends StatelessWidget {
+  final Map<String, dynamic> gymLeader;
+
+  GymLeaderDetailPage({required this.gymLeader});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(gymLeader['trainer_name']),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Name: ${gymLeader['trainer_name']}',
+              style: TextStyle(fontSize: 24),
+            ),
+            SizedBox(height: 8),
+            Text(
+              'Gym: ${gymLeader['trainer_gym_name'] ?? 'Unknown'}',
+              style: TextStyle(fontSize: 18),
+            ),
+            SizedBox(height: 8),
+            Text(
+              'Game: ${gymLeader['trainer_game'] ?? 'Unknown'}',
+              style: TextStyle(fontSize: 18),
+            ),
+            SizedBox(height: 8),
+            Text(
+              'Generation: ${gymLeader['trainer_gen'] ?? 'Unknown'}',
+              style: TextStyle(fontSize: 18),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
