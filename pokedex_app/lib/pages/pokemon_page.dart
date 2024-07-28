@@ -25,7 +25,7 @@ class PokemonPage extends StatelessWidget {
               final pokemon = snapshot.data![index];
               return ListTile(
                 title: Text('${pokemon['pok_id']}. ${pokemon['pok_name']}'),
-                subtitle: Text('Type: ${pokemon['types']} | Height: ${pokemon['pok_height']} | Weight: ${pokemon['pok_weight']}'),
+                subtitle: Text('Type: ${pokemon['types']} | Height: ${pokemon['pok_height']} m | Weight: ${pokemon['pok_weight']} kg'),
                 onTap: () async {
                   final pokemonDetails = await DatabaseHelper().getPokemonDetails(pokemon['pok_id']);
                   Navigator.push(

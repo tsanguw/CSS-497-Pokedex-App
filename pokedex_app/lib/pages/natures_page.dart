@@ -24,6 +24,7 @@ class NaturesPage extends StatelessWidget {
               final nature = snapshot.data![index];
               return ListTile(
                 title: Text('${nature['nat_name']}'),
+                subtitle: Text('Increase: ${nature['nat_increase'] ?? 'N/A'} | Decrease: ${nature['nat_decrease'] ?? 'N/A'}'),
               );
             },
           );

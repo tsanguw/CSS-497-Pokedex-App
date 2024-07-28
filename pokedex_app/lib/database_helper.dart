@@ -322,7 +322,9 @@ class DatabaseHelper {
     String query = '''
       SELECT 
         nat_id,
-        nat_name
+        nat_name,
+        nat_increase,
+        nat_decrease
       FROM 
         NATURE
     ''';
