@@ -329,6 +329,38 @@ class DatabaseHelper {
         trainer_id = ?
     ''', [trainerId]);
 
-    return result.isNotEmpty ? result.first : {};
+    final teamResult = await db.rawQuery('''
+      SELECT 
+        T.trainer_id,
+        T.pok_id,
+        T.pok_lvl,
+        P.pok_name,
+        T.position,
+        M1.move_name AS move1,
+        M2.move_name AS move2,
+        M3.move_name AS move3,
+        M4.move_name AS move4
+      FROM 
+        TEAM T
+      JOIN 
+        POKEMON P ON T.pok_id = P.pok_id
+      LEFT JOIN 
+        MOVE M1 ON T.move1_id = M1.move_id
+      LEFT JOIN 
+        MOVE M2 ON T.move2_id = M2.move_id
+      LEFT JOIN 
+        MOVE M3 ON T.move3_id = M3.move_id
+      LEFT JOIN 
+        MOVE M4 ON T.move4_id = M4.move_id
+      WHERE 
+        T.trainer_id = ?
+      ORDER BY 
+        T.position
+    ''', [trainerId]);
+
+    return {
+      'gym_leader': result.isNotEmpty ? result.first : {},
+      'team': teamResult
+    };
   }
 }

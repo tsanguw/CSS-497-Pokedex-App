@@ -184,9 +184,17 @@ CREATE TABLE TEAM (
     pok_id INT,
     pok_lvl INT CHECK (pok_lvl >= 1),
     position INT CHECK (position >= 1 AND position <= 6),
+    move1_id INT NULL,
+    move2_id INT NULL,
+    move3_id INT NULL,
+    move4_id INT NULL,
     PRIMARY KEY (trainer_id, pok_id, position),
     FOREIGN KEY (trainer_id) REFERENCES TRAINER(trainer_id),
-    FOREIGN KEY (pok_id) REFERENCES POKEMON(pok_id)
+    FOREIGN KEY (pok_id) REFERENCES POKEMON(pok_id),
+    FOREIGN KEY (move1_id) REFERENCES MOVE(move_id),
+    FOREIGN KEY (move2_id) REFERENCES MOVE(move_id),
+    FOREIGN KEY (move3_id) REFERENCES MOVE(move_id),
+    FOREIGN KEY (move4_id) REFERENCES MOVE(move_id)
 );
 
 -- Create ITEM CATEGORY table
