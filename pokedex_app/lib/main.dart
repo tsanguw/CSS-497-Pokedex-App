@@ -2,7 +2,15 @@
 
 import 'package:flutter/material.dart';
 import 'package:sqflite/sqflite.dart';
-import 'database_helper.dart';
+import 'pages/pokemon_page.dart';
+import 'pages/moves_page.dart';
+import 'pages/abilities_page.dart';
+import 'pages/items_page.dart';
+import 'pages/natures_page.dart';
+import 'pages/locations_page.dart';
+import 'pages/gym_leaders_page.dart';
+import 'pages/damage_calculator_page.dart';
+
 
 void main() {
   runApp(const MainApp());
@@ -36,7 +44,14 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  Section _selectedSection = Section.POKEMON; // Set default page to Pokémon
+  Section _selectedSection = Section.POKEMON;
+  String _searchQuery = '';
+
+  void _onSearchChanged(String query) {
+    setState(() {
+      _searchQuery = query;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,31 +59,31 @@ class _MyHomePageState extends State<MyHomePage> {
 
     switch (_selectedSection) {
       case Section.POKEMON:
-        body = PokemonPage();
+        body = PokemonPage(searchQuery: _searchQuery);
         break;
       case Section.MOVES:
-        body = MovesPage();
+        body = MovesPage(searchQuery: _searchQuery);
         break;
       case Section.ABILITIES:
-        body = AbilitiesPage();
+        body = AbilitiesPage(searchQuery: _searchQuery);
         break;
       case Section.ITEMS:
-        body = ItemsPage();
+        body = ItemsPage(searchQuery: _searchQuery);
         break;
       case Section.NATURES:
-        body = NaturesPage();
+        body = NaturesPage(searchQuery: _searchQuery);
         break;
       case Section.LOCATIONS:
         body = LocationsPage();
         break;
       case Section.GYMLEADERS:
-        body = GymLeadersPage();
+        body = GymLeadersPage(searchQuery: _searchQuery);
         break;
       case Section.DAMAGECALCULATOR:
         body = DamageCalculatorPage();
         break;
       default:
-        body = const Center(child: Text('Default Page!'));
+        body = Center(child: Text('Default Page!'));
         break;
     }
 
@@ -86,10 +101,17 @@ class _MyHomePageState extends State<MyHomePage> {
           },
         ),
         centerTitle: true,
-        title: const Text(
-          'Pokedex',
-          style: TextStyle(color: Colors.white),
-        ),
+        title: _selectedSection == Section.DAMAGECALCULATOR
+            ? Text('Pokedex', style: TextStyle(color: Colors.white))
+            : TextField(
+                onChanged: _onSearchChanged,
+                decoration: InputDecoration(
+                  hintText: 'Search',
+                  hintStyle: TextStyle(color: Colors.white70),
+                  border: InputBorder.none,
+                ),
+                style: TextStyle(color: Colors.white, fontSize: 18),
+              ),
         backgroundColor: Colors.red,
       ),
       drawer: Drawer(
@@ -104,7 +126,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 setState(() {
                   _selectedSection = Section.POKEMON;
                 });
-                Navigator.of(context).pop(); // Close the drawer
+                Navigator.of(context).pop();
               },
             ),
             ListTile(
@@ -114,7 +136,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 setState(() {
                   _selectedSection = Section.MOVES;
                 });
-                Navigator.of(context).pop(); // Close the drawer
+                Navigator.of(context).pop();
               },
             ),
             ListTile(
@@ -124,17 +146,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 setState(() {
                   _selectedSection = Section.ABILITIES;
                 });
-                Navigator.of(context).pop(); // Close the drawer
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.energy_savings_leaf),
-              title: const Text('Natures'),
-              onTap: () {
-                setState(() {
-                  _selectedSection = Section.NATURES;
-                });
-                Navigator.of(context).pop(); // Close the drawer
+                Navigator.of(context).pop();
               },
             ),
             ListTile(
@@ -144,7 +156,17 @@ class _MyHomePageState extends State<MyHomePage> {
                 setState(() {
                   _selectedSection = Section.ITEMS;
                 });
-                Navigator.of(context).pop(); // Close the drawer
+                Navigator.of(context).pop();
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.energy_savings_leaf),
+              title: const Text('Natures'),
+              onTap: () {
+                setState(() {
+                  _selectedSection = Section.NATURES;
+                });
+                Navigator.of(context).pop();
               },
             ),
             ListTile(
@@ -154,7 +176,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 setState(() {
                   _selectedSection = Section.LOCATIONS;
                 });
-                Navigator.of(context).pop(); // Close the drawer
+                Navigator.of(context).pop();
               },
             ),
             ListTile(
@@ -164,7 +186,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 setState(() {
                   _selectedSection = Section.GYMLEADERS;
                 });
-                Navigator.of(context).pop(); // Close the drawer
+                Navigator.of(context).pop();
               },
             ),
             ListTile(
@@ -174,7 +196,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 setState(() {
                   _selectedSection = Section.DAMAGECALCULATOR;
                 });
-                Navigator.of(context).pop(); // Close the drawer
+                Navigator.of(context).pop();
               },
             ),
           ],
@@ -195,392 +217,4 @@ Widget buildDrawerHeader() {
     ),
     child: Text('Pokedex', style: TextStyle(color: Colors.white)),
   );
-}
-
-class PokemonPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return FutureBuilder<List<Map<String, dynamic>>>(
-      future: DatabaseHelper().getAllPokemon(),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(child: CircularProgressIndicator());
-        } else if (snapshot.hasError) {
-          return Center(child: Text('Error: ${snapshot.error}'));
-        } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-          return Center(child: Text('No Pokémon found.'));
-        } else {
-          return ListView.builder(
-            itemCount: snapshot.data!.length,
-            itemBuilder: (context, index) {
-              final pokemon = snapshot.data![index];
-              return ListTile(
-                title: Text('${pokemon['pok_id']}. ${pokemon['pok_name']}'),
-                subtitle: Text('Type: ${pokemon['types']} | Height: ${pokemon['pok_height']} m | Weight: ${pokemon['pok_weight']} kg'),
-                onTap: () async {
-                  final pokemonDetails = await DatabaseHelper().getPokemonDetails(pokemon['pok_id']);
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => PokemonDetailPage(
-                        pokemon: pokemonDetails['pokemon'],
-                        evolutions: pokemonDetails['evolutions'],
-                        abilities: pokemonDetails['abilities'],
-                        resistances: pokemonDetails['resistances'],
-                        weaknesses: pokemonDetails['weaknesses'],
-                      ),
-                    ),
-                  );
-                },
-              );
-            },
-          );
-        }
-      },
-    );
-  }
-}
-
-class PokemonDetailPage extends StatelessWidget {
-  final Map<String, dynamic> pokemon;
-  final List<Map<String, dynamic>> evolutions;
-  final List<Map<String, dynamic>> abilities;
-  final List<Map<String, dynamic>> weaknesses;
-  final List<Map<String, dynamic>> resistances;
-
-  PokemonDetailPage({
-    required this.pokemon,
-    required this.evolutions,
-    required this.abilities,
-    required this.weaknesses,
-    required this.resistances,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(pokemon['pok_name']),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text('Name: ${pokemon['pok_name']}', style: TextStyle(fontSize: 24)),
-              SizedBox(height: 8),
-              Text('Type: ${pokemon['types']}', style: TextStyle(fontSize: 18)),
-              SizedBox(height: 8),
-              Text('Height: ${pokemon['pok_height'].toString()} meters', style: TextStyle(fontSize: 18)),
-              SizedBox(height: 8),
-              Text('Weight: ${pokemon['pok_weight'].toString()} kg', style: TextStyle(fontSize: 18)),
-              SizedBox(height: 16),
-              Text('Base Stats:', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-              SizedBox(height: 8),
-              Text('HP: ${pokemon['b_hp']}', style: TextStyle(fontSize: 18)),
-              Text('Attack: ${pokemon['b_atk']}', style: TextStyle(fontSize: 18)),
-              Text('Defense: ${pokemon['b_def']}', style: TextStyle(fontSize: 18)),
-              Text('Special Attack: ${pokemon['b_sp_atk']}', style: TextStyle(fontSize: 18)),
-              Text('Special Defense: ${pokemon['b_sp_def']}', style: TextStyle(fontSize: 18)),
-              Text('Speed: ${pokemon['b_speed']}', style: TextStyle(fontSize: 18)),
-              SizedBox(height: 16),
-              Text('Abilities:', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-              SizedBox(height: 8),
-              for (var ability in abilities)
-                ListTile(
-                  title: Text(
-                    ability['abi_name'],
-                    style: TextStyle(
-                      fontWeight: ability['is_hidden'] == 1 ? FontWeight.bold : FontWeight.normal,
-                      color: ability['is_hidden'] == 1 ? Colors.red : Colors.black,
-                    ),
-                  ),
-                  subtitle: Text(
-                    ability['is_hidden'] == 1 ? 'Hidden Ability' : 'Normal Ability',
-                  ),
-                ),
-              SizedBox(height: 16),
-              Text('Evolutions:', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-              SizedBox(height: 8),
-              for (var evolution in evolutions)
-                ListTile(
-                  title: Text(
-                    '${evolution['pre_evol_pok_name'] ?? 'N/A'} -> ${evolution['evol_pok_name'] ?? 'N/A'}',
-                  ),
-                  subtitle: Text(
-                    'Min Level: ${evolution['evol_min_lvl'] ?? 'N/A'} | Method: ${evolution['evol_method_name'] ?? 'N/A'}',
-                  ),
-                ),
-              SizedBox(height: 16),
-              Text('Weaknesses:', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-              SizedBox(height: 8),
-              for (var weakness in weaknesses)
-                Text('${weakness['type_name']} (x${weakness['effectiveness']})', style: TextStyle(fontSize: 18)),
-              SizedBox(height: 16),
-              Text('Resistances:', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-              SizedBox(height: 8),
-              for (var resistance in resistances)
-                Text('${resistance['type_name']} (x${resistance['effectiveness']})', style: TextStyle(fontSize: 18)),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class MovesPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return FutureBuilder<List<Map<String, dynamic>>>(
-      future: DatabaseHelper().getAllMoves(),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(child: CircularProgressIndicator());
-        } else if (snapshot.hasError) {
-          return Center(child: Text('Error: ${snapshot.error}'));
-        } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-          return Center(child: Text('No moves found.'));
-        } else {
-          return ListView.builder(
-            itemCount: snapshot.data!.length,
-            itemBuilder: (context, index) {
-              final move = snapshot.data![index];
-              return ListTile(
-                title: Text('${move['move_name'] ?? 'N/A'} | type - ${move['type_name'] ?? 'N/A'}'),
-                subtitle: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('Damage class - ${move['move_type'] ?? 'N/A'} | Power: ${move['move_power'] ?? 'N/A'} | Accuracy: ${move['move_accuracy'] ?? 'N/A'}% | PP: ${move['move_pp'] ?? 'N/A'}'),
-                    Text('${move['move_effect'] ?? 'No description available'}'),
-                  ],
-                ),
-              );
-            },
-          );
-        }
-      },
-    );
-  }
-}
-
-class AbilitiesPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return FutureBuilder<List<Map<String, dynamic>>>(
-      future: DatabaseHelper().getAllAbilities(),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(child: CircularProgressIndicator());
-        } else if (snapshot.hasError) {
-          return Center(child: Text('Error: ${snapshot.error}'));
-        } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-          return Center(child: Text('No abilities found.'));
-        } else {
-          return ListView.builder(
-            itemCount: snapshot.data!.length,
-            itemBuilder: (context, index) {
-              final ability = snapshot.data![index];
-              return ListTile(
-                title: Text(ability['abi_name']),
-                subtitle: Text(ability['abi_desc'] ?? 'No description available'),
-              );
-            },
-          );
-        }
-      },
-    );
-  }
-}
-
-class ItemsPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return FutureBuilder<List<Map<String, dynamic>>>(
-      future: DatabaseHelper().getAllItems(),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(child: CircularProgressIndicator());
-        } else if (snapshot.hasError) {
-          return Center(child: Text('Error: ${snapshot.error}'));
-        } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-          return Center(child: Text('No items found.'));
-        } else {
-          return ListView.builder(
-            itemCount: snapshot.data!.length,
-            itemBuilder: (context, index) {
-              final item = snapshot.data![index];
-              return ListTile(
-                title: Text('${item['item_name']} | category: ${item['item_cat_name']} '),
-                subtitle: Text(
-                  'Description: ${item['item_desc'] ?? 'No description available'}',
-                ),
-              );
-            },
-          );
-        }
-      },
-    );
-  }
-}
-
-class NaturesPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return FutureBuilder<List<Map<String, dynamic>>>(
-      future: DatabaseHelper().getAllNatures(),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(child: CircularProgressIndicator());
-        } else if (snapshot.hasError) {
-          return Center(child: Text('Error: ${snapshot.error}'));
-        } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-          return Center(child: Text('No natures found.'));
-        } else {
-          return ListView.builder(
-            itemCount: snapshot.data!.length,
-            itemBuilder: (context, index) {
-              final nature = snapshot.data![index];
-              return ListTile(
-                title: Text(nature['nat_name']),
-                subtitle: Text('Increase: ${nature['nat_increase'] ?? 'N/A'} | Decrease: ${nature['nat_decrease'] ?? 'N/A'}'),
-              );
-            },
-          );
-        }
-      },
-    );
-  }
-}
-
-class LocationsPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Text('Welcome to the Locations Page!'),
-    );
-  }
-}
-
-class GymLeadersPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return FutureBuilder<List<Map<String, dynamic>>>(
-      future: DatabaseHelper().getAllGymLeaders(),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(child: CircularProgressIndicator());
-        } else if (snapshot.hasError) {
-          return Center(child: Text('Error: ${snapshot.error}'));
-        } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-          return Center(child: Text('No Gym Leaders found.'));
-        } else {
-          return ListView.builder(
-            itemCount: snapshot.data!.length,
-            itemBuilder: (context, index) {
-              final gymLeader = snapshot.data![index];
-              return ListTile(
-                title: Text(gymLeader['trainer_name']),
-                subtitle: Text(
-                  'Gym: ${gymLeader['trainer_gym_name']} | Game: ${gymLeader['trainer_game']} | Gen: ${gymLeader['trainer_gen']}',
-                ),
-                onTap: () async {
-                  final gymLeaderDetails = await DatabaseHelper().getGymLeaderDetails(gymLeader['trainer_id']);
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => GymLeaderDetailPage(
-                        gymLeader: gymLeaderDetails['gym_leader'],
-                        team: gymLeaderDetails['team'],
-                      ),
-                    ),
-                  );
-                },
-              );
-            },
-          );
-        }
-      },
-    );
-  }
-}
-
-class GymLeaderDetailPage extends StatelessWidget {
-  final Map<String, dynamic> gymLeader;
-  final List<Map<String, dynamic>> team;
-
-  GymLeaderDetailPage({
-    required this.gymLeader,
-    required this.team,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(gymLeader['trainer_name']),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Name: ${gymLeader['trainer_name']}',
-                style: TextStyle(fontSize: 24),
-              ),
-              SizedBox(height: 8),
-              Text(
-                'Gym: ${gymLeader['trainer_gym_name'] ?? 'Unknown'}',
-                style: TextStyle(fontSize: 18),
-              ),
-              SizedBox(height: 8),
-              Text(
-                'Game: ${gymLeader['trainer_game'] ?? 'Unknown'}',
-                style: TextStyle(fontSize: 18),
-              ),
-              SizedBox(height: 8),
-              Text(
-                'Generation: ${gymLeader['trainer_gen'] ?? 'Unknown'}',
-                style: TextStyle(fontSize: 18),
-              ),
-              SizedBox(height: 16),
-              Text(
-                'Team:',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              ),
-              SizedBox(height: 8),
-              for (var member in team)
-                Card(
-                  child: ListTile(
-                    title: Text('${member['pok_name']} (Lv. ${member['pok_lvl']})'),
-                    subtitle: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('Position: ${member['position']}'),
-                        if (member['move1'] != null) Text('Move 1: ${member['move1']}'),
-                        if (member['move2'] != null) Text('Move 2: ${member['move2']}'),
-                        if (member['move3'] != null) Text('Move 3: ${member['move3']}'),
-                        if (member['move4'] != null) Text('Move 4: ${member['move4']}'),
-                      ],
-                    ),
-                  ),
-                ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class DamageCalculatorPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Text('Welcome to the Damage Calculator Page!'),
-    );
-  }
 }

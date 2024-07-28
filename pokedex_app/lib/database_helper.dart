@@ -50,9 +50,9 @@ class DatabaseHelper {
     }
   }
 
-  Future<List<Map<String, dynamic>>> getAllPokemon() async {
+  Future<List<Map<String, dynamic>>> getAllPokemon({String searchQuery = ''}) async {
     final db = await database;
-    final result = await db.rawQuery('''
+    String query = '''
       SELECT 
         P.pok_id,
         P.pok_name,
@@ -73,11 +73,22 @@ class DatabaseHelper {
         TYPE T ON PBT.type_id = T.type_id
       JOIN 
         BASE_STATS B ON P.pok_id = B.pok_id
+    ''';
+
+    if (searchQuery.isNotEmpty) {
+      query += '''
+        WHERE P.pok_name LIKE '%$searchQuery%'
+      ''';
+    }
+
+    query += '''
       GROUP BY 
         P.pok_id, P.pok_name
       ORDER BY 
         P.pok_id ASC
-    ''');
+    ''';
+
+    final result = await db.rawQuery(query);
     return result;
   }
 
@@ -250,39 +261,90 @@ class DatabaseHelper {
     };
   }
 
-  Future<List<Map<String, dynamic>>> getAllMoves() async {
+  Future<List<Map<String, dynamic>>> getAllMoves({String searchQuery = ''}) async {
     final db = await database;
-    final result = await db.rawQuery('''
+    String query = '''
       SELECT 
+        M.move_id,
         M.move_name,
-        M.move_type,
         M.move_power,
         M.move_accuracy,
-        M.move_pp,
-        M.move_effect,
-        M.type_id,
         T.type_name
       FROM 
         MOVE M
       JOIN 
         TYPE T ON M.type_id = T.type_id
-    ''');
+    ''';
+
+    if (searchQuery.isNotEmpty) {
+      query += '''
+        WHERE M.move_name LIKE '%$searchQuery%'
+      ''';
+    }
+
+    query += '''
+      ORDER BY 
+        M.move_name ASC
+    ''';
+
+    final result = await db.rawQuery(query);
     return result;
   }
 
-  Future<List<Map<String, dynamic>>> getAllAbilities() async {
+  Future<List<Map<String, dynamic>>> getAllAbilities({String searchQuery = ''}) async {
     final db = await database;
-    return await db.query('ABILITIES');
+    String query = '''
+      SELECT 
+        abi_id,
+        abi_name,
+        abi_desc
+      FROM 
+        ABILITIES
+    ''';
+
+    if (searchQuery.isNotEmpty) {
+      query += '''
+        WHERE abi_name LIKE '%$searchQuery%'
+      ''';
+    }
+
+    query += '''
+      ORDER BY 
+        abi_name ASC
+    ''';
+
+    final result = await db.rawQuery(query);
+    return result;
   }
 
-  Future<List<Map<String, dynamic>>> getAllNatures() async {
+  Future<List<Map<String, dynamic>>> getAllNatures({String searchQuery = ''}) async {
     final db = await database;
-    return await db.query('NATURE');
+    String query = '''
+      SELECT 
+        nat_id,
+        nat_name
+      FROM 
+        NATURE
+    ''';
+
+    if (searchQuery.isNotEmpty) {
+      query += '''
+        WHERE nat_name LIKE '%$searchQuery%'
+      ''';
+    }
+
+    query += '''
+      ORDER BY 
+        nat_name ASC
+    ''';
+
+    final result = await db.rawQuery(query);
+    return result;
   }
 
-  Future<List<Map<String, dynamic>>> getAllItems() async {
+  Future<List<Map<String, dynamic>>> getAllItems({String searchQuery = ''}) async {
     final db = await database;
-    final result = await db.rawQuery('''
+    String query = '''
       SELECT 
         I.item_id,
         I.item_name,
@@ -292,14 +354,26 @@ class DatabaseHelper {
         ITEM I
       JOIN 
         ITEM_CATEGORY IC ON I.item_cat_id = IC.item_cat_id
-      LIMIT 10
-    ''');
+    ''';
+
+    if (searchQuery.isNotEmpty) {
+      query += '''
+        WHERE I.item_name LIKE '%$searchQuery%'
+      ''';
+    }
+
+    query += '''
+      ORDER BY 
+        I.item_name ASC
+    ''';
+
+    final result = await db.rawQuery(query);
     return result;
   }
 
-  Future<List<Map<String, dynamic>>> getAllGymLeaders() async {
+  Future<List<Map<String, dynamic>>> getAllGymLeaders({String searchQuery = ''}) async {
     final db = await database;
-    final result = await db.rawQuery('''
+    String query = '''
       SELECT 
         trainer_id,
         trainer_name,
@@ -308,9 +382,20 @@ class DatabaseHelper {
         trainer_gen
       FROM 
         TRAINER
-      WHERE 
-        trainer_gym_name IS NOT NULL
-    ''');
+    ''';
+
+    if (searchQuery.isNotEmpty) {
+      query += '''
+        WHERE trainer_name LIKE '%$searchQuery%'
+      ''';
+    }
+
+    query += '''
+      ORDER BY 
+        trainer_name ASC
+    ''';
+
+    final result = await db.rawQuery(query);
     return result;
   }
 
