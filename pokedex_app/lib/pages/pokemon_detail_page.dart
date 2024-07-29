@@ -9,7 +9,7 @@ class PokemonDetailPage extends StatelessWidget {
   final List<Map<String, dynamic>> immunities;
 
   const PokemonDetailPage({
-    super.key, 
+    super.key,
     required this.pokemon,
     required this.evolutions,
     required this.abilities,
@@ -30,6 +30,18 @@ class PokemonDetailPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              Center(
+                child: Image.asset(
+                  'assets/sprites/pokemon/other/official-artwork/${pokemon['pok_id']}.png',
+                  height: 200,
+                  width: 200,
+                  fit: BoxFit.cover,
+                  errorBuilder: (context, error, stackTrace) {
+                    return const Text('Image not available');
+                  },
+                ),
+              ),
+              const SizedBox(height: 16),
               Text('Name: ${pokemon['pok_name']}', style: const TextStyle(fontSize: 24)),
               const SizedBox(height: 8),
               Text('Type: ${pokemon['types']}', style: const TextStyle(fontSize: 18)),

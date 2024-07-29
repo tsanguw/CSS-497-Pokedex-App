@@ -2,6 +2,8 @@ import 'dart:io';
 import 'package:flutter/services.dart' show ByteData, rootBundle;
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
+import 'dart:convert';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class DatabaseHelper {
   static final DatabaseHelper _instance = DatabaseHelper._internal();
@@ -349,7 +351,28 @@ class DatabaseHelper {
     return result;
   }
 
+  Future<bool> _imageExists(String path) async {
+    try {
+      await rootBundle.load(path);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  List<Map<String, dynamic>>? _cachedItems;
+
   Future<List<Map<String, dynamic>>> getAllItems({String searchQuery = ''}) async {
+    // Try to load the cached list from shared preferences if available and the search query is empty
+    if (_cachedItems == null && searchQuery.isEmpty) {
+      _cachedItems = await _loadCachedItems();
+    }
+
+    // Return the cached list if available and the search query is empty
+    if (_cachedItems != null && searchQuery.isEmpty) {
+      return _cachedItems!;
+    }
+
     final db = await database;
     String query = '''
       SELECT 
@@ -375,7 +398,38 @@ class DatabaseHelper {
     ''';
 
     final result = await db.rawQuery(query);
-    return result;
+
+    List<Map<String, dynamic>> filteredResult = [];
+    for (var item in result) {
+      final imagePath = 'assets/sprites/items/${item['item_name']}.png';
+      if (await _imageExists(imagePath)) {
+        filteredResult.add(item);
+      }
+    }
+
+    // Cache and persist the filtered list if the search query is empty
+    if (searchQuery.isEmpty) {
+      _cachedItems = filteredResult;
+      await _saveCachedItems(filteredResult);
+    }
+
+    return filteredResult;
+  }
+
+  Future<void> _saveCachedItems(List<Map<String, dynamic>> items) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String encodedItems = jsonEncode(items);
+    await prefs.setString('cachedItems', encodedItems);
+  }
+
+  Future<List<Map<String, dynamic>>?> _loadCachedItems() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? encodedItems = prefs.getString('cachedItems');
+    if (encodedItems != null) {
+      List<dynamic> decodedItems = jsonDecode(encodedItems);
+      return decodedItems.cast<Map<String, dynamic>>();
+    }
+    return null;
   }
 
   Future<List<Map<String, dynamic>>> getAllGymLeaders({String searchQuery = ''}) async {

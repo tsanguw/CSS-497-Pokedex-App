@@ -23,6 +23,15 @@ class ItemsPage extends StatelessWidget {
             itemBuilder: (context, index) {
               final item = snapshot.data![index];
               return ListTile(
+                leading: Image.asset(
+                  'assets/sprites/items/${item['item_name']}.png',
+                  width: 50,
+                  height: 50,
+                  fit: BoxFit.cover,
+                  errorBuilder: (context, error, stackTrace) {
+                    return const Icon(Icons.image_not_supported);
+                  },
+                ),
                 title: Text('${item['item_name']}'),
                 subtitle: Text('${item['item_desc']} | Category: ${item['item_cat_name']}'),
               );

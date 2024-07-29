@@ -25,6 +25,8 @@ flutter:
   assets:
     - assets/pokedex.db
     - assets/icons/
+    - assets/sprites/pokemon/other/official-artwork/
+    - assets/sprites/items/
 
 flutter_icons:
   android: true

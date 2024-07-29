@@ -24,6 +24,15 @@ class PokemonPage extends StatelessWidget {
             itemBuilder: (context, index) {
               final pokemon = snapshot.data![index];
               return ListTile(
+                leading: Image.asset(
+                  'assets/sprites/pokemon/other/official-artwork/${pokemon['pok_id']}.png',
+                  width: 50,
+                  height: 50,
+                  fit: BoxFit.cover,
+                  errorBuilder: (context, error, stackTrace) {
+                    return const Icon(Icons.image_not_supported);
+                  },
+                ),
                 title: Text('${pokemon['pok_id']}. ${pokemon['pok_name']}'),
                 subtitle: Text('Type: ${pokemon['types']} | Height: ${pokemon['pok_height']} m | Weight: ${pokemon['pok_weight']} kg'),
                 onTap: () async {
