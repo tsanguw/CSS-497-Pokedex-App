@@ -4,7 +4,7 @@ class GymLeaderDetailPage extends StatelessWidget {
   final Map<String, dynamic> gymLeader;
   final List<Map<String, dynamic>> team;
 
-  GymLeaderDetailPage({
+  const GymLeaderDetailPage({super.key, 
     required this.gymLeader,
     required this.team,
   });
@@ -23,29 +23,29 @@ class GymLeaderDetailPage extends StatelessWidget {
             children: [
               Text(
                 'Name: ${gymLeader['trainer_name']}',
-                style: TextStyle(fontSize: 24),
+                style: const TextStyle(fontSize: 24),
               ),
-              SizedBox(height: 8),
+              const SizedBox(height: 8),
               Text(
                 'Gym: ${gymLeader['trainer_gym_name'] ?? 'Unknown'}',
-                style: TextStyle(fontSize: 18),
+                style: const TextStyle(fontSize: 18),
               ),
-              SizedBox(height: 8),
+              const SizedBox(height: 8),
               Text(
                 'Game: ${gymLeader['trainer_game'] ?? 'Unknown'}',
-                style: TextStyle(fontSize: 18),
+                style: const TextStyle(fontSize: 18),
               ),
-              SizedBox(height: 8),
+              const SizedBox(height: 8),
               Text(
                 'Generation: ${gymLeader['trainer_gen'] ?? 'Unknown'}',
-                style: TextStyle(fontSize: 18),
+                style: const TextStyle(fontSize: 18),
               ),
-              SizedBox(height: 16),
-              Text(
+              const SizedBox(height: 16),
+              const Text(
                 'Team:',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
-              SizedBox(height: 8),
+              const SizedBox(height: 8),
               for (var member in team)
                 Card(
                   child: ListTile(

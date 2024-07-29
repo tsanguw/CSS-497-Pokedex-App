@@ -9,6 +9,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  shared_preferences: ^2.2.3
   sqflite: ^2.3.3+1
   path: any
 
@@ -16,7 +17,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^4.0.0
-  flutter_launcher_icons: ^0.9.2
+  flutter_launcher_icons: ^0.13.1
 
 flutter:
   uses-material-design: true
@@ -29,3 +30,4 @@ flutter_icons:
   android: true
   ios: true
   image_path: "assets/icons/pokedex_icon.png"
+  # use "flutter pub run flutter_launcher_icons:main" to generate new icons

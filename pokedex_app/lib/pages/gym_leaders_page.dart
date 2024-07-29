@@ -5,7 +5,7 @@ import 'gym_leader_detail_page.dart';
 class GymLeadersPage extends StatelessWidget {
   final String searchQuery;
 
-  GymLeadersPage({required this.searchQuery});
+  const GymLeadersPage({super.key, required this.searchQuery});
 
   @override
   Widget build(BuildContext context) {
@@ -13,11 +13,11 @@ class GymLeadersPage extends StatelessWidget {
       future: DatabaseHelper().getAllGymLeaders(searchQuery: searchQuery),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(child: CircularProgressIndicator());
+          return const Center(child: CircularProgressIndicator());
         } else if (snapshot.hasError) {
           return Center(child: Text('Error: ${snapshot.error}'));
         } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-          return Center(child: Text('No Gym Leaders found.'));
+          return const Center(child: Text('No Gym Leaders found.'));
         } else {
           return ListView.builder(
             itemCount: snapshot.data!.length,

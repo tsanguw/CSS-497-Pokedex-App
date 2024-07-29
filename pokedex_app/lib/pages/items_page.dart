@@ -4,7 +4,7 @@ import '../database_helper.dart';
 class ItemsPage extends StatelessWidget {
   final String searchQuery;
 
-  ItemsPage({required this.searchQuery});
+  const ItemsPage({super.key, required this.searchQuery});
 
   @override
   Widget build(BuildContext context) {
@@ -12,11 +12,11 @@ class ItemsPage extends StatelessWidget {
       future: DatabaseHelper().getAllItems(searchQuery: searchQuery),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(child: CircularProgressIndicator());
+          return const Center(child: CircularProgressIndicator());
         } else if (snapshot.hasError) {
           return Center(child: Text('Error: ${snapshot.error}'));
         } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-          return Center(child: Text('No items found.'));
+          return const Center(child: Text('No items found.'));
         } else {
           return ListView.builder(
             itemCount: snapshot.data!.length,

@@ -1,7 +1,6 @@
 // ignore_for_file: constant_identifier_names
 
 import 'package:flutter/material.dart';
-import 'package:sqflite/sqflite.dart';
 import 'pages/pokemon_page.dart';
 import 'pages/moves_page.dart';
 import 'pages/abilities_page.dart';
@@ -9,6 +8,7 @@ import 'pages/items_page.dart';
 import 'pages/natures_page.dart';
 import 'pages/locations_page.dart';
 import 'pages/gym_leaders_page.dart';
+import 'pages/team_builder_page.dart';
 import 'pages/damage_calculator_page.dart';
 
 
@@ -21,7 +21,7 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       home: MyHomePage(),
     );
   }
@@ -35,10 +35,13 @@ enum Section {
   NATURES,
   LOCATIONS,
   GYMLEADERS,
+  TEAMBUILDER,
   DAMAGECALCULATOR,
 }
 
 class MyHomePage extends StatefulWidget {
+  const MyHomePage({super.key});
+
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
@@ -74,16 +77,19 @@ class _MyHomePageState extends State<MyHomePage> {
         body = NaturesPage(searchQuery: _searchQuery);
         break;
       case Section.LOCATIONS:
-        body = LocationsPage();
+        body = const LocationsPage();
         break;
       case Section.GYMLEADERS:
         body = GymLeadersPage(searchQuery: _searchQuery);
         break;
+      case Section.TEAMBUILDER:
+        body = const TeamBuilderPage();
+        break;
       case Section.DAMAGECALCULATOR:
-        body = DamageCalculatorPage();
+        body = const DamageCalculatorPage();
         break;
       default:
-        body = Center(child: Text('Default Page!'));
+        body = const Center(child: Text('Default Page!'));
         break;
     }
 
@@ -101,16 +107,16 @@ class _MyHomePageState extends State<MyHomePage> {
           },
         ),
         centerTitle: true,
-        title: _selectedSection == Section.DAMAGECALCULATOR
-            ? Text('Pokedex', style: TextStyle(color: Colors.white))
+        title: _selectedSection == Section.DAMAGECALCULATOR || _selectedSection == Section.TEAMBUILDER
+            ? const Text('Pokedex', style: TextStyle(color: Colors.white))
             : TextField(
                 onChanged: _onSearchChanged,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   hintText: 'Search',
                   hintStyle: TextStyle(color: Colors.white70),
                   border: InputBorder.none,
                 ),
-                style: TextStyle(color: Colors.white, fontSize: 18),
+                style: const TextStyle(color: Colors.white, fontSize: 18),
               ),
         backgroundColor: Colors.red,
       ),
@@ -120,7 +126,7 @@ class _MyHomePageState extends State<MyHomePage> {
           children: [
             buildDrawerHeader(),
             ListTile(
-              leading: Icon(Icons.catching_pokemon),
+              leading: const Icon(Icons.catching_pokemon),
               title: const Text('Pokemon'),
               onTap: () {
                 setState(() {
@@ -130,7 +136,7 @@ class _MyHomePageState extends State<MyHomePage> {
               },
             ),
             ListTile(
-              leading: Icon(Icons.flash_on),
+              leading: const Icon(Icons.flash_on),
               title: const Text('Moves'),
               onTap: () {
                 setState(() {
@@ -140,7 +146,7 @@ class _MyHomePageState extends State<MyHomePage> {
               },
             ),
             ListTile(
-              leading: Icon(Icons.star),
+              leading: const Icon(Icons.star),
               title: const Text('Abilities'),
               onTap: () {
                 setState(() {
@@ -150,7 +156,7 @@ class _MyHomePageState extends State<MyHomePage> {
               },
             ),
             ListTile(
-              leading: Icon(Icons.backpack),
+              leading: const Icon(Icons.backpack),
               title: const Text('Items'),
               onTap: () {
                 setState(() {
@@ -160,7 +166,7 @@ class _MyHomePageState extends State<MyHomePage> {
               },
             ),
             ListTile(
-              leading: Icon(Icons.energy_savings_leaf),
+              leading: const Icon(Icons.energy_savings_leaf),
               title: const Text('Natures'),
               onTap: () {
                 setState(() {
@@ -170,7 +176,7 @@ class _MyHomePageState extends State<MyHomePage> {
               },
             ),
             ListTile(
-              leading: Icon(Icons.map),
+              leading: const Icon(Icons.map),
               title: const Text('Locations'),
               onTap: () {
                 setState(() {
@@ -180,7 +186,7 @@ class _MyHomePageState extends State<MyHomePage> {
               },
             ),
             ListTile(
-              leading: Icon(Icons.stadium),
+              leading: const Icon(Icons.stadium),
               title: const Text('Gym Leaders'),
               onTap: () {
                 setState(() {
@@ -190,7 +196,17 @@ class _MyHomePageState extends State<MyHomePage> {
               },
             ),
             ListTile(
-              leading: Icon(Icons.calculate),
+              leading: const Icon(Icons.build_circle),
+              title: const Text('Team Builder'),
+              onTap: () {
+                setState(() {
+                  _selectedSection = Section.TEAMBUILDER;
+                });
+                Navigator.of(context).pop();
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.calculate),
               title: const Text('Damage Calculator'),
               onTap: () {
                 setState(() {

@@ -5,7 +5,7 @@ import 'pokemon_detail_page.dart';
 class PokemonPage extends StatelessWidget {
   final String searchQuery;
 
-  PokemonPage({required this.searchQuery});
+  const PokemonPage({super.key, required this.searchQuery});
 
   @override
   Widget build(BuildContext context) {
@@ -13,11 +13,11 @@ class PokemonPage extends StatelessWidget {
       future: DatabaseHelper().getAllPokemon(searchQuery: searchQuery),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(child: CircularProgressIndicator());
+          return const Center(child: CircularProgressIndicator());
         } else if (snapshot.hasError) {
           return Center(child: Text('Error: ${snapshot.error}'));
         } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-          return Center(child: Text('No Pokémon found.'));
+          return const Center(child: Text('No Pokémon found.'));
         } else {
           return ListView.builder(
             itemCount: snapshot.data!.length,
@@ -37,6 +37,7 @@ class PokemonPage extends StatelessWidget {
                         abilities: pokemonDetails['abilities'],
                         resistances: pokemonDetails['resistances'],
                         weaknesses: pokemonDetails['weaknesses'],
+                        immunities: pokemonDetails['immunities'],
                       ),
                     ),
                   );
