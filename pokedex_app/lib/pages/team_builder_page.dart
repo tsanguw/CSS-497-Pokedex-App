@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'team_page.dart';
 
 class TeamBuilderPage extends StatefulWidget {
   const TeamBuilderPage({super.key});
@@ -115,114 +116,6 @@ class _TeamBuilderPageState extends State<TeamBuilderPage> {
         onPressed: _addTeam,
         child: const Icon(Icons.add),
       ),
-    );
-  }
-}
-
-class TeamPage extends StatelessWidget {
-  final String teamName;
-  final Function(String) onRename;
-  final VoidCallback onDelete;
-
-  const TeamPage({
-    super.key,
-    required this.teamName,
-    required this.onRename,
-    required this.onDelete,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(teamName),
-        actions: [
-          PopupMenuButton<String>(
-            onSelected: (value) {
-              if (value == 'Rename') {
-                _renameTeam(context);
-              } else if (value == 'Delete') {
-                _deleteTeam(context);
-              }
-            },
-            itemBuilder: (BuildContext context) {
-              return {'Rename', 'Delete'}.map((String choice) {
-                return PopupMenuItem<String>(
-                  value: choice,
-                  child: Text(choice),
-                );
-              }).toList();
-            },
-          ),
-        ],
-      ),
-      body: Center(
-        child: Text('Welcome to $teamName team page!'),
-      ),
-    );
-  }
-
-  void _renameTeam(BuildContext context) {
-    final TextEditingController renameController = TextEditingController();
-    renameController.text = teamName;
-
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Rename Team'),
-          content: TextField(
-            controller: renameController,
-            decoration: const InputDecoration(hintText: "Enter new team name"),
-          ),
-          actions: <Widget>[
-            TextButton(
-              child: const Text('Cancel'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-            TextButton(
-              child: const Text('Rename'),
-              onPressed: () {
-                if (renameController.text.isNotEmpty) {
-                  onRename(renameController.text);
-                  Navigator.of(context).pop();
-                  Navigator.of(context).pop(); // Go back to the previous screen
-                }
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
-
-  void _deleteTeam(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Delete Team'),
-          content: const Text('Are you sure you want to delete this team?'),
-          actions: <Widget>[
-            TextButton(
-              child: const Text('Cancel'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-            TextButton(
-              child: const Text('Delete'),
-              onPressed: () {
-                onDelete();
-                Navigator.of(context).pop();
-                Navigator.of(context).pop(); // Go back to the previous screen
-              },
-            ),
-          ],
-        );
-      },
     );
   }
 }

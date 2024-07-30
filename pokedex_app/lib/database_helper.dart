@@ -268,6 +268,57 @@ class DatabaseHelper {
   };
 }
 
+Future<List<Map<String, dynamic>>> getPokemonMoveset(int pokId, {int? generation, int? method}) async {
+    final db = await database;
+
+    String query = '''
+      SELECT 
+        M.move_name,
+        M.move_type,
+        M.move_power,
+        M.move_accuracy,
+        M.move_pp,
+        MM.move_method_name,
+        G.gen_name,
+        MS.level_learned
+      FROM 
+        MOVESET MS
+      JOIN 
+        MOVE M ON MS.move_id = M.move_id
+      JOIN 
+        MOVE_METHOD MM ON MS.method_id = MM.move_method_id
+      JOIN 
+        GENERATION G ON MS.gen_id = G.gen_id
+      WHERE 
+        MS.pok_id = ?
+    ''';
+
+    List<dynamic> args = [pokId];
+
+    if (generation != null) {
+      query += ' AND MS.gen_id = ?';
+      args.add(generation);
+    }
+
+    if (method != null) {
+      query += ' AND MS.method_id = ?';
+      args.add(method);
+    }
+
+    query += ' ORDER BY MS.level_learned, G.gen_name, MM.move_method_name, M.move_name';
+
+    // Debugging: Print the query and parameters
+    // print('Query: $query');
+    // print('Arguments: $args');
+
+    final result = await db.rawQuery(query, args);
+
+    // Debugging: Print the result
+    // print('Result: $result');
+
+    return result;
+  }
+
   Future<List<Map<String, dynamic>>> getAllMoves({String searchQuery = ''}) async {
     final db = await database;
     String query = '''

@@ -561,7 +561,7 @@ def get_movesets(pokemon_name):
             level_learned = version_group['level_learned_at']
 
             # Create a unique tuple and add it to the list
-            insert_statements.append(f"INSERT INTO MOVESET (pok_id, gen_id, move_id, move_method_id, level_learned) VALUES ({pok_id}, {gen_id}, {move_id}, {method_id}, {level_learned});")
+            insert_statements.append(f"INSERT INTO MOVESET (pok_id, gen_id, move_id, method_id, level_learned) VALUES ({pok_id}, {gen_id}, {move_id}, {method_id}, {level_learned});")
 
             for insert_statement in insert_statements:
                 print(insert_statement)
@@ -672,7 +672,7 @@ def get_pok_types(limit=GEN_LIMIT):
 # get_base_stats()
 # get_individual_values()
 # get_effort_values()
-get_moves()
+# get_moves()
 # get_pok_abilities()
 # get_pok_types()
 
@@ -682,4 +682,4 @@ get_moves()
 
 # Moveset functions
 # get_gen_movesets()
-# get_movesets('squirtle')
+get_movesets('bulbasaur')

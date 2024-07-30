@@ -122,7 +122,7 @@ CREATE TABLE MOVESET (
     gen_id INT,
     move_id INT,
     method_id INT,
-    learn_level INT CHECK (learn_level >= 0),
+    level_learned INT CHECK (level_learned >= 0),
     PRIMARY KEY (pok_id, gen_id, move_id, method_id),
     FOREIGN KEY (pok_id) REFERENCES POKEMON(pok_id),
     FOREIGN KEY (gen_id) REFERENCES GENERATION(gen_id),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import '../database_helper.dart';
 
-class PokemonDetailPage extends StatelessWidget {
+class PokemonDetailPage extends StatefulWidget {
   final Map<String, dynamic> pokemon;
   final List<Map<String, dynamic>> evolutions;
   final List<Map<String, dynamic>> abilities;
@@ -19,10 +20,36 @@ class PokemonDetailPage extends StatelessWidget {
   });
 
   @override
+  _PokemonDetailPageState createState() => _PokemonDetailPageState();
+}
+
+class _PokemonDetailPageState extends State<PokemonDetailPage> {
+  int? _selectedGeneration;
+  int? _selectedMethod;
+  List<Map<String, dynamic>> _moveset = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchMoveset();
+  }
+
+  Future<void> _fetchMoveset() async {
+    final moveset = await DatabaseHelper().getPokemonMoveset(
+      widget.pokemon['pok_id'],
+      generation: _selectedGeneration,
+      method: _selectedMethod,
+    );
+    setState(() {
+      _moveset = moveset;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(pokemon['pok_name']),
+        title: Text(widget.pokemon['pok_name']),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -32,7 +59,7 @@ class PokemonDetailPage extends StatelessWidget {
             children: [
               Center(
                 child: Image.asset(
-                  'assets/sprites/pokemon/other/official-artwork/${pokemon['pok_id']}.png',
+                  'assets/sprites/pokemon/other/official-artwork/${widget.pokemon['pok_id']}.png',
                   height: 200,
                   width: 200,
                   fit: BoxFit.cover,
@@ -42,26 +69,26 @@ class PokemonDetailPage extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 16),
-              Text('Name: ${pokemon['pok_name']}', style: const TextStyle(fontSize: 24)),
+              Text('Name: ${widget.pokemon['pok_name']}', style: const TextStyle(fontSize: 24)),
               const SizedBox(height: 8),
-              Text('Type: ${pokemon['types']}', style: const TextStyle(fontSize: 18)),
+              Text('Type: ${widget.pokemon['types']}', style: const TextStyle(fontSize: 18)),
               const SizedBox(height: 8),
-              Text('Height: ${pokemon['pok_height'].toString()} meters', style: const TextStyle(fontSize: 18)),
+              Text('Height: ${widget.pokemon['pok_height'].toString()} meters', style: const TextStyle(fontSize: 18)),
               const SizedBox(height: 8),
-              Text('Weight: ${pokemon['pok_weight'].toString()} kg', style: const TextStyle(fontSize: 18)),
+              Text('Weight: ${widget.pokemon['pok_weight'].toString()} kg', style: const TextStyle(fontSize: 18)),
               const SizedBox(height: 16),
               const Text('Base Stats:', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
               const SizedBox(height: 8),
-              Text('HP: ${pokemon['b_hp']}', style: const TextStyle(fontSize: 18)),
-              Text('Attack: ${pokemon['b_atk']}', style: const TextStyle(fontSize: 18)),
-              Text('Defense: ${pokemon['b_def']}', style: const TextStyle(fontSize: 18)),
-              Text('Special Attack: ${pokemon['b_sp_atk']}', style: const TextStyle(fontSize: 18)),
-              Text('Special Defense: ${pokemon['b_sp_def']}', style: const TextStyle(fontSize: 18)),
-              Text('Speed: ${pokemon['b_speed']}', style: const TextStyle(fontSize: 18)),
+              Text('HP: ${widget.pokemon['b_hp']}', style: const TextStyle(fontSize: 18)),
+              Text('Attack: ${widget.pokemon['b_atk']}', style: const TextStyle(fontSize: 18)),
+              Text('Defense: ${widget.pokemon['b_def']}', style: const TextStyle(fontSize: 18)),
+              Text('Special Attack: ${widget.pokemon['b_sp_atk']}', style: const TextStyle(fontSize: 18)),
+              Text('Special Defense: ${widget.pokemon['b_sp_def']}', style: const TextStyle(fontSize: 18)),
+              Text('Speed: ${widget.pokemon['b_speed']}', style: const TextStyle(fontSize: 18)),
               const SizedBox(height: 16),
               const Text('Abilities:', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
               const SizedBox(height: 8),
-              for (var ability in abilities)
+              for (var ability in widget.abilities)
                 ListTile(
                   title: Text(
                     ability['abi_name'],
@@ -77,7 +104,7 @@ class PokemonDetailPage extends StatelessWidget {
               const SizedBox(height: 16),
               const Text('Evolutions:', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
               const SizedBox(height: 8),
-              for (var evolution in evolutions)
+              for (var evolution in widget.evolutions)
                 ListTile(
                   title: Text(
                     '${evolution['pre_evol_pok_name'] ?? 'N/A'} -> ${evolution['evol_pok_name'] ?? 'N/A'}',
@@ -89,18 +116,76 @@ class PokemonDetailPage extends StatelessWidget {
               const SizedBox(height: 16),
               const Text('Weaknesses:', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
               const SizedBox(height: 8),
-              for (var weakness in weaknesses)
+              for (var weakness in widget.weaknesses)
                 Text('${weakness['type_name']} (x${weakness['effectiveness']})', style: const TextStyle(fontSize: 18)),
               const SizedBox(height: 16),
               const Text('Resistances:', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
               const SizedBox(height: 8),
-              for (var resistance in resistances)
+              for (var resistance in widget.resistances)
                 Text('${resistance['type_name']} (x${resistance['effectiveness']})', style: const TextStyle(fontSize: 18)),
               const SizedBox(height: 16),
               const Text('Immunities:', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
               const SizedBox(height: 8),
-              for (var immunity in immunities)
+              for (var immunity in widget.immunities)
                 Text('${immunity['type_name']}', style: const TextStyle(fontSize: 18)),
+              const SizedBox(height: 16),
+              const Text('Moveset:', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+              const SizedBox(height: 8),
+              Row(
+                children: [
+                  Expanded(
+                    child: DropdownButton<int>(
+                      hint: const Text('Select Generation'),
+                      value: _selectedGeneration,
+                      items: List.generate(8, (index) => index + 1)
+                          .map((gen) => DropdownMenuItem<int>(
+                                value: gen,
+                                child: Text('Generation $gen'),
+                              ))
+                          .toList(),
+                      onChanged: (value) {
+                        setState(() {
+                          _selectedGeneration = value;
+                          _fetchMoveset();
+                        });
+                      },
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: DropdownButton<int>(
+                      hint: const Text('Select Method'),
+                      value: _selectedMethod,
+                      items: [
+                        {'id': 1, 'name': 'Level Up'},
+                        {'id': 2, 'name': 'TM/HM'},
+                        {'id': 3, 'name': 'Egg Move'},
+                        {'id': 4, 'name': 'Tutor'}
+                      ].map<DropdownMenuItem<int>>((method) {
+                        return DropdownMenuItem<int>(
+                          value: method['id'] as int,
+                          child: Text(method['name'] as String),
+                        );
+                      }).toList(),
+                      onChanged: (value) {
+                        setState(() {
+                          _selectedMethod = value;
+                          _fetchMoveset();
+                        });
+                      },
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 8),
+              if (_moveset.isEmpty)
+                const Text('No moves available for the selected filters.', style: TextStyle(fontSize: 18))
+              else
+                for (var move in _moveset)
+                  ListTile(
+                    title: Text('${move['level_learned']} | ${move['move_name']}'),
+                    subtitle: Text('Type: ${move['move_type']} | Power: ${move['move_power'] ?? 'N/A'} | Accuracy: ${move['move_accuracy'] ?? 'N/A'} | PP: ${move['move_pp'] ?? 'N/A'}'),
+                  ),
             ],
           ),
         ),

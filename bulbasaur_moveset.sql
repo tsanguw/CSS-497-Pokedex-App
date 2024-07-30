@@ -507,3 +507,29 @@ INSERT INTO MOVESET (pok_id, gen_id, move_id, move_method_id, level_learned) VAL
 INSERT INTO MOVESET (pok_id, gen_id, move_id, move_method_id, level_learned) VALUES (1, 7, 580, 2, 0);
 INSERT INTO MOVESET (pok_id, gen_id, move_id, move_method_id, level_learned) VALUES (1, 8, 214, 4, 0);
 INSERT INTO MOVESET (pok_id, gen_id, move_id, move_method_id, level_learned) VALUES (1, 3, 320, 2, 0);
+
+-- Inserts for TABLE: MOVESET (ONLY FOR BULBASAUR GEN 1)
+INSERT INTO MOVESET (pok_id, gen_id, move_id, method_id, level_learned) VALUES (1, 1, 102, 4, 0);
+INSERT INTO MOVESET (pok_id, gen_id, move_id, method_id, level_learned) VALUES (1, 1, 36, 4, 0);
+INSERT INTO MOVESET (pok_id, gen_id, move_id, method_id, level_learned) VALUES (1, 1, 117, 4, 0);
+INSERT INTO MOVESET (pok_id, gen_id, move_id, method_id, level_learned) VALUES (1, 1, 77, 1, 20);
+INSERT INTO MOVESET (pok_id, gen_id, move_id, method_id, level_learned) VALUES (1, 1, 74, 1, 34);
+INSERT INTO MOVESET (pok_id, gen_id, move_id, method_id, level_learned) VALUES (1, 1, 76, 1, 48);
+INSERT INTO MOVESET (pok_id, gen_id, move_id, method_id, level_learned) VALUES (1, 1, 156, 4, 0);
+INSERT INTO MOVESET (pok_id, gen_id, move_id, method_id, level_learned) VALUES (1, 1, 45, 1, 1);
+INSERT INTO MOVESET (pok_id, gen_id, move_id, method_id, level_learned) VALUES (1, 1, 72, 4, 0);
+INSERT INTO MOVESET (pok_id, gen_id, move_id, method_id, level_learned) VALUES (1, 1, 14, 4, 0);
+INSERT INTO MOVESET (pok_id, gen_id, move_id, method_id, level_learned) VALUES (1, 1, 115, 4, 0);
+INSERT INTO MOVESET (pok_id, gen_id, move_id, method_id, level_learned) VALUES (1, 1, 75, 1, 27);
+INSERT INTO MOVESET (pok_id, gen_id, move_id, method_id, level_learned) VALUES (1, 1, 104, 4, 0);
+INSERT INTO MOVESET (pok_id, gen_id, move_id, method_id, level_learned) VALUES (1, 1, 99, 4, 0);
+INSERT INTO MOVESET (pok_id, gen_id, move_id, method_id, level_learned) VALUES (1, 1, 164, 4, 0);
+INSERT INTO MOVESET (pok_id, gen_id, move_id, method_id, level_learned) VALUES (1, 1, 33, 1, 1);
+INSERT INTO MOVESET (pok_id, gen_id, move_id, method_id, level_learned) VALUES (1, 1, 76, 4, 0);
+INSERT INTO MOVESET (pok_id, gen_id, move_id, method_id, level_learned) VALUES (1, 1, 79, 1, 41);
+INSERT INTO MOVESET (pok_id, gen_id, move_id, method_id, level_learned) VALUES (1, 1, 38, 4, 0);
+INSERT INTO MOVESET (pok_id, gen_id, move_id, method_id, level_learned) VALUES (1, 1, 92, 4, 0);
+INSERT INTO MOVESET (pok_id, gen_id, move_id, method_id, level_learned) VALUES (1, 1, 34, 4, 0);
+INSERT INTO MOVESET (pok_id, gen_id, move_id, method_id, level_learned) VALUES (1, 1, 22, 1, 13);
+INSERT INTO MOVESET (pok_id, gen_id, move_id, method_id, level_learned) VALUES (1, 1, 73, 1, 7);
+INSERT INTO MOVESET (pok_id, gen_id, move_id, method_id, level_learned) VALUES (1, 1, 15, 4, 0);
