@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../database_helper.dart';
+import 'move_detail_page.dart';
 
 class MovesPage extends StatelessWidget {
   final String searchQuery;
@@ -25,6 +26,14 @@ class MovesPage extends StatelessWidget {
               return ListTile(
                 title: Text('${move['move_name']}'),
                 subtitle: Text('Type: ${move['type_name']} | Power: ${move['move_power']} | Accuracy: ${move['move_accuracy']}%'),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => MoveDetailPage(moveId: move['move_id']),
+                    ),
+                  );
+                },
               );
             },
           );

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../database_helper.dart';
+import 'ability_detail_page.dart';
 
 class AbilitiesPage extends StatelessWidget {
   final String searchQuery;
@@ -25,6 +26,14 @@ class AbilitiesPage extends StatelessWidget {
               return ListTile(
                 title: Text('${ability['abi_name']}'),
                 subtitle: Text('${ability['abi_desc']}'),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => AbilityDetailPage(abilityId: ability['abi_id']),
+                    ),
+                  );
+                },
               );
             },
           );

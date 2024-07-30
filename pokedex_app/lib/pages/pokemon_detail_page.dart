@@ -158,9 +158,9 @@ class _PokemonDetailPageState extends State<PokemonDetailPage> {
                       value: _selectedMethod,
                       items: [
                         {'id': 1, 'name': 'Level Up'},
-                        {'id': 2, 'name': 'TM/HM'},
-                        {'id': 3, 'name': 'Egg Move'},
-                        {'id': 4, 'name': 'Tutor'}
+                        {'id': 2, 'name': 'Egg Move'},
+                        {'id': 3, 'name': 'Tutor'},
+                        {'id': 4, 'name': 'TM/HM'}
                       ].map<DropdownMenuItem<int>>((method) {
                         return DropdownMenuItem<int>(
                           value: method['id'] as int,

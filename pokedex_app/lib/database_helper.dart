@@ -42,7 +42,8 @@ class DatabaseHelper {
       }
 
       ByteData data = await rootBundle.load(join('assets', 'pokedex.db'));
-      List<int> bytes = data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
+      List<int> bytes =
+          data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
 
       await File(path).writeAsBytes(bytes, flush: true);
       print("Database copied successfully from assets to $path");
@@ -52,7 +53,8 @@ class DatabaseHelper {
     }
   }
 
-  Future<List<Map<String, dynamic>>> getAllPokemon({String searchQuery = ''}) async {
+  Future<List<Map<String, dynamic>>> getAllPokemon(
+      {String searchQuery = ''}) async {
     final db = await database;
     String query = '''
       SELECT 
@@ -95,10 +97,10 @@ class DatabaseHelper {
   }
 
   Future<Map<String, dynamic>> getPokemonDetails(int pokId) async {
-  final db = await database;
+    final db = await database;
 
-  // Fetch Pokémon details
-  final pokemonResult = await db.rawQuery('''
+    // Fetch Pokémon details
+    final pokemonResult = await db.rawQuery('''
     SELECT 
       P.pok_id,
       P.pok_name,
@@ -126,8 +128,8 @@ class DatabaseHelper {
       P.pok_id, P.pok_name
   ''', [pokId]);
 
-  // Fetch evolutions
-  final evolutionsResult = await db.rawQuery('''
+    // Fetch evolutions
+    final evolutionsResult = await db.rawQuery('''
     SELECT 
       E.pre_evol_pok_id,
       PE.pok_name AS pre_evol_pok_name,
@@ -147,20 +149,20 @@ class DatabaseHelper {
       E.pre_evol_pok_id = ? OR E.evol_pok_id = ?
   ''', [pokId, pokId]);
 
-  List<Map<String, dynamic>> evolutionResults = List.from(evolutionsResult);
-  Set<String> uniqueEvolutions = evolutionResults.map((evolution) {
-    return '${evolution['pre_evol_pok_id']}-${evolution['evol_pok_id']}-${evolution['evol_method_name']}';
-  }).toSet();
+    List<Map<String, dynamic>> evolutionResults = List.from(evolutionsResult);
+    Set<String> uniqueEvolutions = evolutionResults.map((evolution) {
+      return '${evolution['pre_evol_pok_id']}-${evolution['evol_pok_id']}-${evolution['evol_method_name']}';
+    }).toSet();
 
-  Set<int> evolutionIds = evolutionResults.expand((evolution) {
-    return [
-      evolution['pre_evol_pok_id'] as int?,
-      evolution['evol_pok_id'] as int?
-    ].whereType<int>().toSet();
-  }).toSet();
+    Set<int> evolutionIds = evolutionResults.expand((evolution) {
+      return [
+        evolution['pre_evol_pok_id'] as int?,
+        evolution['evol_pok_id'] as int?
+      ].whereType<int>().toSet();
+    }).toSet();
 
-  for (int id in evolutionIds) {
-    final additionalEvolutions = await db.rawQuery('''
+    for (int id in evolutionIds) {
+      final additionalEvolutions = await db.rawQuery('''
       SELECT 
         E.pre_evol_pok_id,
         PE.pok_name AS pre_evol_pok_name,
@@ -180,17 +182,18 @@ class DatabaseHelper {
         E.pre_evol_pok_id = ? OR E.evol_pok_id = ?
     ''', [id, id]);
 
-    for (var evolution in additionalEvolutions) {
-      String evolutionKey = '${evolution['pre_evol_pok_id']}-${evolution['evol_pok_id']}-${evolution['evol_method_name']}';
-      if (!uniqueEvolutions.contains(evolutionKey)) {
-        evolutionResults.add(evolution);
-        uniqueEvolutions.add(evolutionKey);
+      for (var evolution in additionalEvolutions) {
+        String evolutionKey =
+            '${evolution['pre_evol_pok_id']}-${evolution['evol_pok_id']}-${evolution['evol_method_name']}';
+        if (!uniqueEvolutions.contains(evolutionKey)) {
+          evolutionResults.add(evolution);
+          uniqueEvolutions.add(evolutionKey);
+        }
       }
     }
-  }
 
-  // Fetch abilities
-  final abilitiesResult = await db.rawQuery('''
+    // Fetch abilities
+    final abilitiesResult = await db.rawQuery('''
     SELECT 
       A.abi_name,
       PA.is_hidden
@@ -202,8 +205,8 @@ class DatabaseHelper {
       PA.pok_id = ?
   ''', [pokId]);
 
-  // Extract type IDs
-  final typeIdsResult = await db.rawQuery('''
+    // Extract type IDs
+    final typeIdsResult = await db.rawQuery('''
     SELECT
       PBT.type_id
     FROM
@@ -212,10 +215,11 @@ class DatabaseHelper {
       PBT.pok_id = ?
   ''', [pokId]);
 
-  List<int> typeIds = typeIdsResult.map((type) => type['type_id'] as int).toList();
+    List<int> typeIds =
+        typeIdsResult.map((type) => type['type_id'] as int).toList();
 
-  // Fetch type effectiveness
-  final typeEfficacyResults = await db.rawQuery('''
+    // Fetch type effectiveness
+    final typeEfficacyResults = await db.rawQuery('''
     SELECT
       T.type_name,
       TE.type_id,
@@ -229,46 +233,48 @@ class DatabaseHelper {
       TE.type_id IN (${typeIds.join(', ')})
   ''');
 
-  Map<String, double> typeEffectiveness = {};
+    Map<String, double> typeEffectiveness = {};
 
-  for (var result in typeEfficacyResults) {
-    String? typeName = result['type_name'] as String?;
-    double? effectiveness = result['dmg_factor'] as double?;
+    for (var result in typeEfficacyResults) {
+      String? typeName = result['type_name'] as String?;
+      double? effectiveness = result['dmg_factor'] as double?;
 
-    if (typeName != null && effectiveness != null) {
-      if (typeEffectiveness.containsKey(typeName)) {
-        typeEffectiveness[typeName] = typeEffectiveness[typeName]! * effectiveness;
-      } else {
-        typeEffectiveness[typeName] = effectiveness;
+      if (typeName != null && effectiveness != null) {
+        if (typeEffectiveness.containsKey(typeName)) {
+          typeEffectiveness[typeName] =
+              typeEffectiveness[typeName]! * effectiveness;
+        } else {
+          typeEffectiveness[typeName] = effectiveness;
+        }
       }
     }
+
+    List<Map<String, dynamic>> weaknesses = [];
+    List<Map<String, dynamic>> resistances = [];
+    List<Map<String, dynamic>> immunities = [];
+
+    typeEffectiveness.forEach((type, effectiveness) {
+      if (effectiveness == 0) {
+        immunities.add({'type_name': type});
+      } else if (effectiveness > 1) {
+        weaknesses.add({'type_name': type, 'effectiveness': effectiveness});
+      } else if (effectiveness < 1) {
+        resistances.add({'type_name': type, 'effectiveness': effectiveness});
+      }
+    });
+
+    return {
+      'pokemon': pokemonResult.isNotEmpty ? pokemonResult.first : null,
+      'evolutions': evolutionResults,
+      'abilities': abilitiesResult,
+      'weaknesses': weaknesses,
+      'resistances': resistances,
+      'immunities': immunities,
+    };
   }
 
-  List<Map<String, dynamic>> weaknesses = [];
-  List<Map<String, dynamic>> resistances = [];
-  List<Map<String, dynamic>> immunities = [];
-
-  typeEffectiveness.forEach((type, effectiveness) {
-    if (effectiveness == 0) {
-      immunities.add({'type_name': type});
-    } else if (effectiveness > 1) {
-      weaknesses.add({'type_name': type, 'effectiveness': effectiveness});
-    } else if (effectiveness < 1) {
-      resistances.add({'type_name': type, 'effectiveness': effectiveness});
-    }
-  });
-
-  return {
-    'pokemon': pokemonResult.isNotEmpty ? pokemonResult.first : null,
-    'evolutions': evolutionResults,
-    'abilities': abilitiesResult,
-    'weaknesses': weaknesses,
-    'resistances': resistances,
-    'immunities': immunities,
-  };
-}
-
-Future<List<Map<String, dynamic>>> getPokemonMoveset(int pokId, {int? generation, int? method}) async {
+  Future<List<Map<String, dynamic>>> getPokemonMoveset(int pokId,
+      {int? generation, int? method}) async {
     final db = await database;
 
     String query = '''
@@ -305,7 +311,8 @@ Future<List<Map<String, dynamic>>> getPokemonMoveset(int pokId, {int? generation
       args.add(method);
     }
 
-    query += ' ORDER BY MS.level_learned, G.gen_name, MM.move_method_name, M.move_name';
+    query +=
+        ' ORDER BY MS.level_learned, G.gen_name, MM.move_method_name, M.move_name';
 
     // Debugging: Print the query and parameters
     // print('Query: $query');
@@ -319,7 +326,8 @@ Future<List<Map<String, dynamic>>> getPokemonMoveset(int pokId, {int? generation
     return result;
   }
 
-  Future<List<Map<String, dynamic>>> getAllMoves({String searchQuery = ''}) async {
+  Future<List<Map<String, dynamic>>> getAllMoves(
+      {String searchQuery = ''}) async {
     final db = await database;
     String query = '''
       SELECT 
@@ -348,8 +356,71 @@ Future<List<Map<String, dynamic>>> getPokemonMoveset(int pokId, {int? generation
     final result = await db.rawQuery(query);
     return result;
   }
+  
+  Future<Map<String, dynamic>> getMoveDetails(int moveId) async {
+    final db = await database;
 
-  Future<List<Map<String, dynamic>>> getAllAbilities({String searchQuery = ''}) async {
+    final result = await db.rawQuery('''
+      SELECT 
+        M.move_id,
+        M.move_name,
+        T.type_name,
+        M.move_power,
+        M.move_accuracy,
+        M.move_pp,
+        M.move_effect
+      FROM 
+        MOVE M
+      JOIN 
+        TYPE T ON M.type_id = T.type_id
+      WHERE 
+        M.move_id = ?
+    ''', [moveId]);
+
+    return result.isNotEmpty ? result.first : {};
+  }
+  
+  Future<List<Map<String, dynamic>>> getPokemonWithMove(int moveId, {int? generation, int? method}) async {
+    final db = await database;
+
+    String query = '''
+      SELECT 
+        P.pok_id,
+        P.pok_name,
+        GROUP_CONCAT(T.type_name, ', ') AS types
+      FROM 
+        POKEMON P
+      JOIN 
+        MOVESET MS ON P.pok_id = MS.pok_id
+      JOIN 
+        POKEMON_BEARS_TYPE PBT ON P.pok_id = PBT.pok_id
+      JOIN 
+        TYPE T ON PBT.type_id = T.type_id
+      WHERE 
+        MS.move_id = ?
+    ''';
+
+    List<dynamic> args = [moveId];
+
+    if (generation != null) {
+      query += ' AND MS.gen_id = ?';
+      args.add(generation);
+    }
+
+    if (method != null) {
+      query += ' AND MS.method_id = ?';
+      args.add(method);
+    }
+
+    query += ' GROUP BY P.pok_id, P.pok_name ORDER BY P.pok_id';
+
+    final result = await db.rawQuery(query, args);
+
+    return result;
+  }
+
+  Future<List<Map<String, dynamic>>> getAllAbilities(
+      {String searchQuery = ''}) async {
     final db = await database;
     String query = '''
       SELECT 
@@ -375,7 +446,54 @@ Future<List<Map<String, dynamic>>> getPokemonMoveset(int pokId, {int? generation
     return result;
   }
 
-  Future<List<Map<String, dynamic>>> getAllNatures({String searchQuery = ''}) async {
+  Future<Map<String, dynamic>> getAbilityDetails(int abilityId) async {
+    final db = await database;
+
+    final result = await db.rawQuery('''
+      SELECT 
+        abi_id,
+        abi_name,
+        abi_desc
+      FROM 
+        ABILITIES
+      WHERE 
+        abi_id = ?
+    ''', [abilityId]);
+
+    return result.isNotEmpty ? result.first : {};
+  }
+
+  Future<List<Map<String, dynamic>>> getPokemonWithAbility(int abilityId) async {
+    final db = await database;
+
+    final result = await db.rawQuery('''
+      SELECT 
+        P.pok_id,
+        P.pok_name,
+        P.pok_height,
+        P.pok_weight,
+        GROUP_CONCAT(T.type_name, ', ') AS types
+      FROM 
+        POKEMON P
+      JOIN 
+        POKEMON_POSSESSES_ABILITY PA ON P.pok_id = PA.pok_id
+      JOIN 
+        POKEMON_BEARS_TYPE PBT ON P.pok_id = PBT.pok_id
+      JOIN 
+        TYPE T ON PBT.type_id = T.type_id
+      WHERE 
+        PA.abi_id = ?
+      GROUP BY 
+        P.pok_id, P.pok_name
+      ORDER BY 
+        P.pok_id
+    ''', [abilityId]);
+
+    return result;
+  }
+
+  Future<List<Map<String, dynamic>>> getAllNatures(
+      {String searchQuery = ''}) async {
     final db = await database;
     String query = '''
       SELECT 
@@ -413,7 +531,8 @@ Future<List<Map<String, dynamic>>> getPokemonMoveset(int pokId, {int? generation
 
   List<Map<String, dynamic>>? _cachedItems;
 
-  Future<List<Map<String, dynamic>>> getAllItems({String searchQuery = ''}) async {
+  Future<List<Map<String, dynamic>>> getAllItems(
+      {String searchQuery = ''}) async {
     // Try to load the cached list from shared preferences if available and the search query is empty
     if (_cachedItems == null && searchQuery.isEmpty) {
       _cachedItems = await _loadCachedItems();
@@ -483,7 +602,8 @@ Future<List<Map<String, dynamic>>> getPokemonMoveset(int pokId, {int? generation
     return null;
   }
 
-  Future<List<Map<String, dynamic>>> getAllGymLeaders({String searchQuery = ''}) async {
+  Future<List<Map<String, dynamic>>> getAllGymLeaders(
+      {String searchQuery = ''}) async {
     final db = await database;
     String query = '''
       SELECT 
