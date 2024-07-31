@@ -47,22 +47,22 @@ class _MoveDetailPageState extends State<MoveDetailPage> {
           final move = snapshot.data!;
           return Scaffold(
             appBar: AppBar(
-              title: Text(move['move_name']),
+              title: Text(move['move_name'] ?? 'Unknown Move'),
             ),
             body: Padding(
               padding: const EdgeInsets.all(16.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Name: ${move['move_name']}', style: const TextStyle(fontSize: 24)),
+                  Text('Name: ${move['move_name'] ?? 'Unknown'}', style: const TextStyle(fontSize: 24)),
                   const SizedBox(height: 8),
-                  Text('Type: ${move['type_name']}', style: const TextStyle(fontSize: 18)),
+                  Text('Type: ${move['type_name'] ?? 'Unknown'}', style: const TextStyle(fontSize: 18)),
                   const SizedBox(height: 8),
-                  Text('Power: ${move['move_power']}', style: const TextStyle(fontSize: 18)),
+                  Text('Power: ${move['move_power'] ?? 'N/A'}', style: const TextStyle(fontSize: 18)),
                   const SizedBox(height: 8),
-                  Text('Accuracy: ${move['move_accuracy']}%', style: const TextStyle(fontSize: 18)),
+                  Text('Accuracy: ${move['move_accuracy'] ?? 'N/A'}%', style: const TextStyle(fontSize: 18)),
                   const SizedBox(height: 8),
-                  Text('PP: ${move['move_pp']}', style: const TextStyle(fontSize: 18)),
+                  Text('PP: ${move['move_pp'] ?? 'N/A'}', style: const TextStyle(fontSize: 18)),
                   const SizedBox(height: 8),
                   Text('Effect: ${move['move_effect'] ?? 'No effect description available'}', style: const TextStyle(fontSize: 18)),
                   const SizedBox(height: 16),

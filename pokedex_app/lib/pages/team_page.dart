@@ -1,4 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:convert';
+
+import 'pokemon_selector_page.dart';
+import 'pokemon_detail_page.dart';
+import 'pokemon_moves_page.dart';
 
 class TeamPage extends StatefulWidget {
   final String teamName;
@@ -17,49 +23,251 @@ class TeamPage extends StatefulWidget {
 }
 
 class _TeamPageState extends State<TeamPage> {
-  final List<String> _teamMembers = [];
-  final TextEditingController _pokemonNameController = TextEditingController();
+  List<Map<String, dynamic>> _team = [];
 
-  void _addPokemon() {
-    if (_teamMembers.length < 6) {
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: const Text('Add Pokémon'),
-            content: TextField(
-              controller: _pokemonNameController,
-              decoration: const InputDecoration(hintText: "Enter Pokémon name"),
-            ),
-            actions: <Widget>[
-              TextButton(
-                child: const Text('Cancel'),
-                onPressed: () {
-                  _pokemonNameController.clear();
-                  Navigator.of(context).pop();
+  @override
+  void initState() {
+    super.initState();
+    _loadTeam();
+  }
+
+  Future<void> _loadTeam() async {
+    final prefs = await SharedPreferences.getInstance();
+    final teamString = prefs.getString(widget.teamName);
+    if (teamString != null) {
+      final teamList = json.decode(teamString) as List<dynamic>;
+      setState(() {
+        _team = teamList.map((pokemon) {
+          return {
+            ...pokemon as Map<String, dynamic>,
+            'moves': (pokemon['moves'] as List<dynamic>)
+                .map((move) => move == null ? null : move as Map<String, dynamic>)
+                .toList()
+          };
+        }).toList();
+      });
+    }
+  }
+
+  Future<void> _saveTeam() async {
+    final prefs = await SharedPreferences.getInstance();
+    final teamString = json.encode(_team);
+    await prefs.setString(widget.teamName, teamString);
+  }
+
+  void _addPokemonToTeam(Map<String, dynamic> pokemon) {
+    setState(() {
+      if (_team.length < 6) {
+        _team.add({
+          ...pokemon,
+          'moves': List<Map<String, dynamic>?>.filled(4, null),
+        });
+        _saveTeam();
+      }
+    });
+  }
+
+  void _removePokemonFromTeam(int index) {
+    setState(() {
+      _team.removeAt(index);
+      _saveTeam();
+    });
+  }
+
+  void _setPokemonMove(int pokemonIndex, int moveIndex, Map<String, dynamic> move) {
+    setState(() {
+      // Initialize the moves list if it is null
+      if (_team[pokemonIndex]['moves'] == null) {
+        _team[pokemonIndex]['moves'] = List<Map<String, dynamic>?>.filled(4, null);
+      }
+      print('Setting move at index $moveIndex for Pokémon at index $pokemonIndex');
+      print('Before setting: ${_team[pokemonIndex]['moves']}');
+      _team[pokemonIndex]['moves'][moveIndex] = move;
+      print('After setting: ${_team[pokemonIndex]['moves']}');
+      _saveTeam();
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.teamName),
+        actions: [
+          PopupMenuButton<String>(
+            onSelected: (value) {
+              if (value == 'Rename') {
+                _renameTeam(context);
+              } else if (value == 'Delete') {
+                _deleteTeam(context);
+              }
+            },
+            itemBuilder: (BuildContext context) {
+              return {'Rename', 'Delete'}.map((String choice) {
+                return PopupMenuItem<String>(
+                  value: choice,
+                  child: Text(choice),
+                );
+              }).toList();
+            },
+          ),
+        ],
+      ),
+      body: Column(
+        children: [
+          if (_team.isEmpty)
+            const Center(
+              child: Text('No Pokémon in the team. Add some!'),
+            )
+          else
+            Expanded(
+              child: ListView.builder(
+                itemCount: _team.length,
+                itemBuilder: (context, index) {
+                  final pokemon = _team[index];
+                  return ExpansionTile(
+                    leading: Image.asset(
+                      'assets/sprites/pokemon/other/official-artwork/${pokemon['pok_id']}.png',
+                      height: 50,
+                      width: 50,
+                      fit: BoxFit.cover,
+                      errorBuilder: (context, error, stackTrace) {
+                        return const Text('Image not available');
+                      },
+                    ),
+                    title: Text('${pokemon['pok_id']}. ${pokemon['pok_name']}'),
+                    subtitle: Text('Type: ${pokemon['types']}'),
+                    children: [
+                      GridView.builder(
+                        shrinkWrap: true,
+                        padding: const EdgeInsets.all(8.0),
+                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          childAspectRatio: 3,
+                        ),
+                        itemCount: 4,
+                        itemBuilder: (context, moveIndex) {
+                          final moves = pokemon['moves'] as List<Map<String, dynamic>?>?;
+                          final move = moves?[moveIndex];
+                          return GestureDetector(
+                            onTap: () async {
+                              final selectedMove = await Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => PokemonMovesPage(
+                                    pokemonId: pokemon['pok_id'],
+                                    pokemonName: pokemon['pok_name'],
+                                  ),
+                                ),
+                              );
+                              if (selectedMove != null) {
+                                _setPokemonMove(index, moveIndex, selectedMove);
+                              }
+                            },
+                            child: Card(
+                              color: Colors.grey[200],
+                              child: Center(
+                                child: Text(
+                                  move != null ? move['move_name'] : 'Select Move',
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          _showOptionsDialog(context, index, pokemon);
+                        },
+                        child: const Text('Options'),
+                      ),
+                    ],
+                  );
                 },
               ),
+            ),
+        ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+          final selectedPokemon = await Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => PokemonSelectorPage(teamName: widget.teamName, searchQuery: ''),
+            ),
+          );
+
+          if (selectedPokemon != null) {
+            _addPokemonToTeam(selectedPokemon);
+          }
+        },
+        child: const Icon(Icons.add),
+      ),
+    );
+  }
+
+  void _showOptionsDialog(BuildContext context, int index, Map<String, dynamic> pokemon) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Options for ${pokemon['pok_name']}'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
               TextButton(
-                child: const Text('Add'),
                 onPressed: () {
-                  if (_pokemonNameController.text.isNotEmpty) {
+                  Navigator.of(context).pop();
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => PokemonDetailPage(
+                        pokemon: pokemon,
+                        evolutions: const [], // Replace with actual data
+                        abilities: const [], // Replace with actual data
+                        weaknesses: const [], // Replace with actual data
+                        resistances: const [], // Replace with actual data
+                        immunities: const [], // Replace with actual data
+                      ),
+                    ),
+                  );
+                },
+                child: const Text('View Pokémon Info'),
+              ),
+              TextButton(
+                onPressed: () async {
+                  Navigator.of(context).pop();
+                  final selectedPokemon = await Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => PokemonSelectorPage(teamName: widget.teamName, searchQuery: ''),
+                    ),
+                  );
+                  if (selectedPokemon != null) {
                     setState(() {
-                      _teamMembers.add(_pokemonNameController.text);
+                      _team[index] = {
+                        ...selectedPokemon,
+                        'moves': List<Map<String, dynamic>?>.filled(4, null),
+                      };
+                      _saveTeam();
                     });
-                    _pokemonNameController.clear();
-                    Navigator.of(context).pop();
                   }
                 },
+                child: const Text('Replace Pokémon'),
+              ),
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  _removePokemonFromTeam(index);
+                },
+                child: const Text('Remove Pokémon'),
               ),
             ],
-          );
-        },
-      );
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('A team can have up to 6 Pokémon only.')),
-      );
-    }
+          ),
+        );
+      },
+    );
   }
 
   void _renameTeam(BuildContext context) {
@@ -114,7 +322,9 @@ class _TeamPageState extends State<TeamPage> {
             ),
             TextButton(
               child: const Text('Delete'),
-              onPressed: () {
+              onPressed: () async {
+                final prefs = await SharedPreferences.getInstance();
+                await prefs.remove(widget.teamName);
                 widget.onDelete();
                 Navigator.of(context).pop();
                 Navigator.of(context).pop(); // Go back to the previous screen
@@ -123,58 +333,6 @@ class _TeamPageState extends State<TeamPage> {
           ],
         );
       },
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.teamName),
-        actions: [
-          PopupMenuButton<String>(
-            onSelected: (value) {
-              if (value == 'Rename') {
-                _renameTeam(context);
-              } else if (value == 'Delete') {
-                _deleteTeam(context);
-              }
-            },
-            itemBuilder: (BuildContext context) {
-              return {'Rename', 'Delete'}.map((String choice) {
-                return PopupMenuItem<String>(
-                  value: choice,
-                  child: Text(choice),
-                );
-              }).toList();
-            },
-          ),
-        ],
-      ),
-      body: _teamMembers.isEmpty
-          ? const Center(
-              child: Text('No Pokémon in the team. Add some Pokémon!'),
-            )
-          : ListView.builder(
-              itemCount: _teamMembers.length,
-              itemBuilder: (context, index) {
-                return ListTile(
-                  title: Text(_teamMembers[index]),
-                  trailing: IconButton(
-                    icon: const Icon(Icons.delete),
-                    onPressed: () {
-                      setState(() {
-                        _teamMembers.removeAt(index);
-                      });
-                    },
-                  ),
-                );
-              },
-            ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _addPokemon,
-        child: const Icon(Icons.add),
-      ),
     );
   }
 }

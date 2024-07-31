@@ -279,6 +279,7 @@ class DatabaseHelper {
 
     String query = '''
       SELECT 
+        M.move_id,
         M.move_name,
         M.move_type,
         M.move_power,
