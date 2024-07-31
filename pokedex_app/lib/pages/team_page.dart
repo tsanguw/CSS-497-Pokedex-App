@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pokedex_app/database_helper.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 
@@ -194,7 +195,7 @@ class _TeamPageState extends State<TeamPage> {
           final selectedPokemon = await Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => PokemonSelectorPage(teamName: widget.teamName, searchQuery: ''),
+              builder: (context) => PokemonSelectorPage(teamName: widget.teamName),
             ),
           );
 
@@ -217,18 +218,19 @@ class _TeamPageState extends State<TeamPage> {
             mainAxisSize: MainAxisSize.min,
             children: [
               TextButton(
-                onPressed: () {
+                onPressed: () async {
+                  final pokemonDetails = await DatabaseHelper().getPokemonDetails(pokemon['pok_id']);
                   Navigator.of(context).pop();
                   Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) => PokemonDetailPage(
-                        pokemon: pokemon,
-                        evolutions: const [], // Replace with actual data
-                        abilities: const [], // Replace with actual data
-                        weaknesses: const [], // Replace with actual data
-                        resistances: const [], // Replace with actual data
-                        immunities: const [], // Replace with actual data
+                        pokemon: pokemonDetails['pokemon'],
+                        evolutions: pokemonDetails['evolutions'],
+                        abilities: pokemonDetails['abilities'],
+                        resistances: pokemonDetails['resistances'],
+                        weaknesses: pokemonDetails['weaknesses'],
+                        immunities: pokemonDetails['immunities'],
                       ),
                     ),
                   );
@@ -241,7 +243,7 @@ class _TeamPageState extends State<TeamPage> {
                   final selectedPokemon = await Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => PokemonSelectorPage(teamName: widget.teamName, searchQuery: ''),
+                      builder: (context) => PokemonSelectorPage(teamName: widget.teamName),
                     ),
                   );
                   if (selectedPokemon != null) {
