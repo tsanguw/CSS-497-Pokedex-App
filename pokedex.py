@@ -394,7 +394,7 @@ def get_evolutions():
         evolution_data = response.json()
         chain = evolution_data['chain']
 
-        def extract_evolution(chain, pre_evol_pok_id=None):
+        def extract_evolution(chain, pre_evol_pok_id='NULL'):
             # Get the current Pokémon ID
             pok_id = int(chain['species']['url'].split('/')[-2])
 
@@ -406,6 +406,7 @@ def get_evolutions():
                 if evolves_to['evolution_details']:
                     evolution_details = evolves_to['evolution_details'][0]
                     evol_min_lvl = evolution_details.get('min_level', 'NULL')
+                    evol_min_lvl = evol_min_lvl if evol_min_lvl is not None else 'NULL'  # Ensure 'NULL' instead of None
                     evol_method_id = evolution_details['trigger']['url'].split('/')[-2]
                 else:
                     # Default values if there are no evolution details
@@ -416,7 +417,8 @@ def get_evolutions():
                 sql_insert = (
                     f"INSERT INTO EVOLUTION (pok_id, pre_evol_pok_id, evol_pok_id, "
                     f"evol_min_lvl, evol_method_id) VALUES "
-                    f"({pok_id}, {pre_evol_pok_id}, {evol_pok_id}, {evol_min_lvl}, {evol_method_id});"
+                    f"({pok_id}, {pre_evol_pok_id}, {evol_pok_id}, "
+                    f"{evol_min_lvl}, {evol_method_id});"
                 )
                 sql_inserts.append(sql_insert)
 
@@ -427,7 +429,7 @@ def get_evolutions():
         extract_evolution(chain)
 
     # Write the SQL inserts to a file
-    with open('evolution_inserts.sql', 'w', encoding='utf-8') as file:
+    with open('evolutions_inserts.sql', 'w', encoding='utf-8') as file:
         for insert in sql_inserts:
             file.write(insert + "\n")
 

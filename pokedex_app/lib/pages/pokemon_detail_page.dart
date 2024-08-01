@@ -69,67 +69,106 @@ class _PokemonDetailPageState extends State<PokemonDetailPage> {
                 ),
               ),
               const SizedBox(height: 16),
-              Text('Name: ${widget.pokemon['pok_name']}', style: const TextStyle(fontSize: 24)),
+              Text('Name: ${widget.pokemon['pok_name']}',
+                  style: const TextStyle(fontSize: 24)),
               const SizedBox(height: 8),
-              Text('Type: ${widget.pokemon['types']}', style: const TextStyle(fontSize: 18)),
+              Text('Type: ${widget.pokemon['types']}',
+                  style: const TextStyle(fontSize: 18)),
               const SizedBox(height: 8),
-              Text('Height: ${widget.pokemon['pok_height'].toString()} meters', style: const TextStyle(fontSize: 18)),
+              Text('Height: ${widget.pokemon['pok_height'].toString()} meters',
+                  style: const TextStyle(fontSize: 18)),
               const SizedBox(height: 8),
-              Text('Weight: ${widget.pokemon['pok_weight'].toString()} kg', style: const TextStyle(fontSize: 18)),
+              Text('Weight: ${widget.pokemon['pok_weight'].toString()} kg',
+                  style: const TextStyle(fontSize: 18)),
               const SizedBox(height: 16),
-              const Text('Base Stats:', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+              const Text('Base Stats:',
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
               const SizedBox(height: 8),
-              Text('HP: ${widget.pokemon['b_hp']}', style: const TextStyle(fontSize: 18)),
-              Text('Attack: ${widget.pokemon['b_atk']}', style: const TextStyle(fontSize: 18)),
-              Text('Defense: ${widget.pokemon['b_def']}', style: const TextStyle(fontSize: 18)),
-              Text('Special Attack: ${widget.pokemon['b_sp_atk']}', style: const TextStyle(fontSize: 18)),
-              Text('Special Defense: ${widget.pokemon['b_sp_def']}', style: const TextStyle(fontSize: 18)),
-              Text('Speed: ${widget.pokemon['b_speed']}', style: const TextStyle(fontSize: 18)),
+              Text('HP: ${widget.pokemon['b_hp']}',
+                  style: const TextStyle(fontSize: 18)),
+              Text('Attack: ${widget.pokemon['b_atk']}',
+                  style: const TextStyle(fontSize: 18)),
+              Text('Defense: ${widget.pokemon['b_def']}',
+                  style: const TextStyle(fontSize: 18)),
+              Text('Special Attack: ${widget.pokemon['b_sp_atk']}',
+                  style: const TextStyle(fontSize: 18)),
+              Text('Special Defense: ${widget.pokemon['b_sp_def']}',
+                  style: const TextStyle(fontSize: 18)),
+              Text('Speed: ${widget.pokemon['b_speed']}',
+                  style: const TextStyle(fontSize: 18)),
               const SizedBox(height: 16),
-              const Text('Abilities:', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+              const Text('Abilities:',
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
               const SizedBox(height: 8),
               for (var ability in widget.abilities)
                 ListTile(
                   title: Text(
                     ability['abi_name'],
                     style: TextStyle(
-                      fontWeight: ability['is_hidden'] == 1 ? FontWeight.bold : FontWeight.normal,
-                      color: ability['is_hidden'] == 1 ? Colors.red : Colors.black,
+                      fontWeight: ability['is_hidden'] == 1
+                          ? FontWeight.bold
+                          : FontWeight.normal,
+                      color:
+                          ability['is_hidden'] == 1 ? Colors.red : Colors.black,
                     ),
                   ),
                   subtitle: Text(
-                    ability['is_hidden'] == 1 ? 'Hidden Ability' : 'Normal Ability',
+                    ability['is_hidden'] == 1
+                        ? 'Hidden Ability'
+                        : 'Normal Ability',
                   ),
                 ),
               const SizedBox(height: 16),
-              const Text('Evolutions:', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+              const Text('Evolutions:',
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
               const SizedBox(height: 8),
-              for (var evolution in widget.evolutions)
-                ListTile(
-                  title: Text(
-                    '${evolution['pre_evol_pok_name'] ?? 'N/A'} -> ${evolution['evol_pok_name'] ?? 'N/A'}',
-                  ),
-                  subtitle: Text(
-                    'Min Level: ${evolution['evol_min_lvl'] ?? 'N/A'} | Method: ${evolution['evol_method_name'] ?? 'N/A'}',
-                  ),
+              if (widget.evolutions.isEmpty)
+                const Text('No Evolutions Available')
+              else
+                Column(
+                  children: [
+                    for (var evolution in widget.evolutions)
+                      Column(
+                        children: [
+                          // Current to evolution
+                          if (evolution['evol_pok_name'] != null)
+                            ListTile(
+                              title: Text(
+                                '${evolution['current_pok_name']} -> ${evolution['evol_pok_name']}',
+                              ),
+                              subtitle: Text(
+                                'Min Level: ${evolution['evol_min_lvl'] ?? 'N/A'} | Method: ${evolution['evol_method_name'] ?? 'N/A'}',
+                              ),
+                            ),
+                        ],
+                      ),
+                  ],
                 ),
               const SizedBox(height: 16),
-              const Text('Weaknesses:', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+              const Text('Weaknesses:',
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
               const SizedBox(height: 8),
               for (var weakness in widget.weaknesses)
-                Text('${weakness['type_name']} (x${weakness['effectiveness']})', style: const TextStyle(fontSize: 18)),
+                Text('${weakness['type_name']} (x${weakness['effectiveness']})',
+                    style: const TextStyle(fontSize: 18)),
               const SizedBox(height: 16),
-              const Text('Resistances:', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+              const Text('Resistances:',
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
               const SizedBox(height: 8),
               for (var resistance in widget.resistances)
-                Text('${resistance['type_name']} (x${resistance['effectiveness']})', style: const TextStyle(fontSize: 18)),
+                Text(
+                    '${resistance['type_name']} (x${resistance['effectiveness']})',
+                    style: const TextStyle(fontSize: 18)),
               const SizedBox(height: 16),
-              const Text('Immunities:', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+              const Text('Immunities:',
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
               const SizedBox(height: 8),
               for (var immunity in widget.immunities)
-                Text('${immunity['type_name']}', style: const TextStyle(fontSize: 18)),
+                Text('${immunity['type_name']}',
+                    style: const TextStyle(fontSize: 18)),
               const SizedBox(height: 16),
-              const Text('Moveset:', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+              const Text('Moveset:',
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
               const SizedBox(height: 8),
               Row(
                 children: [
@@ -179,12 +218,15 @@ class _PokemonDetailPageState extends State<PokemonDetailPage> {
               ),
               const SizedBox(height: 8),
               if (_moveset.isEmpty)
-                const Text('No moves available for the selected filters.', style: TextStyle(fontSize: 18))
+                const Text('No moves available for the selected filters.',
+                    style: TextStyle(fontSize: 18))
               else
                 for (var move in _moveset)
                   ListTile(
-                    title: Text('${move['level_learned']} | ${move['move_name']}'),
-                    subtitle: Text('Type: ${move['move_type']} | Power: ${move['move_power'] ?? 'N/A'} | Accuracy: ${move['move_accuracy'] ?? 'N/A'} | PP: ${move['move_pp'] ?? 'N/A'}'),
+                    title:
+                        Text('${move['level_learned']} | ${move['move_name']}'),
+                    subtitle: Text(
+                        'Type: ${move['move_type']} | Power: ${move['move_power'] ?? 'N/A'} | Accuracy: ${move['move_accuracy'] ?? 'N/A'} | PP: ${move['move_pp'] ?? 'N/A'}'),
                   ),
             ],
           ),

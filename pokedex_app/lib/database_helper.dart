@@ -129,67 +129,43 @@ class DatabaseHelper {
   ''', [pokId]);
 
     // Fetch evolutions
-    final evolutionsResult = await db.rawQuery('''
+    final evolutionResults = await db.rawQuery('''
     SELECT 
+      E.pok_id,
+      P.pok_name AS current_pok_name,
       E.pre_evol_pok_id,
-      PE.pok_name AS pre_evol_pok_name,
+      PreEvol.pok_name AS pre_evol_pok_name,
       E.evol_pok_id,
-      CE.pok_name AS evol_pok_name,
+      Evol.pok_name AS evol_pok_name,
       E.evol_min_lvl,
       EM.evol_method_name
     FROM 
       EVOLUTION E
     LEFT JOIN 
-      POKEMON PE ON E.pre_evol_pok_id = PE.pok_id
+      POKEMON P ON E.pok_id = P.pok_id
     LEFT JOIN 
-      POKEMON CE ON E.evol_pok_id = CE.pok_id
+      POKEMON PreEvol ON E.pre_evol_pok_id = PreEvol.pok_id
+    LEFT JOIN 
+      POKEMON Evol ON E.evol_pok_id = Evol.pok_id
     LEFT JOIN 
       EVOLUTION_METHOD EM ON E.evol_method_id = EM.evol_method_id
     WHERE
-      E.pre_evol_pok_id = ? OR E.evol_pok_id = ?
-  ''', [pokId, pokId]);
+      E.pok_id = ? OR E.pre_evol_pok_id = ? OR E.evol_pok_id = ?
+  ''', [pokId, pokId, pokId]);
 
-    List<Map<String, dynamic>> evolutionResults = List.from(evolutionsResult);
-    Set<String> uniqueEvolutions = evolutionResults.map((evolution) {
-      return '${evolution['pre_evol_pok_id']}-${evolution['evol_pok_id']}-${evolution['evol_method_name']}';
-    }).toSet();
-
-    Set<int> evolutionIds = evolutionResults.expand((evolution) {
-      return [
-        evolution['pre_evol_pok_id'] as int?,
-        evolution['evol_pok_id'] as int?
-      ].whereType<int>().toSet();
-    }).toSet();
-
-    for (int id in evolutionIds) {
-      final additionalEvolutions = await db.rawQuery('''
-      SELECT 
-        E.pre_evol_pok_id,
-        PE.pok_name AS pre_evol_pok_name,
-        E.evol_pok_id,
-        CE.pok_name AS evol_pok_name,
-        E.evol_min_lvl,
-        EM.evol_method_name
-      FROM 
-        EVOLUTION E
-      LEFT JOIN 
-        POKEMON PE ON E.pre_evol_pok_id = PE.pok_id
-      LEFT JOIN 
-        POKEMON CE ON E.evol_pok_id = CE.pok_id
-      LEFT JOIN 
-        EVOLUTION_METHOD EM ON E.evol_method_id = EM.evol_method_id
-      WHERE
-        E.pre_evol_pok_id = ? OR E.evol_pok_id = ?
-    ''', [id, id]);
-
-      for (var evolution in additionalEvolutions) {
-        String evolutionKey =
-            '${evolution['pre_evol_pok_id']}-${evolution['evol_pok_id']}-${evolution['evol_method_name']}';
-        if (!uniqueEvolutions.contains(evolutionKey)) {
-          evolutionResults.add(evolution);
-          uniqueEvolutions.add(evolutionKey);
-        }
-      }
+    // Organize evolution chain
+    List<Map<String, dynamic>> evolutions = [];
+    for (var result in evolutionResults) {
+      evolutions.add({
+        'current_pok_id': result['pok_id'],
+        'current_pok_name': result['current_pok_name'],
+        'pre_evol_pok_id': result['pre_evol_pok_id'],
+        'pre_evol_pok_name': result['pre_evol_pok_name'],
+        'evol_pok_id': result['evol_pok_id'],
+        'evol_pok_name': result['evol_pok_name'],
+        'evol_min_lvl': result['evol_min_lvl'],
+        'evol_method_name': result['evol_method_name']
+      });
     }
 
     // Fetch abilities
@@ -357,7 +333,7 @@ class DatabaseHelper {
     final result = await db.rawQuery(query);
     return result;
   }
-  
+
   Future<Map<String, dynamic>> getMoveDetails(int moveId) async {
     final db = await database;
 
@@ -380,8 +356,9 @@ class DatabaseHelper {
 
     return result.isNotEmpty ? result.first : {};
   }
-  
-  Future<List<Map<String, dynamic>>> getPokemonWithMove(int moveId, {int? generation, int? method}) async {
+
+  Future<List<Map<String, dynamic>>> getPokemonWithMove(int moveId,
+      {int? generation, int? method}) async {
     final db = await database;
 
     String query = '''
@@ -464,7 +441,8 @@ class DatabaseHelper {
     return result.isNotEmpty ? result.first : {};
   }
 
-  Future<List<Map<String, dynamic>>> getPokemonWithAbility(int abilityId) async {
+  Future<List<Map<String, dynamic>>> getPokemonWithAbility(
+      int abilityId) async {
     final db = await database;
 
     final result = await db.rawQuery('''

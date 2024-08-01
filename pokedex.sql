@@ -92,9 +92,9 @@ CREATE TABLE STATUS_EFFECT (
 -- Create EVOLUTION table
 CREATE TABLE EVOLUTION (
     pok_id INT,
-    pre_evol_pok_id INT,
-    evol_pok_id INT,
-    evol_min_lvl INT NULL CHECK (evol_min_lvl >= 0),
+    pre_evol_pok_id INT NULL, 
+    evol_pok_id INT NULL,     
+    evol_min_lvl INT NULL CHECK (evol_min_lvl >= 0),  
     evol_method_id INT,
     PRIMARY KEY (pok_id, pre_evol_pok_id, evol_pok_id, evol_method_id),
     FOREIGN KEY (pok_id) REFERENCES POKEMON(pok_id),
