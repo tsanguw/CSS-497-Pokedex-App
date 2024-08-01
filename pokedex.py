@@ -3,7 +3,7 @@ import requests
 # Base URL for the Pokémon API
 BASE_URL = "https://pokeapi.co/api/v2/"
 # Limit to how many generations get created
-GEN_LIMIT = 1
+GEN_LIMIT = 9
 
 def get_types():
     print("-- Inserts for TABLE: TYPES")
@@ -379,6 +379,7 @@ def get_type_efficacy():
     for insert in sql_inserts:
         print(insert)
 
+# TODO: Fix this function
 def get_evolutions(limit=GEN_LIMIT):
     print("-- Inserts for TABLE: EVOLUTIONS")
     sql_inserts = []
@@ -401,16 +402,15 @@ def get_evolutions(limit=GEN_LIMIT):
         evolution_data = evo_response.json()
         chain = evolution_data['chain']
 
-        def extract_evolution(chain, pre_evol_pok_id=None):
+        def extract_evolution(chain, pre_evol_pok_id=None, pre_evol_min_lvl=None):
             pok_id = int(chain['species']['url'].split('/')[-2])
-            if pre_evol_pok_id:
-                evol_min_lvl = chain['evolution_details'][0].get('min_level') if chain['evolution_details'] else None
-                evol_min_lvl = 'NULL' if evol_min_lvl is None else evol_min_lvl
-                evol_method_id = chain['evolution_details'][0]['trigger']['url'].split('/')[-2] if chain['evolution_details'] else 'NULL'
-                sql_insert = f"INSERT INTO EVOLUTION (pok_id, pre_evol_pok_id, evol_pok_id, evol_min_lvl, evol_method_id) VALUES ({pok_id}, {pre_evol_pok_id}, {pok_id}, {evol_min_lvl}, {evol_method_id});"
-                sql_inserts.append(sql_insert)
             for evolves_to in chain['evolves_to']:
-                extract_evolution(evolves_to, pok_id)
+                evol_pok_id = int(evolves_to['species']['url'].split('/')[-2])
+                evol_min_lvl = evolves_to['evolution_details'][0].get('min_level', 'NULL')
+                evol_method_id = evolves_to['evolution_details'][0]['trigger']['url'].split('/')[-2]
+                sql_insert = f"INSERT INTO EVOLUTION (pok_id, pre_evol_pok_id, evol_pok_id, evol_min_lvl, evol_method_id) VALUES ({pok_id}, {pre_evol_pok_id}, {evol_pok_id}, {pre_evol_min_lvl}, {evol_method_id});"
+                sql_inserts.append(sql_insert)
+                extract_evolution(evolves_to, pok_id, evol_min_lvl)
 
         extract_evolution(chain)
 
@@ -433,7 +433,20 @@ def get_abilities(limit=GEN_LIMIT):
 
         abi_id = ability_data['id']
         abi_name = ability_data['name']
-        abi_desc = ability_data['effect_entries'][0]['short_effect'] if ability_data['effect_entries'] else ''
+
+        # Find the English description in effect_entries
+        abi_desc = ''
+        for entry in ability_data['effect_entries']:
+            if entry['language']['name'] == 'en':
+                abi_desc = entry['short_effect'].replace("'", "''")
+                break
+        
+        # If effect_entries is blank, check flavor_text_entries for English description
+        if not abi_desc:
+            for entry in ability_data['flavor_text_entries']:
+                if entry['language']['name'] == 'en':
+                    abi_desc = entry['flavor_text'].replace("'", "''")
+                    break
 
         sql_insert = f"INSERT INTO ABILITIES (abi_id, abi_name, abi_desc) VALUES ({abi_id}, '{abi_name}', '{abi_desc}');"
         sql_inserts.append(sql_insert)
@@ -707,8 +720,8 @@ def get_pok_types(limit=GEN_LIMIT):
 # Gen-specific functions to get data and generate SQL inserts
 # get_pokemon()
 # get_pokemon_variants()
-get_evolutions()
-# get_abilities()
+# get_evolutions()
+get_abilities()
 # get_base_stats()
 # get_individual_values()
 # get_effort_values()
