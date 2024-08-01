@@ -1,4 +1,5 @@
 import requests
+import sys
 
 # Base URL for the Pokémon API
 BASE_URL = "https://pokeapi.co/api/v2/"
@@ -483,6 +484,30 @@ def get_base_stats(limit=GEN_LIMIT):
     for insert in sql_inserts:
         print(insert)
 
+def get_variants_base_stats():
+    print("-- Inserts for TABLE: BASE_STATS")
+    sql_inserts = []
+
+    for pok_id in range(10001, 10278):
+        response = requests.get(f"{BASE_URL}pokemon/{pok_id}")
+        if response.status_code != 200:
+            continue
+        pokemon_data = response.json()
+        base_stats = pokemon_data['stats']
+
+        b_hp = base_stats[0]['base_stat']
+        b_atk = base_stats[1]['base_stat']
+        b_def = base_stats[2]['base_stat']
+        b_sp_atk = base_stats[3]['base_stat']
+        b_sp_def = base_stats[4]['base_stat']
+        b_speed = base_stats[5]['base_stat']
+
+        sql_insert = f"INSERT INTO BASE_STATS (pok_id, b_hp, b_atk, b_def, b_sp_atk, b_sp_def, b_speed) VALUES ({pok_id}, {b_hp}, {b_atk}, {b_def}, {b_sp_atk}, {b_sp_def}, {b_speed});"
+        sql_inserts.append(sql_insert)
+
+    for insert in sql_inserts:
+        print(insert)
+
 def get_individual_values(limit=GEN_LIMIT):
     print("-- Inserts for TABLE: INDIVIDUAL_VALUES")
     sql_inserts = []
@@ -567,6 +592,9 @@ def get_moves(limit=GEN_LIMIT):
 
         sql_insert = f"INSERT INTO MOVE (move_id, type_id, move_name, move_pp, move_power, move_accuracy, move_type, move_effect) VALUES ({move_id}, {type_id}, '{move_name}', {move_pp}, {move_power}, {move_accuracy}, '{move_type}', '{move_effect}');"
         sql_inserts.append(sql_insert)
+
+    # Set stdout encoding to utf-8
+    sys.stdout.reconfigure(encoding='utf-8')
 
     for insert in sql_inserts:
         print(insert)
@@ -681,6 +709,26 @@ def get_pok_abilities(limit=GEN_LIMIT):
     for insert in sql_inserts:
         print(insert)
 
+def get_variant_abilities():
+    print("-- Inserts for TABLE: POKEMON_POSSESSES_ABILITY")
+    sql_inserts = []
+
+    for pok_id in range(10001, 10278):
+        response = requests.get(f"{BASE_URL}pokemon/{pok_id}")
+        if response.status_code != 200:
+            continue
+        pokemon_data = response.json()
+
+        for ability_info in pokemon_data['abilities']:
+            abi_id = int(ability_info['ability']['url'].split('/')[-2])
+            is_hidden = ability_info['is_hidden']
+
+            sql_insert = f"INSERT INTO POKEMON_POSSESSES_ABILITY (pok_id, abi_id, is_hidden) VALUES ({pok_id}, {abi_id}, {is_hidden});"
+            sql_inserts.append(sql_insert)
+
+    for insert in sql_inserts:
+        print(insert)
+
 def get_pok_types(limit=GEN_LIMIT):
     print("-- Inserts for TABLE: POKEMON_BEARS_TYPE")
     sql_inserts = []
@@ -706,6 +754,25 @@ def get_pok_types(limit=GEN_LIMIT):
     for insert in sql_inserts:
         print(insert)
 
+def get_variant_types():
+    print("-- Inserts for TABLE: POKEMON_BEARS_TYPE")
+    sql_inserts = []
+
+    for pok_id in range(10001, 10278):
+        response = requests.get(f"{BASE_URL}pokemon/{pok_id}")
+        if response.status_code != 200:
+            continue
+        pokemon_data = response.json()
+
+        for type_info in pokemon_data['types']:
+            type_id = int(type_info['type']['url'].split('/')[-2])
+
+            sql_insert = f"INSERT INTO POKEMON_BEARS_TYPE (pok_id, type_id) VALUES ({pok_id}, {type_id});"
+            sql_inserts.append(sql_insert)
+
+    for insert in sql_inserts:
+        print(insert)
+
 # Functions to get data and generate SQL inserts for pokedex-inserts.sql
 # get_types()
 # get_habitats()
@@ -717,17 +784,20 @@ def get_pok_types(limit=GEN_LIMIT):
 # get_item_categories()
 # get_type_efficacy()
 
-# Gen-specific functions to get data and generate SQL inserts
+# Gen-specific functions to get data and generate SQL inserts (excluding variant functions)
 # get_pokemon()
 # get_pokemon_variants()
 # get_evolutions()
-get_abilities()
+# get_abilities()
 # get_base_stats()
+# get_variants_base_stats()
 # get_individual_values()
 # get_effort_values()
 # get_moves()
 # get_pok_abilities()
+get_variant_abilities()
 # get_pok_types()
+# get_variant_types()
 
 
 # Functions to get data and generate SQL inserts in seperate files
