@@ -207,6 +207,45 @@ def get_pokemon(limit=GEN_LIMIT):
     for insert in sql_inserts:
         print(insert)
 
+def get_pokemon_variants():
+    print("-- Inserts for TABLE: POKEMON")
+    sql_inserts = []
+    
+    for pok_id in range(10001, 10278):
+        response = requests.get(f"{BASE_URL}pokemon/{pok_id}")
+        if response.status_code != 200:
+            continue
+        pokemon_data = response.json()
+
+        pok_name = pokemon_data['name']
+        pok_height = pokemon_data['height']
+        pok_weight = pokemon_data['weight']
+        pok_base_exp = pokemon_data['base_experience']
+        
+        # Extract effort values and structure them as a string
+        ev_list = []
+        stat_names = {
+            'hp': 'HP',
+            'attack': 'Attack',
+            'defense': 'Defense',
+            'special-attack': 'Special Attack',
+            'special-defense': 'Special Defense',
+            'speed': 'Speed'
+        }
+
+        for stat in pokemon_data['stats']:
+            if stat['effort'] > 0:
+                stat_name = stat_names.get(stat['stat']['name'], stat['stat']['name'].capitalize())
+                ev_list.append(f"{stat_name}+{stat['effort']}")
+
+        pok_ev = ','.join(ev_list) if ev_list else 'None'
+
+        sql_insert = f"INSERT INTO POKEMON (pok_id, pok_name, pok_height, pok_weight, pok_base_exp, pok_ev) VALUES ({pok_id}, '{pok_name}', {pok_height}, {pok_weight}, {pok_base_exp}, '{pok_ev}');"
+        sql_inserts.append(sql_insert)
+
+    for insert in sql_inserts:
+        print(insert)
+
 def get_items():
     print("-- Generating SQL file for TABLE: ITEMS")
     url = f"{BASE_URL}item"
@@ -667,7 +706,8 @@ def get_pok_types(limit=GEN_LIMIT):
 
 # Gen-specific functions to get data and generate SQL inserts
 # get_pokemon()
-# get_evolutions()
+# get_pokemon_variants()
+get_evolutions()
 # get_abilities()
 # get_base_stats()
 # get_individual_values()
@@ -682,4 +722,4 @@ def get_pok_types(limit=GEN_LIMIT):
 
 # Moveset functions
 # get_gen_movesets()
-get_movesets('bulbasaur')
+# get_movesets('bulbasaur')
