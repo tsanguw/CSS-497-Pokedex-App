@@ -194,28 +194,38 @@ class DatabaseHelper {
     List<int> typeIds =
         typeIdsResult.map((type) => type['type_id'] as int).toList();
 
+    // Print type IDs
+    // print('Type IDs: $typeIds');
+
     // Fetch type effectiveness
     final typeEfficacyResults = await db.rawQuery('''
     SELECT
-      T.type_name,
+      SourceType.type_name AS source_type_name,
       TE.type_id,
+      TargetType.type_name AS target_type_name,
       TE.target_type_id,
       TE.dmg_factor
     FROM
       TYPE_EFFICACY TE
     JOIN
-      TYPE T ON TE.target_type_id = T.type_id
+      TYPE SourceType ON TE.type_id = SourceType.type_id
+    JOIN
+      TYPE TargetType ON TE.target_type_id = TargetType.type_id
     WHERE
-      TE.type_id IN (${typeIds.join(', ')})
+      TE.target_type_id IN (${typeIds.join(', ')})
   ''');
 
     Map<String, double> typeEffectiveness = {};
 
+    // Calculate type effectiveness considering multiple types
     for (var result in typeEfficacyResults) {
-      String? typeName = result['type_name'] as String?;
-      double? effectiveness = result['dmg_factor'] as double?;
+      String? typeName = result['source_type_name'] as String?;
+      double dmgFactor = result['dmg_factor'] as double;
 
-      if (typeName != null && effectiveness != null) {
+      if (typeName != null) {
+        double effectiveness = dmgFactor; // Convert dmg_factor to a multiplier
+
+        // Combine effectiveness across multiple types
         if (typeEffectiveness.containsKey(typeName)) {
           typeEffectiveness[typeName] =
               typeEffectiveness[typeName]! * effectiveness;
@@ -238,6 +248,17 @@ class DatabaseHelper {
         resistances.add({'type_name': type, 'effectiveness': effectiveness});
       }
     });
+
+    // Print type effectiveness calculations
+    // print('Type Effectiveness Calculations:');
+    // typeEffectiveness.forEach((type, effectiveness) {
+    //   print('$type: $effectiveness');
+    // });
+
+    // Print weaknesses, resistances, immunities
+    // print('Weaknesses: $weaknesses');
+    // print('Resistances: $resistances');
+    // print('Immunities: $immunities');
 
     return {
       'pokemon': pokemonResult.isNotEmpty ? pokemonResult.first : null,

@@ -81,10 +81,10 @@ class _TeamPageState extends State<TeamPage> {
       if (_team[pokemonIndex]['moves'] == null) {
         _team[pokemonIndex]['moves'] = List<Map<String, dynamic>?>.filled(4, null);
       }
-      print('Setting move at index $moveIndex for Pokémon at index $pokemonIndex');
-      print('Before setting: ${_team[pokemonIndex]['moves']}');
+      // print('Setting move at index $moveIndex for Pokémon at index $pokemonIndex');
+      // print('Before setting: ${_team[pokemonIndex]['moves']}');
       _team[pokemonIndex]['moves'][moveIndex] = move;
-      print('After setting: ${_team[pokemonIndex]['moves']}');
+      // print('After setting: ${_team[pokemonIndex]['moves']}');
       _saveTeam();
     });
   }
