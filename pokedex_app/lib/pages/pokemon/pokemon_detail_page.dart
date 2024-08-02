@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../database_helper.dart';
+import '../../database_helper.dart';
 
 class PokemonDetailPage extends StatefulWidget {
   final Map<String, dynamic> pokemon;

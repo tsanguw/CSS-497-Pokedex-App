@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../database_helper.dart';
-import 'pokemon_detail_page.dart';
+import '../../database_helper.dart';
+import '../pokemon/pokemon_detail_page.dart';
 
 class PokemonSelectorPage extends StatefulWidget {
   final String teamName;

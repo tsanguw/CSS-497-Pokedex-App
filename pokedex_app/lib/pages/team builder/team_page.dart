@@ -4,7 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 
 import 'pokemon_selector_page.dart';
-import 'pokemon_detail_page.dart';
+import '../pokemon/pokemon_detail_page.dart';
 import 'pokemon_moves_page.dart';
 
 class TeamPage extends StatefulWidget {

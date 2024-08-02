@@ -1,14 +1,14 @@
 // ignore_for_file: constant_identifier_names
 
 import 'package:flutter/material.dart';
-import 'pages/pokemon_page.dart';
-import 'pages/moves_page.dart';
-import 'pages/abilities_page.dart';
-import 'pages/items_page.dart';
-import 'pages/natures_page.dart';
+import 'pages/pokemon/pokemon_page.dart';
+import 'pages/moves/moves_page.dart';
+import 'pages/abilities/abilities_page.dart';
+import 'pages/items/items_page.dart';
+import 'pages/natures/natures_page.dart';
 import 'pages/locations_page.dart';
-import 'pages/gym_leaders_page.dart';
-import 'pages/team_builder_page.dart';
+import 'pages/gym leaders/gym_leaders_page.dart';
+import 'pages/team builder/team_builder_page.dart';
 import 'pages/damage_calculator_page.dart';
 
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../database_helper.dart';
-import 'move_detail_page.dart';
+import '../../database_helper.dart';
+import '../moves/move_detail_page.dart';
 
 class PokemonMovesPage extends StatefulWidget {
   final int pokemonId;

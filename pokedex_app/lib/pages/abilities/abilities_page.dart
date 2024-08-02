@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../database_helper.dart';
+import '../../database_helper.dart';
 import 'ability_detail_page.dart';
 
 class AbilitiesPage extends StatelessWidget {

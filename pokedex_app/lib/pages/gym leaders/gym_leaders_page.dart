@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../database_helper.dart';
+import '../../database_helper.dart';
 import 'gym_leader_detail_page.dart';
 
 class GymLeadersPage extends StatelessWidget {
