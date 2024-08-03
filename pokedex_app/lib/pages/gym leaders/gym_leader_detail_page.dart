@@ -4,7 +4,8 @@ class GymLeaderDetailPage extends StatelessWidget {
   final Map<String, dynamic> gymLeader;
   final List<Map<String, dynamic>> team;
 
-  const GymLeaderDetailPage({super.key, 
+  const GymLeaderDetailPage({
+    super.key,
     required this.gymLeader,
     required this.team,
   });
@@ -49,15 +50,29 @@ class GymLeaderDetailPage extends StatelessWidget {
               for (var member in team)
                 Card(
                   child: ListTile(
-                    title: Text('${member['pok_name']} (Lv. ${member['pok_lvl']})'),
+                    leading: Image.asset(
+                      'assets/sprites/pokemon/other/official-artwork/${member['pok_id']}.png',
+                      height: 50,
+                      width: 50,
+                      fit: BoxFit.cover,
+                      errorBuilder: (context, error, stackTrace) {
+                        return const Icon(Icons.error, color: Colors.red);
+                      },
+                    ),
+                    title: Text(
+                        '${member['pok_name']} (Lv. ${member['pok_lvl']})'),
                     subtitle: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text('Position: ${member['position']}'),
-                        if (member['move1'] != null) Text('Move 1: ${member['move1']}'),
-                        if (member['move2'] != null) Text('Move 2: ${member['move2']}'),
-                        if (member['move3'] != null) Text('Move 3: ${member['move3']}'),
-                        if (member['move4'] != null) Text('Move 4: ${member['move4']}'),
+                        if (member['move1'] != null)
+                          Text('Move 1: ${member['move1']}'),
+                        if (member['move2'] != null)
+                          Text('Move 2: ${member['move2']}'),
+                        if (member['move3'] != null)
+                          Text('Move 3: ${member['move3']}'),
+                        if (member['move4'] != null)
+                          Text('Move 4: ${member['move4']}'),
                       ],
                     ),
                   ),
