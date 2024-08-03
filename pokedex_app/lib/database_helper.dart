@@ -624,7 +624,7 @@ class DatabaseHelper {
 
     query += '''
       ORDER BY 
-        trainer_name ASC
+        trainer_id ASC
     ''';
 
     final result = await db.rawQuery(query);
