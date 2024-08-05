@@ -81,10 +81,7 @@ class _TeamPageState extends State<TeamPage> {
       if (_team[pokemonIndex]['moves'] == null) {
         _team[pokemonIndex]['moves'] = List<Map<String, dynamic>?>.filled(4, null);
       }
-      // print('Setting move at index $moveIndex for Pokémon at index $pokemonIndex');
-      // print('Before setting: ${_team[pokemonIndex]['moves']}');
       _team[pokemonIndex]['moves'][moveIndex] = move;
-      // print('After setting: ${_team[pokemonIndex]['moves']}');
       _saveTeam();
     });
   }
@@ -168,10 +165,32 @@ class _TeamPageState extends State<TeamPage> {
                             child: Card(
                               color: Colors.grey[200],
                               child: Center(
-                                child: Text(
-                                  move != null ? move['move_name'] : 'Select Move',
-                                  textAlign: TextAlign.center,
-                                ),
+                                child: move != null
+                                    ? Column(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            move['move_name'],
+                                            style: const TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 14,
+                                            ),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                          Text(
+                                            'Power: ${move['move_power'] ?? 'N/A'} | '
+                                            'Acc: ${move['move_accuracy'] ?? 'N/A'}% | '
+                                            'PP: ${move['move_pp'] ?? 'N/A'}',
+                                            style: const TextStyle(
+                                              fontSize: 10,
+                                            ),
+                                            textAlign: TextAlign.center,
+                                            overflow: TextOverflow.ellipsis, // Handle overflow
+                                          ),
+                                        ],
+                                      )
+                                    : const Text('Select Move',
+                                        textAlign: TextAlign.center),
                               ),
                             ),
                           );
