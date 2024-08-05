@@ -176,7 +176,7 @@ class _PokemonDetailPageState extends State<PokemonDetailPage> {
                     child: DropdownButton<int>(
                       hint: const Text('Select Generation'),
                       value: _selectedGeneration,
-                      items: List.generate(8, (index) => index + 1)
+                      items: List.generate(9, (index) => index + 1)
                           .map((gen) => DropdownMenuItem<int>(
                                 value: gen,
                                 child: Text('Generation $gen'),

@@ -14,11 +14,20 @@ class _MoveDetailPageState extends State<MoveDetailPage> {
   int? _selectedGeneration;
   int? _selectedMethod;
   List<Map<String, dynamic>> _pokemonList = [];
+  Map<String, dynamic>? _moveDetails;
 
   @override
   void initState() {
     super.initState();
-    _fetchPokemonList();
+    _fetchMoveDetails(); // Fetch move details only once
+    _fetchPokemonList(); // Fetch Pokémon list based on filters
+  }
+
+  Future<void> _fetchMoveDetails() async {
+    final moveDetails = await DatabaseHelper().getMoveDetails(widget.moveId);
+    setState(() {
+      _moveDetails = moveDetails;
+    });
   }
 
   Future<void> _fetchPokemonList() async {
@@ -34,37 +43,28 @@ class _MoveDetailPageState extends State<MoveDetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<Map<String, dynamic>>(
-      future: DatabaseHelper().getMoveDetails(widget.moveId),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(child: CircularProgressIndicator());
-        } else if (snapshot.hasError) {
-          return Center(child: Text('Error: ${snapshot.error}'));
-        } else if (!snapshot.hasData) {
-          return const Center(child: Text('Move details not found.'));
-        } else {
-          final move = snapshot.data!;
-          return Scaffold(
-            appBar: AppBar(
-              title: Text(move['move_name'] ?? 'Unknown Move'),
-            ),
-            body: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(_moveDetails?['move_name'] ?? 'Loading...'),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: _moveDetails == null
+            ? const Center(child: CircularProgressIndicator())
+            : Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Name: ${move['move_name'] ?? 'Unknown'}', style: const TextStyle(fontSize: 24)),
+                  Text('Name: ${_moveDetails!['move_name'] ?? 'Unknown'}', style: const TextStyle(fontSize: 24)),
                   const SizedBox(height: 8),
-                  Text('Type: ${move['type_name'] ?? 'Unknown'}', style: const TextStyle(fontSize: 18)),
+                  Text('Type: ${_moveDetails!['type_name'] ?? 'Unknown'}', style: const TextStyle(fontSize: 18)),
                   const SizedBox(height: 8),
-                  Text('Power: ${move['move_power'] ?? 'N/A'}', style: const TextStyle(fontSize: 18)),
+                  Text('Power: ${_moveDetails!['move_power'] ?? 'N/A'}', style: const TextStyle(fontSize: 18)),
                   const SizedBox(height: 8),
-                  Text('Accuracy: ${move['move_accuracy'] ?? 'N/A'}%', style: const TextStyle(fontSize: 18)),
+                  Text('Accuracy: ${_moveDetails!['move_accuracy'] ?? 'N/A'}%', style: const TextStyle(fontSize: 18)),
                   const SizedBox(height: 8),
-                  Text('PP: ${move['move_pp'] ?? 'N/A'}', style: const TextStyle(fontSize: 18)),
+                  Text('PP: ${_moveDetails!['move_pp'] ?? 'N/A'}', style: const TextStyle(fontSize: 18)),
                   const SizedBox(height: 8),
-                  Text('Effect: ${move['move_effect'] ?? 'No effect description available'}', style: const TextStyle(fontSize: 18)),
+                  Text('Effect: ${_moveDetails!['move_effect'] ?? 'No effect description available'}', style: const TextStyle(fontSize: 18)),
                   const SizedBox(height: 16),
                   const Text('Can be learned by:', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
                   const SizedBox(height: 8),
@@ -74,7 +74,7 @@ class _MoveDetailPageState extends State<MoveDetailPage> {
                         child: DropdownButton<int>(
                           hint: const Text('Select Generation'),
                           value: _selectedGeneration,
-                          items: List.generate(8, (index) => index + 1)
+                          items: List.generate(9, (index) => index + 1)
                               .map((gen) => DropdownMenuItem<int>(
                                     value: gen,
                                     child: Text('Generation $gen'),
@@ -83,8 +83,8 @@ class _MoveDetailPageState extends State<MoveDetailPage> {
                           onChanged: (value) {
                             setState(() {
                               _selectedGeneration = value;
-                              _fetchPokemonList();
                             });
+                            _fetchPokemonList(); // Fetch Pokémon list based on filters
                           },
                         ),
                       ),
@@ -107,8 +107,8 @@ class _MoveDetailPageState extends State<MoveDetailPage> {
                           onChanged: (value) {
                             setState(() {
                               _selectedMethod = value;
-                              _fetchPokemonList();
                             });
+                            _fetchPokemonList(); // Fetch Pokémon list based on filters
                           },
                         ),
                       ),
@@ -140,10 +140,7 @@ class _MoveDetailPageState extends State<MoveDetailPage> {
                   ),
                 ],
               ),
-            ),
-          );
-        }
-      },
+      ),
     );
   }
 }
