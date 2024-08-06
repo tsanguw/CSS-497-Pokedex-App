@@ -6,6 +6,8 @@ import 'dart:convert';
 import 'pokemon_selector_page.dart';
 import '../pokemon/pokemon_detail_page.dart';
 import 'pokemon_moves_page.dart';
+import 'pokemon_abilities_page.dart';
+import 'pokemon_items_page.dart';
 
 class TeamPage extends StatefulWidget {
   final String teamName;
@@ -42,8 +44,12 @@ class _TeamPageState extends State<TeamPage> {
           return {
             ...pokemon as Map<String, dynamic>,
             'moves': (pokemon['moves'] as List<dynamic>)
-                .map((move) => move == null ? null : move as Map<String, dynamic>)
-                .toList()
+                .map((move) =>
+                    move == null ? null : move as Map<String, dynamic>)
+                .toList(),
+            'ability': pokemon['ability']
+                as Map<String, dynamic>?, // Add ability field
+            'item': pokemon['item'] as Map<String, dynamic>?, // Add item field
           };
         }).toList();
       });
@@ -62,6 +68,8 @@ class _TeamPageState extends State<TeamPage> {
         _team.add({
           ...pokemon,
           'moves': List<Map<String, dynamic>?>.filled(4, null),
+          'ability': null, // Initialize ability as null
+          'item': null, // Initialize item as null
         });
         _saveTeam();
       }
@@ -75,13 +83,28 @@ class _TeamPageState extends State<TeamPage> {
     });
   }
 
-  void _setPokemonMove(int pokemonIndex, int moveIndex, Map<String, dynamic> move) {
+  void _setPokemonMove(
+      int pokemonIndex, int moveIndex, Map<String, dynamic> move) {
     setState(() {
-      // Initialize the moves list if it is null
       if (_team[pokemonIndex]['moves'] == null) {
-        _team[pokemonIndex]['moves'] = List<Map<String, dynamic>?>.filled(4, null);
+        _team[pokemonIndex]['moves'] =
+            List<Map<String, dynamic>?>.filled(4, null);
       }
       _team[pokemonIndex]['moves'][moveIndex] = move;
+      _saveTeam();
+    });
+  }
+
+  void _setPokemonAbility(int pokemonIndex, Map<String, dynamic> ability) {
+    setState(() {
+      _team[pokemonIndex]['ability'] = ability;
+      _saveTeam();
+    });
+  }
+
+  void _setPokemonItem(int pokemonIndex, Map<String, dynamic> item) {
+    setState(() {
+      _team[pokemonIndex]['item'] = item;
       _saveTeam();
     });
   }
@@ -139,13 +162,15 @@ class _TeamPageState extends State<TeamPage> {
                       GridView.builder(
                         shrinkWrap: true,
                         padding: const EdgeInsets.all(8.0),
-                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 2,
                           childAspectRatio: 3,
                         ),
                         itemCount: 4,
                         itemBuilder: (context, moveIndex) {
-                          final moves = pokemon['moves'] as List<Map<String, dynamic>?>?;
+                          final moves =
+                              pokemon['moves'] as List<Map<String, dynamic>?>?;
                           final move = moves?[moveIndex];
                           return GestureDetector(
                             onTap: () async {
@@ -167,7 +192,8 @@ class _TeamPageState extends State<TeamPage> {
                               child: Center(
                                 child: move != null
                                     ? Column(
-                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
                                         children: [
                                           Text(
                                             move['move_name'],
@@ -185,7 +211,7 @@ class _TeamPageState extends State<TeamPage> {
                                               fontSize: 10,
                                             ),
                                             textAlign: TextAlign.center,
-                                            overflow: TextOverflow.ellipsis, // Handle overflow
+                                            overflow: TextOverflow.ellipsis,
                                           ),
                                         ],
                                       )
@@ -195,6 +221,98 @@ class _TeamPageState extends State<TeamPage> {
                             ),
                           );
                         },
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: GestureDetector(
+                                onTap: () async {
+                                  final selectedAbility = await Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          PokemonAbilitiesPage(
+                                        pokemonId: pokemon['pok_id'],
+                                        pokemonName: pokemon['pok_name'],
+                                      ),
+                                    ),
+                                  );
+                                  if (selectedAbility != null) {
+                                    _setPokemonAbility(index, selectedAbility);
+                                  }
+                                },
+                                child: SizedBox(
+                                  height: 65,
+                                  child: Card(
+                                    color: Colors.grey[200],
+                                    child: Center(
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            pokemon['ability'] != null
+                                                ? pokemon['ability']![
+                                                    'abi_name']
+                                                : 'Select Ability',
+                                            style: const TextStyle(
+                                              fontSize: 14,
+                                            ),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(width: 8.0),
+                            Expanded(
+                              child: GestureDetector(
+                                onTap: () async {
+                                  final selectedItem = await Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => PokemonItemsPage(
+                                        pokemonId: pokemon['pok_id'],
+                                        pokemonName: pokemon['pok_name'],
+                                      ),
+                                    ),
+                                  );
+                                  if (selectedItem != null) {
+                                    _setPokemonItem(index, selectedItem);
+                                  }
+                                },
+                                child: SizedBox(
+                                  height: 65,
+                                  child: Card(
+                                    color: Colors.grey[200],
+                                    child: Center(
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            pokemon['item'] != null
+                                                ? pokemon['item']!['item_name']
+                                                : 'Select Item',
+                                            style: const TextStyle(
+                                              fontSize: 14,
+                                            ),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                       TextButton(
                         onPressed: () {
@@ -214,7 +332,8 @@ class _TeamPageState extends State<TeamPage> {
           final selectedPokemon = await Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => PokemonSelectorPage(teamName: widget.teamName),
+              builder: (context) =>
+                  PokemonSelectorPage(teamName: widget.teamName),
             ),
           );
 
@@ -227,7 +346,8 @@ class _TeamPageState extends State<TeamPage> {
     );
   }
 
-  void _showOptionsDialog(BuildContext context, int index, Map<String, dynamic> pokemon) {
+  void _showOptionsDialog(
+      BuildContext context, int index, Map<String, dynamic> pokemon) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -238,7 +358,8 @@ class _TeamPageState extends State<TeamPage> {
             children: [
               TextButton(
                 onPressed: () async {
-                  final pokemonDetails = await DatabaseHelper().getPokemonDetails(pokemon['pok_id']);
+                  final pokemonDetails = await DatabaseHelper()
+                      .getPokemonDetails(pokemon['pok_id']);
                   Navigator.of(context).pop();
                   Navigator.push(
                     context,
@@ -262,7 +383,8 @@ class _TeamPageState extends State<TeamPage> {
                   final selectedPokemon = await Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => PokemonSelectorPage(teamName: widget.teamName),
+                      builder: (context) =>
+                          PokemonSelectorPage(teamName: widget.teamName),
                     ),
                   );
                   if (selectedPokemon != null) {
@@ -270,6 +392,8 @@ class _TeamPageState extends State<TeamPage> {
                       _team[index] = {
                         ...selectedPokemon,
                         'moves': List<Map<String, dynamic>?>.filled(4, null),
+                        'ability': null,
+                        'item': null,
                       };
                       _saveTeam();
                     });

@@ -680,4 +680,32 @@ class DatabaseHelper {
       'team': teamResult
     };
   }
+
+  Future<List<Map<String, dynamic>>> getPokemonAbilities(int pokId) async {
+    final db = await database;
+    final abilities = await db.rawQuery('''
+    SELECT 
+      A.abi_id, A.abi_name, A.abi_desc, PA.is_hidden
+    FROM 
+      POKEMON_POSSESSES_ABILITY PA
+    JOIN 
+      ABILITIES A ON PA.abi_id = A.abi_id
+    WHERE 
+      PA.pok_id = ?
+  ''', [pokId]);
+
+    return abilities;
+  }
+
+  Future<List<Map<String, dynamic>>> getPokemonItems() async {
+    final db = await database;
+    final items = await db.rawQuery('''
+    SELECT 
+      item_id, item_name, item_desc
+    FROM 
+      ITEM
+  ''');
+
+    return items;
+  }
 }

@@ -6,7 +6,8 @@ class PokemonMovesPage extends StatefulWidget {
   final int pokemonId;
   final String pokemonName;
 
-  const PokemonMovesPage({super.key, required this.pokemonId, required this.pokemonName});
+  const PokemonMovesPage(
+      {super.key, required this.pokemonId, required this.pokemonName});
 
   @override
   _PokemonMovesPageState createState() => _PokemonMovesPageState();
@@ -71,9 +72,9 @@ class _PokemonMovesPageState extends State<PokemonMovesPage> {
                     value: _selectedMethod,
                     items: [
                       {'id': 1, 'name': 'Level Up'},
-                      {'id': 2, 'name': 'TM/HM'},
-                      {'id': 3, 'name': 'Egg Move'},
-                      {'id': 4, 'name': 'Tutor'}
+                      {'id': 2, 'name': 'Egg Move'},
+                      {'id': 3, 'name': 'Tutor'},
+                      {'id': 4, 'name': 'TM/HM'}
                     ].map<DropdownMenuItem<int>>((method) {
                       return DropdownMenuItem<int>(
                         value: method['id'] as int,
@@ -93,14 +94,17 @@ class _PokemonMovesPageState extends State<PokemonMovesPage> {
           ),
           Expanded(
             child: _moves.isEmpty
-                ? const Center(child: Text('No moves found for the selected filters.'))
+                ? const Center(
+                    child: Text('No moves found for the selected filters.'))
                 : ListView.builder(
                     itemCount: _moves.length,
                     itemBuilder: (context, index) {
                       final move = _moves[index];
                       return ListTile(
-                        title: Text('${move['move_name']}'),
-                        subtitle: Text('Type: ${move['move_type']} | Power: ${move['move_power']} | Accuracy: ${move['move_accuracy']}% | PP: ${move['move_pp']}'),
+                        title: Text(
+                            '${move['level_learned']} | ${move['move_name']}'),
+                        subtitle: Text(
+                            'Type: ${move['move_type']} | Power: ${move['move_power']} | Accuracy: ${move['move_accuracy']}% | PP: ${move['move_pp']}'),
                         onTap: () {
                           _showMoveOptionsDialog(context, move);
                         },
@@ -134,7 +138,8 @@ class _PokemonMovesPageState extends State<PokemonMovesPage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => MoveDetailPage(moveId: move['move_id'] as int),
+                    builder: (context) =>
+                        MoveDetailPage(moveId: move['move_id'] as int),
                   ),
                 );
               },
