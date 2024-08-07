@@ -1,3 +1,4 @@
+import time
 import requests
 import sys
 
@@ -622,12 +623,28 @@ def get_moves(limit=GEN_LIMIT):
         print(insert)
 
 def get_pok_moveset(pokemon_id):
-    print("-- Inserts for TABLE: MOVESET for Pokemon #" + str(pokemon_id))
+    print(f"-- Inserts for TABLE: MOVESET for Pokemon #{pokemon_id}")
     # Fetch data from PokeAPI for the given pokemon
-    response = requests.get(f"{BASE_URL}pokemon/{pokemon_id}")
-    if response.status_code != 200:
-        print(f"Error fetching data for Pokémon ID {pokemon_id}")
-        return set()
+    max_retries = 3
+    backoff_factor = 1.5
+
+    for attempt in range(max_retries):
+        try:
+            response = requests.get(f"{BASE_URL}pokemon/{pokemon_id}", timeout=15)
+            response.raise_for_status()
+            break
+        except (requests.exceptions.HTTPError, requests.exceptions.ConnectionError) as e:
+            print(f"Attempt {attempt + 1}: Error fetching data for Pokémon ID {pokemon_id}: {e}")
+            if attempt < max_retries - 1:
+                time.sleep(backoff_factor * (2 ** attempt))  # Exponential backoff
+            else:
+                return set()
+        except requests.exceptions.ReadTimeout:
+            print(f"Attempt {attempt + 1}: Timeout when fetching data for Pokémon ID {pokemon_id}")
+            if attempt < max_retries - 1:
+                time.sleep(backoff_factor * (2 ** attempt))  # Exponential backoff
+            else:
+                return set()
 
     pokemon_data = response.json()
     pok_id = pokemon_data['id']
@@ -639,30 +656,46 @@ def get_pok_moveset(pokemon_id):
         move_id = move['move']['url'].split('/')[-2]  # Extracting move id from the URL
 
         for version_group in move['version_group_details']:
+            # Retry logic for fetching version group details
+            for attempt in range(max_retries):
+                try:
+                    gen_response = requests.get(
+                        f"{BASE_URL}version-group/{version_group['version_group']['name']}/", timeout=15
+                    )
+                    gen_response.raise_for_status()
+                    data = gen_response.json()
+                    gen_id = int(data['generation']['url'].split('/')[-2])  # Extracting gen id from the URL
+                    break
+                except (requests.exceptions.HTTPError, requests.exceptions.ConnectionError) as e:
+                    print(f"Attempt {attempt + 1}: Error fetching version group data: {e}")
+                    if attempt < max_retries - 1:
+                        time.sleep(backoff_factor * (2 ** attempt))  # Exponential backoff
+                    else:
+                        continue
+                except requests.exceptions.ReadTimeout:
+                    print(f"Attempt {attempt + 1}: Timeout when fetching version group data")
+                    if attempt < max_retries - 1:
+                        time.sleep(backoff_factor * (2 ** attempt))  # Exponential backoff
+                    else:
+                        continue
+
             method_id = version_group['move_learn_method']['url'].split('/')[-2]  # Extracting method id from the URL
-
-            # Get the generation the move is learned from the URL
-            gen_response = requests.get(f"{BASE_URL}version-group/{version_group['version_group']['name']}/")
-            if gen_response.status_code != 200:
-                continue
-            data = gen_response.json()
-            gen_id = int(data['generation']['url'].split('/')[-2])  # Extracting gen id from the URL
-
             level_learned = version_group['level_learned_at']
 
             # Create a unique tuple and add it to the set
             insert_statements.add((pok_id, gen_id, move_id, method_id, level_learned))
 
-    return insert_statements
     # for statement in insert_statements:
     #     print(f"INSERT INTO MOVESET (pok_id, gen_id, move_id, move_method_id, level_learned) VALUES ({statement[0]}, {statement[1]}, {statement[2]}, {statement[3]}, {statement[4]});")
+    # dart pub global run rename setBundleId io.webflow.daniel_tsang.litwiki
+    return insert_statements
 
 def get_movesets():
     print("-- Generating SQL file for TABLE: MOVESET")
     all_insert_statements = set()
 
     # Loop through all Pokémon IDs from 1 to 1019
-    for pok_id in range(1, 10):
+    for pok_id in range(10001, 10278):
         # Get the moveset for each Pokémon and accumulate insert statements
         insert_statements = get_pok_moveset(pok_id)
         all_insert_statements.update(insert_statements)
@@ -796,4 +829,4 @@ def get_variant_types():
 
 # Moveset functions
 get_movesets()
-# get_pok_moveset(1)
+# get_pok_moveset(100)

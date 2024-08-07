@@ -12,6 +12,7 @@ dependencies:
   shared_preferences: ^2.2.3
   sqflite: ^2.3.3+1
   path: any
+  rename: ^3.0.2
 
 dev_dependencies:
   flutter_test:
