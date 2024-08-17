@@ -1,8 +1,9 @@
 # CSS-497-Pokedex-App
 This repository is for the Pokedex Database App Project for CSS 497.
 
-# LitWiki
+# LitWiki - The Pokémon Pokédex
 This capstone project focuses on developing a Pokémon database application for Android that provides a comprehensive platform for users to research and manage all things Pokémon.
+![CSS_497_Pokédex_Poster_Updated](https://github.com/user-attachments/assets/0fdd68fb-8929-45d6-bbfd-701125218f3f)
 
 ## Technologies Used
 * Flutter: The primary framework for developing the app.
