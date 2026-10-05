@@ -677,4 +677,20 @@ class DatabaseHelper {
 
     return items;
   }
+
+  /// Items by ID, from the full item table (the item picker lists every item,
+  /// including ones without a sprite that the Items screen leaves out).
+  Future<List<Map<String, dynamic>>> getItemsByIds(List<int> ids) async {
+    if (ids.isEmpty) return [];
+    final db = await database;
+    final marks = List.filled(ids.length, '?').join(', ');
+    return db.rawQuery('''
+      SELECT
+        item_id, item_name, item_desc
+      FROM
+        ITEM
+      WHERE
+        item_id IN ($marks)
+    ''', ids);
+  }
 }

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:pokedex_app/database_helper.dart';
+import '../../legacy_team_import.dart' show maxTeamSize;
+import '../../team_repository.dart';
 import '../../widgets/format.dart';
 import '../../widgets/pokemon_tile.dart';
 import '../../widgets/state_views.dart';
 import '../../widgets/type_chip.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'dart:convert';
 
 import 'pokemon_selector_page.dart';
 import '../pokemon/pokemon_detail_page.dart';
@@ -72,25 +72,29 @@ class _RenameTeamDialogState extends State<_RenameTeamDialog> {
 }
 
 class TeamPage extends StatefulWidget {
+  final int teamId;
   final String teamName;
 
   /// Returns an error message to show in the dialog, or null on success.
   final Future<String?> Function(String) onRename;
-  final VoidCallback onDelete;
+  final Future<void> Function() onDelete;
 
   const TeamPage({
     super.key,
+    required this.teamId,
     required this.teamName,
     required this.onRename,
     required this.onDelete,
   });
 
   @override
-  _TeamPageState createState() => _TeamPageState();
+  State<TeamPage> createState() => _TeamPageState();
 }
 
 class _TeamPageState extends State<TeamPage> {
+  final _repository = TeamRepository.instance;
   List<Map<String, dynamic>> _team = [];
+  bool _loaded = false;
 
   @override
   void initState() {
@@ -99,79 +103,112 @@ class _TeamPageState extends State<TeamPage> {
   }
 
   Future<void> _loadTeam() async {
-    final prefs = await SharedPreferences.getInstance();
-    final teamString = prefs.getString(widget.teamName);
-    if (teamString != null) {
-      final teamList = json.decode(teamString) as List<dynamic>;
+    try {
+      final members = await _repository.loadTeam(widget.teamId);
+      if (!mounted) return;
       setState(() {
-        _team = teamList.map((pokemon) {
-          return {
-            ...pokemon as Map<String, dynamic>,
-            'moves': (pokemon['moves'] as List<dynamic>)
-                .map((move) =>
-                    move == null ? null : move as Map<String, dynamic>)
-                .toList(),
-            'ability': pokemon['ability']
-                as Map<String, dynamic>?, // Add ability field
-            'item': pokemon['item'] as Map<String, dynamic>?, // Add item field
-          };
-        }).toList();
+        _team = members;
+        _loaded = true;
       });
+    } catch (_) {
+      if (!mounted) return;
+      setState(() => _loaded = true);
+      _showSaveError();
     }
   }
 
-  Future<void> _saveTeam() async {
-    final prefs = await SharedPreferences.getInstance();
-    final teamString = json.encode(_team);
-    await prefs.setString(widget.teamName, teamString);
+  void _showSaveError() {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text("Couldn't save that change. Try again.")),
+    );
   }
 
-  void _addPokemonToTeam(Map<String, dynamic> pokemon) {
-    setState(() {
-      if (_team.length < 6) {
+  /// Runs a save. On failure the screen is reloaded from the database, so it
+  /// never shows a change that wasn't stored.
+  Future<void> _save(Future<void> Function() write) async {
+    try {
+      await write();
+    } catch (_) {
+      if (!mounted) return;
+      _showSaveError();
+      await _loadTeam();
+    }
+  }
+
+  int _slotOf(int index) => _team[index]['slot'] as int;
+
+  Future<void> _addPokemonToTeam(Map<String, dynamic> pokemon) async {
+    if (_team.length >= maxTeamSize) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('A team holds up to 6 Pokémon.')),
+      );
+      return;
+    }
+    await _save(() async {
+      final slot =
+          await _repository.addMember(widget.teamId, pokemon['pok_id'] as int);
+      if (slot == null || !mounted) return;
+      setState(() {
         _team.add({
           ...pokemon,
+          'slot': slot,
           'moves': List<Map<String, dynamic>?>.filled(4, null),
-          'ability': null, // Initialize ability as null
-          'item': null, // Initialize item as null
+          'ability': null,
+          'item': null,
         });
-        _saveTeam();
-      }
+      });
     });
   }
 
-  void _removePokemonFromTeam(int index) {
-    setState(() {
-      _team.removeAt(index);
-      _saveTeam();
-    });
-  }
+  Future<void> _removePokemonFromTeam(int index) => _save(() async {
+        await _repository.removeMember(widget.teamId, _slotOf(index));
+        await _loadTeam(); // later Pokemon moved up a slot
+      });
 
-  void _setPokemonMove(
-      int pokemonIndex, int moveIndex, Map<String, dynamic> move) {
-    setState(() {
-      if (_team[pokemonIndex]['moves'] == null) {
-        _team[pokemonIndex]['moves'] =
-            List<Map<String, dynamic>?>.filled(4, null);
-      }
-      _team[pokemonIndex]['moves'][moveIndex] = move;
-      _saveTeam();
-    });
-  }
+  Future<void> _replacePokemon(int index, Map<String, dynamic> pokemon) =>
+      _save(() async {
+        final slot = _slotOf(index);
+        await _repository.replaceMember(
+            widget.teamId, slot, pokemon['pok_id'] as int);
+        if (!mounted) return;
+        setState(() {
+          _team[index] = {
+            ...pokemon,
+            'slot': slot,
+            'moves': List<Map<String, dynamic>?>.filled(4, null),
+            'ability': null,
+            'item': null,
+          };
+        });
+      });
 
-  void _setPokemonAbility(int pokemonIndex, Map<String, dynamic> ability) {
-    setState(() {
-      _team[pokemonIndex]['ability'] = ability;
-      _saveTeam();
-    });
-  }
+  Future<void> _setPokemonMove(
+          int pokemonIndex, int moveIndex, Map<String, dynamic> move) =>
+      _save(() async {
+        await _repository.setMove(widget.teamId, _slotOf(pokemonIndex),
+            moveIndex, move['move_id'] as int);
+        if (!mounted) return;
+        setState(() {
+          (_team[pokemonIndex]['moves'] as List)[moveIndex] = move;
+        });
+      });
 
-  void _setPokemonItem(int pokemonIndex, Map<String, dynamic> item) {
-    setState(() {
-      _team[pokemonIndex]['item'] = item;
-      _saveTeam();
-    });
-  }
+  Future<void> _setPokemonAbility(
+          int pokemonIndex, Map<String, dynamic> ability) =>
+      _save(() async {
+        await _repository.setAbility(
+            widget.teamId, _slotOf(pokemonIndex), ability['abi_id'] as int);
+        if (!mounted) return;
+        setState(() => _team[pokemonIndex]['ability'] = ability);
+      });
+
+  Future<void> _setPokemonItem(int pokemonIndex, Map<String, dynamic> item) =>
+      _save(() async {
+        await _repository.setItem(
+            widget.teamId, _slotOf(pokemonIndex), item['item_id'] as int);
+        if (!mounted) return;
+        setState(() => _team[pokemonIndex]['item'] = item);
+      });
 
   @override
   Widget build(BuildContext context) {
@@ -200,7 +237,9 @@ class _TeamPageState extends State<TeamPage> {
       ),
       body: Column(
         children: [
-          if (_team.isEmpty)
+          if (!_loaded)
+            const Expanded(child: LoadingView())
+          else if (_team.isEmpty)
             const Expanded(
               child: MessageView(
                 icon: Icons.catching_pokemon,
@@ -443,6 +482,7 @@ class _TeamPageState extends State<TeamPage> {
                 onPressed: () async {
                   final pokemonDetails = await DatabaseHelper()
                       .getPokemonDetails(pokemon['pok_id']);
+                  if (!context.mounted) return;
                   Navigator.of(context).pop();
                   Navigator.push(
                     context,
@@ -471,15 +511,7 @@ class _TeamPageState extends State<TeamPage> {
                     ),
                   );
                   if (selectedPokemon != null) {
-                    setState(() {
-                      _team[index] = {
-                        ...selectedPokemon,
-                        'moves': List<Map<String, dynamic>?>.filled(4, null),
-                        'ability': null,
-                        'item': null,
-                      };
-                      _saveTeam();
-                    });
+                    _replacePokemon(index, selectedPokemon);
                   }
                 },
                 child: const Text('Replace Pokémon'),
@@ -525,9 +557,8 @@ class _TeamPageState extends State<TeamPage> {
             TextButton(
               child: const Text('Delete'),
               onPressed: () async {
-                final prefs = await SharedPreferences.getInstance();
-                await prefs.remove(widget.teamName);
-                widget.onDelete();
+                await widget.onDelete();
+                if (!context.mounted) return;
                 Navigator.of(context).pop();
                 Navigator.of(context).pop(); // Go back to the previous screen
               },
