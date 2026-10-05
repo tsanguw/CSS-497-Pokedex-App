@@ -1,20 +1,20 @@
 -- Inserts for TABLE: ITEMS
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (1, 'master-ball', 'Catches a wild Pokémon every time.', 34);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (2, 'ultra-ball', 'Tries to catch a wild Pokémon.  Success rate is 2×.', 34);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (3, 'great-ball', 'Tries to catch a wild Pokémon.  Success rate is 1.5×.', 34);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (4, 'poke-ball', 'Tries to catch a wild Pokémon.', 34);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (5, 'safari-ball', 'Tries to catch a wild Pokémon in the Great Marsh or Safari Zone.  Success rate is 1.5×.', 34);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (6, 'net-ball', 'Tries to catch a wild Pokémon.  Success rate is 3× for water and bug Pokémon.', 33);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (7, 'dive-ball', 'Tries to catch a wild Pokémon. Success rate is 3.5× when underwater, fishing, or surfing.', 33);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (8, 'nest-ball', 'Tries to catch a wild Pokémon.  Success rate is 3.9× for level 1 Pokémon, and drops steadily to 1× at level 30.', 33);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (9, 'repeat-ball', 'Tries to catch a wild Pokémon.  Success rate is 3× for previously-caught Pokémon.', 33);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (10, 'timer-ball', 'Tries to catch a wild Pokémon. Success rate increases by 0.1× (Gen V: 0.3×) every turn, to a max of 4×.', 33);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (11, 'luxury-ball', 'Tries to catch a wild Pokémon.  Caught Pokémon start with 200 happiness.', 33);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (12, 'premier-ball', 'Tries to catch a wild Pokémon.', 33);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (13, 'dusk-ball', 'Tries to catch a wild Pokémon.  Success rate is 3.5× at night and in caves.', 33);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (14, 'heal-ball', 'Tries to catch a wild Pokémon.  Caught Pokémon are immediately healed.', 33);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (15, 'quick-ball', 'Tries to catch a wild Pokémon. Success rate is 4× (Gen V: 5×), but only on the first turn.', 33);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (16, 'cherish-ball', 'Tries to catch a wild Pokémon.', 33);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (1, 'master-ball', 'Catches a wild PokÃ©mon every time.', 34);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (2, 'ultra-ball', 'Tries to catch a wild PokÃ©mon.  Success rate is 2Ã—.', 34);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (3, 'great-ball', 'Tries to catch a wild PokÃ©mon.  Success rate is 1.5Ã—.', 34);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (4, 'poke-ball', 'Tries to catch a wild PokÃ©mon.', 34);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (5, 'safari-ball', 'Tries to catch a wild PokÃ©mon in the Great Marsh or Safari Zone.  Success rate is 1.5Ã—.', 34);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (6, 'net-ball', 'Tries to catch a wild PokÃ©mon.  Success rate is 3Ã— for water and bug PokÃ©mon.', 33);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (7, 'dive-ball', 'Tries to catch a wild PokÃ©mon. Success rate is 3.5Ã— when underwater, fishing, or surfing.', 33);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (8, 'nest-ball', 'Tries to catch a wild PokÃ©mon.  Success rate is 3.9Ã— for level 1 PokÃ©mon, and drops steadily to 1Ã— at level 30.', 33);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (9, 'repeat-ball', 'Tries to catch a wild PokÃ©mon.  Success rate is 3Ã— for previously-caught PokÃ©mon.', 33);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (10, 'timer-ball', 'Tries to catch a wild PokÃ©mon. Success rate increases by 0.1Ã— (Gen V: 0.3Ã—) every turn, to a max of 4Ã—.', 33);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (11, 'luxury-ball', 'Tries to catch a wild PokÃ©mon.  Caught PokÃ©mon start with 200 happiness.', 33);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (12, 'premier-ball', 'Tries to catch a wild PokÃ©mon.', 33);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (13, 'dusk-ball', 'Tries to catch a wild PokÃ©mon.  Success rate is 3.5Ã— at night and in caves.', 33);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (14, 'heal-ball', 'Tries to catch a wild PokÃ©mon.  Caught PokÃ©mon are immediately healed.', 33);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (15, 'quick-ball', 'Tries to catch a wild PokÃ©mon. Success rate is 4Ã— (Gen V: 5Ã—), but only on the first turn.', 33);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (16, 'cherish-ball', 'Tries to catch a wild PokÃ©mon.', 33);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (17, 'potion', 'Restores 20 HP.', 27);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (18, 'antidote', 'Cures poison.', 30);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (19, 'burn-heal', 'Cures a burn.', 30);
@@ -42,7 +42,7 @@ INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (40, 'elixi
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (41, 'max-elixir', 'Restores PP to full for each move.', 28);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (42, 'lava-cookie', 'Cures any status ailment and confusion.', 30);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (43, 'berry-juice', 'Restores 20 HP.', 27);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (44, 'sacred-ash', 'Revives all fainted Pokémon with full HP.', 29);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (44, 'sacred-ash', 'Revives all fainted PokÃ©mon with full HP.', 29);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (45, 'hp-up', 'Raises HP effort and happiness.', 26);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (46, 'protein', 'Raises Attack effort and happiness.', 26);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (47, 'iron', 'Raises Defense effort and happiness.', 26);
@@ -66,31 +66,31 @@ INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (64, 'fluff
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (65, 'blue-flute', 'Cures sleep.', 38);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (66, 'yellow-flute', 'Cures confusion.', 38);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (67, 'red-flute', 'Cures attraction.', 38);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (68, 'black-flute', 'Halves the wild Pokémon encounter rate.', 11);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (69, 'white-flute', 'Doubles the wild Pokémon encounter rate.', 11);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (68, 'black-flute', 'Halves the wild PokÃ©mon encounter rate.', 11);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (69, 'white-flute', 'Doubles the wild PokÃ©mon encounter rate.', 11);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (70, 'shoal-salt', 'No effect. Gen III: Trade four and four Shoal Shells for a Shell Bell.', 9);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (71, 'shoal-shell', 'No effect. Gen III: Trade four and four Shoal Salts for a Shell Bell.', 9);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (72, 'red-shard', 'No effect. Can be traded for items or moves.', 9);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (73, 'blue-shard', 'No effect. Can be traded for items or moves.', 9);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (74, 'yellow-shard', 'No effect. Can be traded for items or moves.', 9);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (75, 'green-shard', 'No effect. Can be traded for items or moves.', 9);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (76, 'super-repel', 'For 200 steps, prevents wild encounters of level lower than your party''s lead Pokémon.', 11);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (77, 'max-repel', 'For 250 steps, prevents wild encounters of level lower than your party''s lead Pokémon.', 11);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (76, 'super-repel', 'For 200 steps, prevents wild encounters of level lower than your party''s lead PokÃ©mon.', 11);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (77, 'max-repel', 'For 250 steps, prevents wild encounters of level lower than your party''s lead PokÃ©mon.', 11);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (78, 'escape-rope', 'Transports user to the outside entrance of a cave.', 11);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (79, 'repel', 'For 100 steps, prevents wild encounters of level lower than your party''s lead Pokémon.', 11);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (79, 'repel', 'For 100 steps, prevents wild encounters of level lower than your party''s lead PokÃ©mon.', 11);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (80, 'sun-stone', 'Evolves a Cottonee into Whimsicott, a Gloom into Bellossom, a Petilil into Lilligant, or a Sunkern into Sunflora.', 10);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (81, 'moon-stone', 'Evolves a Clefairy into Clefable, a Jigglypuff into Wigglytuff, a Munna into Musharna, a Nidorina into Nidoqueen, a Nidorino into Nidoking, or a Skitty into Delcatty.', 10);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (82, 'fire-stone', 'Evolves an Eevee into Flareon, a Growlithe into Arcanine, a Pansear into Simisear, or a Vulpix into Ninetales.', 10);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (83, 'thunder-stone', 'Evolves an Eelektrik into Eelektross, an Eevee into Jolteon, or a Pikachu into Raichu.', 10);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (84, 'water-stone', 'Evolves an Eevee into Vaporeon, a Lombre into Ludicolo, a Panpour into Simipour, a Poliwhirl into Poliwrath, a Shellder into Cloyster, or a Staryu into Starmie.', 10);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (85, 'leaf-stone', 'Evolves an Exeggcute into Exeggutor, a Gloom into Vileplume, a Nuzleaf into Shiftry, a Pansage into Simisage, or a Weepinbell into Victreebel.', 10);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (86, 'tiny-mushroom', 'Fire Red and Leaf Green: Trade two for prior Level-up moves. Sell for 250 Pokédollars, or to Hungry Maid for 500 Pokédollars.', 24);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (87, 'big-mushroom', 'Fire Red and Leaf Green: Trade for prior Level-up moves. Sell for 2500 Pokédollars, or to Hungry Maid for 5000 Pokédollars.', 24);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (88, 'pearl', 'Sell for 700 Pokédollars, or to Ore Collector for 1400 Pokédollars.', 24);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (89, 'big-pearl', 'Sell for 3750 Pokédollars, or to Ore Collector for 7500 Pokédollars.', 24);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (90, 'stardust', 'Sell for 1000 Pokédollars, or to Ore Collector for 2000 Pokédollars.', 24);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (91, 'star-piece', 'Platinum: Trade for one of each color Shard. Black and White: Trade for PP Up. Sell for 4900 Pokédollars, or to Ore Collector for 9800 Pokédollars.', 24);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (92, 'nugget', 'Sell for 5000 Pokédollars, or to Ore Collector for 10000 Pokédollars.', 24);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (86, 'tiny-mushroom', 'Fire Red and Leaf Green: Trade two for prior Level-up moves. Sell for 250 PokÃ©dollars, or to Hungry Maid for 500 PokÃ©dollars.', 24);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (87, 'big-mushroom', 'Fire Red and Leaf Green: Trade for prior Level-up moves. Sell for 2500 PokÃ©dollars, or to Hungry Maid for 5000 PokÃ©dollars.', 24);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (88, 'pearl', 'Sell for 700 PokÃ©dollars, or to Ore Collector for 1400 PokÃ©dollars.', 24);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (89, 'big-pearl', 'Sell for 3750 PokÃ©dollars, or to Ore Collector for 7500 PokÃ©dollars.', 24);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (90, 'stardust', 'Sell for 1000 PokÃ©dollars, or to Ore Collector for 2000 PokÃ©dollars.', 24);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (91, 'star-piece', 'Platinum: Trade for one of each color Shard. Black and White: Trade for PP Up. Sell for 4900 PokÃ©dollars, or to Ore Collector for 9800 PokÃ©dollars.', 24);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (92, 'nugget', 'Sell for 5000 PokÃ©dollars, or to Ore Collector for 10000 PokÃ©dollars.', 24);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (93, 'heart-scale', 'No effect. Can be traded for prior Level-up moves.', 9);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (94, 'honey', '', 35);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (95, 'growth-mulch', 'Growing time of berries is reduced, but the soil dries out faster.', 32);
@@ -104,7 +104,7 @@ INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (102, 'dome
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (103, 'old-amber', 'Can be revived into an Aerodactyl.', 35);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (104, 'armor-fossil', 'Can be revived into a Shieldon.', 35);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (105, 'skull-fossil', 'Can be revived into a Cranidos.', 35);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (106, 'rare-bone', 'Sell for 5000 Pokédollars, or to Bone Man for 10000 Pokédollars.', 24);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (106, 'rare-bone', 'Sell for 5000 PokÃ©dollars, or to Bone Man for 10000 PokÃ©dollars.', 24);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (107, 'shiny-stone', 'Evolves a Minccino into Cinccino, a Roselia into Roserade, or a Togetic into Togekiss.', 10);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (108, 'dusk-stone', 'Evolves a Lampent into Chandelure, a Misdreavus into Mismagius, or a Murkrow into Honchkrow.', 10);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (109, 'dawn-stone', 'Evolves a male Kirlia into Gallade or a female Snorunt into Froslass.', 10);
@@ -112,18 +112,18 @@ INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (110, 'oval
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (111, 'odd-keystone', 'Use on the tower on Route 209 to encounter Spiritomb if you have at least 32 Underground greetings.', 35);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (112, 'adamant-orb', 'Boosts the damage from Dialga''s Dragon-type and Steel-type moves by 20%.', 18);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (113, 'lustrous-orb', 'Boosts the damage from Palkia''s Dragon-type and Water-type moves by 20%.', 18);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (114, 'grass-mail', 'Lets a Trainer write a message and send it via Pokémon trade.', 25);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (115, 'flame-mail', 'Lets a Trainer write a message and send it via Pokémon trade.', 25);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (116, 'bubble-mail', 'Lets a Trainer write a message and send it via Pokémon trade.', 25);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (117, 'bloom-mail', 'Lets a Trainer write a message and send it via Pokémon trade.', 25);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (118, 'tunnel-mail', 'Lets a Trainer write a message and send it via Pokémon trade.', 25);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (119, 'steel-mail', 'Lets a Trainer write a message and send it via Pokémon trade.', 25);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (120, 'heart-mail', 'Lets a Trainer write a message and send it via Pokémon trade.', 25);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (121, 'snow-mail', 'Lets a Trainer write a message and send it via Pokémon trade.', 25);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (122, 'space-mail', 'Lets a Trainer write a message and send it via Pokémon trade.', 25);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (123, 'air-mail', 'Lets a Trainer write a message and send it via Pokémon trade.', 25);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (124, 'mosaic-mail', 'Lets a Trainer write a message and send it via Pokémon trade.', 25);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (125, 'brick-mail', 'Lets a Trainer write a message and send it via Pokémon trade.', 25);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (114, 'grass-mail', 'Lets a Trainer write a message and send it via PokÃ©mon trade.', 25);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (115, 'flame-mail', 'Lets a Trainer write a message and send it via PokÃ©mon trade.', 25);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (116, 'bubble-mail', 'Lets a Trainer write a message and send it via PokÃ©mon trade.', 25);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (117, 'bloom-mail', 'Lets a Trainer write a message and send it via PokÃ©mon trade.', 25);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (118, 'tunnel-mail', 'Lets a Trainer write a message and send it via PokÃ©mon trade.', 25);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (119, 'steel-mail', 'Lets a Trainer write a message and send it via PokÃ©mon trade.', 25);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (120, 'heart-mail', 'Lets a Trainer write a message and send it via PokÃ©mon trade.', 25);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (121, 'snow-mail', 'Lets a Trainer write a message and send it via PokÃ©mon trade.', 25);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (122, 'space-mail', 'Lets a Trainer write a message and send it via PokÃ©mon trade.', 25);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (123, 'air-mail', 'Lets a Trainer write a message and send it via PokÃ©mon trade.', 25);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (124, 'mosaic-mail', 'Lets a Trainer write a message and send it via PokÃ©mon trade.', 25);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (125, 'brick-mail', 'Lets a Trainer write a message and send it via PokÃ©mon trade.', 25);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (126, 'cheri-berry', 'Held: Consumed when paralyzed to cure paralysis.', 3);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (127, 'chesto-berry', 'Held: Consumed when asleep to cure sleep.', 3);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (128, 'pecha-berry', 'Held: Consumed when poisoned to cure poison.', 3);
@@ -134,31 +134,31 @@ INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (132, 'oran
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (133, 'persim-berry', 'Held: Consumed when confused to cure confusion.', 3);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (134, 'lum-berry', 'Held: Consumed to cure any status condition or confusion.', 3);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (135, 'sitrus-berry', 'Held: Consumed at 1/2 max HP to recover 1/4 max HP.', 3);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (136, 'figy-berry', 'Held: Consumed at 1/2 max HP to restore 1/8 max HP. Confuses Pokémon that dislike spicy flavor.', 6);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (137, 'wiki-berry', 'Held: Consumed at 1/2 max HP to restore 1/8 max HP. Confuses Pokémon that dislike dry flavor.', 6);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (138, 'mago-berry', 'Held: Consumed at 1/2 max HP to restore 1/8 max HP. Confuses Pokémon that dislike sweet flavor.', 6);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (139, 'aguav-berry', 'Held: Consumed at 1/2 max HP to restore 1/8 max HP. Confuses Pokémon that dislike bitter flavor.', 6);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (140, 'iapapa-berry', 'Held: Consumed at 1/2 max HP to restore 1/8 max HP. Confuses Pokémon that dislike sour flavor.', 6);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (141, 'razz-berry', 'Used for creating PokéBlocks and Poffins.', 8);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (142, 'bluk-berry', 'Used for creating PokéBlocks and Poffins.', 8);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (143, 'nanab-berry', 'Used for creating PokéBlocks and Poffins.', 8);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (144, 'wepear-berry', 'Used for creating PokéBlocks and Poffins.', 8);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (145, 'pinap-berry', 'Used for creating PokéBlocks and Poffins.', 8);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (136, 'figy-berry', 'Held: Consumed at 1/2 max HP to restore 1/8 max HP. Confuses PokÃ©mon that dislike spicy flavor.', 6);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (137, 'wiki-berry', 'Held: Consumed at 1/2 max HP to restore 1/8 max HP. Confuses PokÃ©mon that dislike dry flavor.', 6);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (138, 'mago-berry', 'Held: Consumed at 1/2 max HP to restore 1/8 max HP. Confuses PokÃ©mon that dislike sweet flavor.', 6);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (139, 'aguav-berry', 'Held: Consumed at 1/2 max HP to restore 1/8 max HP. Confuses PokÃ©mon that dislike bitter flavor.', 6);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (140, 'iapapa-berry', 'Held: Consumed at 1/2 max HP to restore 1/8 max HP. Confuses PokÃ©mon that dislike sour flavor.', 6);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (141, 'razz-berry', 'Used for creating PokÃ©Blocks and Poffins.', 8);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (142, 'bluk-berry', 'Used for creating PokÃ©Blocks and Poffins.', 8);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (143, 'nanab-berry', 'Used for creating PokÃ©Blocks and Poffins.', 8);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (144, 'wepear-berry', 'Used for creating PokÃ©Blocks and Poffins.', 8);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (145, 'pinap-berry', 'Used for creating PokÃ©Blocks and Poffins.', 8);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (146, 'pomeg-berry', 'Drops HP Effort Values by 10 and raises happiness.', 2);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (147, 'kelpsy-berry', 'Drops Attack Effort Values by 10 and raises happiness.', 2);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (148, 'qualot-berry', 'Drops Defense Effort Values by 10 and raises happiness.', 2);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (149, 'hondew-berry', 'Drops Special Attack Effort Values by 10 and raises happiness.', 2);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (150, 'grepa-berry', 'Drops Special Defense Effort Values by 10 and raises happiness.', 2);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (151, 'tamato-berry', 'Drops Speed Effort Values by 10 and raises happiness.', 2);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (152, 'cornn-berry', 'Used for creating PokéBlocks and Poffins.', 8);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (153, 'magost-berry', 'Used for creating PokéBlocks and Poffins.', 8);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (154, 'rabuta-berry', 'Used for creating PokéBlocks and Poffins.', 8);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (155, 'nomel-berry', 'Used for creating PokéBlocks and Poffins.', 8);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (156, 'spelon-berry', 'Used for creating PokéBlocks and Poffins.', 8);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (157, 'pamtre-berry', 'Used for creating PokéBlocks and Poffins.', 8);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (158, 'watmel-berry', 'Used for creating PokéBlocks and Poffins.', 8);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (159, 'durin-berry', 'Used for creating PokéBlocks and Poffins.', 8);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (160, 'belue-berry', 'Used for creating PokéBlocks and Poffins.', 8);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (152, 'cornn-berry', 'Used for creating PokÃ©Blocks and Poffins.', 8);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (153, 'magost-berry', 'Used for creating PokÃ©Blocks and Poffins.', 8);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (154, 'rabuta-berry', 'Used for creating PokÃ©Blocks and Poffins.', 8);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (155, 'nomel-berry', 'Used for creating PokÃ©Blocks and Poffins.', 8);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (156, 'spelon-berry', 'Used for creating PokÃ©Blocks and Poffins.', 8);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (157, 'pamtre-berry', 'Used for creating PokÃ©Blocks and Poffins.', 8);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (158, 'watmel-berry', 'Used for creating PokÃ©Blocks and Poffins.', 8);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (159, 'durin-berry', 'Used for creating PokÃ©Blocks and Poffins.', 8);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (160, 'belue-berry', 'Used for creating PokÃ©Blocks and Poffins.', 8);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (161, 'occa-berry', 'Held: Consumed when struck by a super-effective Fire-type attack to halve the damage.', 7);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (162, 'passho-berry', 'Held: Consumed when struck by a super-effective Water-type attack to halve the damage.', 7);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (163, 'wacan-berry', 'Held: Consumed when struck by a super-effective Electric-type attack to halve the damage.', 7);
@@ -191,7 +191,7 @@ INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (189, 'rowa
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (190, 'bright-powder', 'Held: Increases the holder''s evasion by 1/9 (11 1/9%).', 12);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (191, 'white-herb', 'Held: Resets all lowered stats to normal at end of turn. Consumed after use.', 12);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (192, 'macho-brace', 'Held: Holder gains double effort values from battles, but has halved Speed in battle.', 14);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (193, 'exp-share', 'Held: Half the experience from a battle is split between Pokémon holding this item.', 16);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (193, 'exp-share', 'Held: Half the experience from a battle is split between PokÃ©mon holding this item.', 16);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (194, 'quick-claw', 'Held: Holder has a 3/16 (18.75%) chance to move first.', 12);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (195, 'soothe-bell', 'Held: Doubles the happiness earned by the holder.', 16);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (196, 'mental-herb', 'Held: Consumed to cure infatuation. Gen V: Also removes Taunt, Encore, Torment, Disable, and Cursed Body.', 12);
@@ -199,7 +199,7 @@ INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (197, 'choi
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (198, 'kings-rock', 'Held: Damaging moves gain a 10% chance to make their target flinch. Traded on a Poliwhirl: Holder evolves into Politoed. Traded on a Slowpoke: Holder evolves into Slowking.', 12);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (199, 'silver-powder', 'Held: Bug-Type moves from holder do 20% more damage.', 19);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (200, 'amulet-coin', 'Held: Doubles the money earned from a battle. Does not stack with Luck Incense.', 16);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (201, 'cleanse-tag', 'Prevents wild encounters of level lower than your party''s lead Pokémon.', 16);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (201, 'cleanse-tag', 'Prevents wild encounters of level lower than your party''s lead PokÃ©mon.', 16);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (202, 'soul-dew', 'Raises Latias and Latios''s Special Attack and Special Defense by 50%.', 18);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (203, 'deep-sea-tooth', 'Doubles Clamperl''s Special Attack. Traded on a Clamperl: Holder evolves into Huntail.', 18);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (204, 'deep-sea-scale', 'Doubles Clamperl''s Special Defense. Traded on a Clamperl: Holder evolves into Gorebyss.', 18);
@@ -255,7 +255,7 @@ INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (253, 'zoom
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (254, 'metronome', 'Held: Consectutive uses of the same attack have a cumulative damage boost of 10%. Maximum 100% boost.', 12);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (255, 'iron-ball', 'Held: Holder''s Speed is halved. Negates all Ground-type immunities, and makes Flying-types take neutral damage from Ground-type moves. Arena Trap. Spikes, and Toxic Spikes affect the holder.', 15);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (256, 'lagging-tail', 'Held: Holder moves last in its priority bracket.', 15);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (257, 'destiny-knot', 'Held: Infatuates opposing Pokémon when holder is inflicted with infatuation.', 12);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (257, 'destiny-knot', 'Held: Infatuates opposing PokÃ©mon when holder is inflicted with infatuation.', 12);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (258, 'black-sludge', 'Held: Poison-type holder recovers 1/16 (6.25%) max HP each turn. Non-Poison-Types take 1/8 (12.5%) max HP damage.', 12);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (259, 'icy-rock', 'Held: Hail by the holder lasts 8 rounds instead of 5.', 12);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (260, 'smooth-rock', 'Held: Sandstorm by the holder lasts 8 rounds instead of 5.', 12);
@@ -263,7 +263,7 @@ INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (261, 'heat
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (262, 'damp-rock', 'Held: Rain Dance by the holder lasts 8 rounds instead of 5.', 12);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (263, 'grip-claw', 'Held: Holder''s multi-turn trapping moves last 5 turns.', 12);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (264, 'choice-scarf', 'Held: Increases Speed by 50%, but restricts the holder to only one move.', 13);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (265, 'sticky-barb', 'Held: Holder takes 1/8 (12.5%) its max HP at the end of each turn. When the holder is hit by a contact move, the attacking Pokémon takes 1/8 its max HP in damage and receive the item if not holding one.', 15);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (265, 'sticky-barb', 'Held: Holder takes 1/8 (12.5%) its max HP at the end of each turn. When the holder is hit by a contact move, the attacking PokÃ©mon takes 1/8 its max HP in damage and receive the item if not holding one.', 15);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (266, 'power-bracer', 'Held: Holder gains 4 Attack effort values, but has halved Speed in battle.', 14);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (267, 'power-belt', 'Held: Holder gains 4 Defense effort values, but has halved Speed in battle.', 14);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (268, 'power-lens', 'Held: Holder gains 4 Special Attack effort values, but has halved Speed in battle.', 14);
@@ -295,7 +295,7 @@ INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (293, 'full
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (294, 'wave-incense', 'Held: Water-Type moves from holder do 20% more damage. Breeding: Mantine begets a Mantyke Egg.', 19);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (295, 'rose-incense', 'Held: Grass-Type moves from holder do 20% more damage. Breeding: Roselia or Roserade beget a Budew Egg.', 19);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (296, 'luck-incense', 'Held: Doubles the money earned from a battle. Does not stack with Amulet Coin. Breeding: Chansey and Blissey beget a Happiny Egg.', 16);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (297, 'pure-incense', 'Prevents wild encounters of level lower than your party''s lead Pokémon. Breeding: Chimecho begets a Chingling Egg.', 16);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (297, 'pure-incense', 'Prevents wild encounters of level lower than your party''s lead PokÃ©mon. Breeding: Chimecho begets a Chingling Egg.', 16);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (298, 'protector', 'Traded on a Rhydon: Holder evolves into Rhyperior.', 10);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (299, 'electirizer', 'Traded on an Electabuzz: Holder evolves into Electivire.', 10);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (300, 'magmarizer', 'Traded on a Magmar: Holder evolves into Magmortar.', 10);
@@ -303,115 +303,115 @@ INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (301, 'dubi
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (302, 'reaper-cloth', 'Traded on a Dusclops: Holder evolves into Dusknoir.', 10);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (303, 'razor-claw', 'Held: Raises the holder''s critical hit ratio by one stage. Held by a Sneasel while levelling up at night: Holder evolves into Weavile.', 12);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (304, 'razor-fang', 'Held: Damaging moves gain a 10% chance to make their target flinch. Held by a Gligar while levelling up: Holder evolves into Gliscor.', 12);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (305, 'tm01', 'Teaches Hone Claws to a compatible Pokémon. (Gen IV & III: Focus Punch Gen II: DynamicPunch Gen I: Mega Punch)', 37);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (306, 'tm02', 'Teaches Dragon Claw to a compatible Pokémon. (Gen II: Headbutt Gen I: Razor Wind)', 37);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (307, 'tm03', 'Teaches Psyshock to a compatible Pokémon. (Gen IV & III: Water Pulse Gen II: Curse Gen I: Swords Dance)', 37);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (308, 'tm04', 'Teaches Calm Mind to a compatible Pokémon. (Gen II: Rollout Gen I: Whirlwind)', 37);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (309, 'tm05', 'Teaches Roar to a compatible Pokémon. (Gen I: Mega Kick)', 37);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (310, 'tm06', 'Teaches Toxic to a compatible Pokémon.', 37);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (311, 'tm07', 'Teaches Hail to a compatible Pokémon. (Gen II: Zap Cannon Gen I: Horn Drill)', 37);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (312, 'tm08', 'Teaches Bulk Up to a compatible Pokémon. (Gen II: Rock Smash Gen I: Body Slam)', 37);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (313, 'tm09', 'Teaches Venoshock to a compatible Pokémon. (Gen IV & III: Bullet Seed Gen II: Psych Up Gen I: Take Down)', 37);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (314, 'tm10', 'Teaches Hidden Power to a compatible Pokémon. (Gen I: Double-Edge)', 37);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (315, 'tm11', 'Teaches Sunny Day to a compatible Pokémon. (Gen I: BubbleBeam)', 37);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (316, 'tm12', 'Teaches Taunt to a compatible Pokémon. (Gen II: Sweet Scent Gen I: Water Gun)', 37);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (317, 'tm13', 'Teaches Ice Beam to a compatible Pokémon. (Gen II: Snore)', 37);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (318, 'tm14', 'Teaches Blizzard to a compatible Pokémon.', 37);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (319, 'tm15', 'Teaches Hyper Beam to a compatible Pokémon.', 37);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (320, 'tm16', 'Teaches Light Screen to a compatible Pokémon. (Gen II: Icy Wind Gen I: Pay Day)', 37);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (321, 'tm17', 'Teaches Protect to a compatible Pokémon. (Gen I: Submission)', 37);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (322, 'tm18', 'Teaches Rain Dance to a compatible Pokémon. (Gen I: Counter)', 37);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (323, 'tm19', 'Teaches Telekinesis to a compatible Pokémon. (Gen IV & III & II: Giga Drain Gen I: Seismic Toss)', 37);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (324, 'tm20', 'Teaches Safeguard to a compatible Pokémon. (Gen II: Endure Gen I: Rage)', 37);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (325, 'tm21', 'Teaches Frustration to a compatible Pokémon. (Gen I: Mega Drain)', 37);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (326, 'tm22', 'Teaches SolarBeam to a compatible Pokémon.', 37);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (327, 'tm23', 'Teaches Smack Down to a compatible Pokémon. (Gen IV & III & II: Iron Tail Gen I: Dragon Rage)', 37);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (328, 'tm24', 'Teaches Thunderbolt to a compatible Pokémon. (Gen II: DragonBreath)', 37);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (329, 'tm25', 'Teaches Thunder to a compatible Pokémon.', 37);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (330, 'tm26', 'Teaches Earthquake to a compatible Pokémon.', 37);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (331, 'tm27', 'Teaches Return to a compatible Pokémon. (Gen I: Fissure)', 37);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (332, 'tm28', 'Teaches Dig to a compatible Pokémon.', 37);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (333, 'tm29', 'Teaches Psychic to a compatible Pokémon.', 37);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (334, 'tm30', 'Teaches Shadow Ball to a compatible Pokémon. (Gen I: Teleport)', 37);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (335, 'tm31', 'Teaches Brick Break to a compatible Pokémon. (Gen II: Mud-Slap Gen I: Mimic)', 37);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (336, 'tm32', 'Teaches Double Team to a compatible Pokémon.', 37);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (337, 'tm33', 'Teaches Reflect to a compatible Pokémon. (Gen II: Ice Punch)', 37);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (338, 'tm34', 'Teaches Sludge Wave to a compatible Pokémon. (Gen IV & III: Shock Wave Gen II: Swagger Gen I: Bide)', 37);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (339, 'tm35', 'Teaches Flamethrower to a compatible Pokémon. (Gen II: Sleep Talk Gen I: Metronome)', 37);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (340, 'tm36', 'Teaches Sludge Bomb to a compatible Pokémon. (Gen I: Selfdestruct)', 37);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (341, 'tm37', 'Teaches Sandstorm to a compatible Pokémon. (Gen I: Egg Bomb)', 37);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (342, 'tm38', 'Teaches Fire Blast to a compatible Pokémon.', 37);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (343, 'tm39', 'Teaches Rock Tomb to a compatible Pokémon. (Gen II & I: Swift)', 37);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (344, 'tm40', 'Teaches Aerial Ace to a compatible Pokémon. (Gen II: Defense Curl Gen I: Skull Bash)', 37);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (345, 'tm41', 'Teaches Torment to a compatible Pokémon. (Gen II: ThunderPunch Gen I: Softboiled)', 37);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (346, 'tm42', 'Teaches Facade to a compatible Pokémon. (Gen II & I: Dream Eater)', 37);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (347, 'tm43', 'Teaches Flame Charge to a compatible Pokémon. (Gen IV & III: Secret Power Gen II: Detect Gen I: Sky Attack)', 37);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (348, 'tm44', 'Teaches Rest to a compatible Pokémon.', 37);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (349, 'tm45', 'Teaches Attract to a compatible Pokémon. (Gen I: Thunder Wave)', 37);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (350, 'tm46', 'Teaches Thief to a compatible Pokémon. (Gen I: Psywave)', 37);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (351, 'tm47', 'Teaches Low Sweep to a compatible Pokémon. (Gen IV & III & II: Steel Wing Gen I: Explosion)', 37);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (352, 'tm48', 'Teaches Round to a compatible Pokémon. (Gen IV & III: Skill Swap Gen II: Fire Punch Gen I: Rock Slide)', 37);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (353, 'tm49', 'Teaches Echoed Voice to a compatible Pokémon. (Gen IV & III: Snatch Gen II: Fury Cutter Gen I: Tri Attack)', 37);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (354, 'tm50', 'Teaches Overheat to a compatible Pokémon. (Gen II: Nightmare Gen I: Substitute)', 37);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (355, 'tm51', 'Teaches Ally Switch to a compatible Pokémon. (Gen IV: Roost)', 37);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (356, 'tm52', 'Teaches Focus Blast to a compatible Pokémon.', 37);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (357, 'tm53', 'Teaches Energy Ball to a compatible Pokémon.', 37);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (358, 'tm54', 'Teaches False Swipe to a compatible Pokémon.', 37);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (359, 'tm55', 'Teaches Scald to a compatible Pokémon. (Gen IV: Brine)', 37);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (360, 'tm56', 'Teaches Fling to a compatible Pokémon.', 37);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (361, 'tm57', 'Teaches Charge Beam to a compatible Pokémon.', 37);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (362, 'tm58', 'Teaches Sky Drop to a compatible Pokémon. (Gen IV: Endure)', 37);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (363, 'tm59', 'Teaches Incinerate to a compatible Pokémon. (Gen IV: Dragon Pulse)', 37);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (364, 'tm60', 'Teaches Quash to a compatible Pokémon. (Gen IV: Drain Punch)', 37);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (365, 'tm61', 'Teaches Will-O-Wisp to a compatible Pokémon.', 37);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (366, 'tm62', 'Teaches Acrobatics to a compatible Pokémon. (Gen IV: Silver Wind)', 37);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (367, 'tm63', 'Teaches Embargo to a compatible Pokémon.', 37);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (368, 'tm64', 'Teaches Explosion to a compatible Pokémon.', 37);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (369, 'tm65', 'Teaches Shadow Claw to a compatible Pokémon.', 37);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (370, 'tm66', 'Teaches Payback to a compatible Pokémon.', 37);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (371, 'tm67', 'Teaches Retaliate to a compatible Pokémon. (Gen IV: Recycle)', 37);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (372, 'tm68', 'Teaches Giga Impact to a compatible Pokémon.', 37);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (373, 'tm69', 'Teaches Rock Polish to a compatible Pokémon.', 37);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (374, 'tm70', 'Teaches Flash to a compatible Pokémon.', 37);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (375, 'tm71', 'Teaches Stone Edge to a compatible Pokémon.', 37);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (376, 'tm72', 'Teaches Volt Switch to a compatible Pokémon. (Gen IV: Avalanche)', 37);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (377, 'tm73', 'Teaches Thunder Wave to a compatible Pokémon.', 37);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (378, 'tm74', 'Teaches Gyro Ball to a compatible Pokémon.', 37);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (379, 'tm75', 'Teaches Swords Dance to a compatible Pokémon.', 37);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (380, 'tm76', 'Teaches Struggle Bug to a compatible Pokémon. (Gen IV: Stealth Rock)', 37);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (381, 'tm77', 'Teaches Psych Up to a compatible Pokémon.', 37);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (382, 'tm78', 'Teaches Bulldoze to a compatible Pokémon. (Gen IV: Captivate)', 37);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (383, 'tm79', 'Teaches Frost Breath to a compatible Pokémon. (Gen IV: Dark Pulse)', 37);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (384, 'tm80', 'Teaches Rock Slide to a compatible Pokémon.', 37);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (385, 'tm81', 'Teaches X-Scissor to a compatible Pokémon.', 37);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (386, 'tm82', 'Teaches Dragon Tail to a compatible Pokémon. (Gen IV: Sleep Talk)', 37);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (387, 'tm83', 'Teaches Work Up to a compatible Pokémon. (Gen IV: Natural Gift)', 37);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (388, 'tm84', 'Teaches Poison Jab to a compatible Pokémon.', 37);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (389, 'tm85', 'Teaches Dream Eater to a compatible Pokémon.', 37);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (390, 'tm86', 'Teaches Grass Knot to a compatible Pokémon.', 37);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (391, 'tm87', 'Teaches Swagger to a compatible Pokémon.', 37);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (392, 'tm88', 'Teaches Pluck to a compatible Pokémon.', 37);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (393, 'tm89', 'Teaches U-turn to a compatible Pokémon.', 37);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (394, 'tm90', 'Teaches Substitute to a compatible Pokémon.', 37);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (395, 'tm91', 'Teaches Flash Cannon to a compatible Pokémon.', 37);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (396, 'tm92', 'Teaches Trick Room to a compatible Pokémon.', 37);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (397, 'hm01', 'Teaches Cut to a compatible Pokémon.', 37);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (398, 'hm02', 'Teaches Fly to a compatible Pokémon.', 37);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (399, 'hm03', 'Teaches Surf to a compatible Pokémon.', 37);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (400, 'hm04', 'Teaches Strength to a compatible Pokémon.', 37);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (401, 'hm05', 'Teaches Waterfall to a compatible Pokémon. (HS: Whirlpool DPP: Defog Gen III & II & I: Flash)', 37);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (402, 'hm06', 'Teaches Dive to a compatible Pokémon. (Gen IV & III: Rock Smash Gen II: Whirlpool)', 37);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (403, 'hm07', 'Teaches a move to a compatible Pokémon. (Gen IV & III & II: Waterfall)', 37);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (404, 'hm08', 'Teaches a move to a compatible Pokémon. (Gen IV: Rock Climb Gen III: Dive)', 37);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (305, 'tm01', 'Teaches Hone Claws to a compatible PokÃ©mon. (Gen IV & III: Focus Punch Gen II: DynamicPunch Gen I: Mega Punch)', 37);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (306, 'tm02', 'Teaches Dragon Claw to a compatible PokÃ©mon. (Gen II: Headbutt Gen I: Razor Wind)', 37);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (307, 'tm03', 'Teaches Psyshock to a compatible PokÃ©mon. (Gen IV & III: Water Pulse Gen II: Curse Gen I: Swords Dance)', 37);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (308, 'tm04', 'Teaches Calm Mind to a compatible PokÃ©mon. (Gen II: Rollout Gen I: Whirlwind)', 37);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (309, 'tm05', 'Teaches Roar to a compatible PokÃ©mon. (Gen I: Mega Kick)', 37);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (310, 'tm06', 'Teaches Toxic to a compatible PokÃ©mon.', 37);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (311, 'tm07', 'Teaches Hail to a compatible PokÃ©mon. (Gen II: Zap Cannon Gen I: Horn Drill)', 37);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (312, 'tm08', 'Teaches Bulk Up to a compatible PokÃ©mon. (Gen II: Rock Smash Gen I: Body Slam)', 37);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (313, 'tm09', 'Teaches Venoshock to a compatible PokÃ©mon. (Gen IV & III: Bullet Seed Gen II: Psych Up Gen I: Take Down)', 37);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (314, 'tm10', 'Teaches Hidden Power to a compatible PokÃ©mon. (Gen I: Double-Edge)', 37);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (315, 'tm11', 'Teaches Sunny Day to a compatible PokÃ©mon. (Gen I: BubbleBeam)', 37);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (316, 'tm12', 'Teaches Taunt to a compatible PokÃ©mon. (Gen II: Sweet Scent Gen I: Water Gun)', 37);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (317, 'tm13', 'Teaches Ice Beam to a compatible PokÃ©mon. (Gen II: Snore)', 37);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (318, 'tm14', 'Teaches Blizzard to a compatible PokÃ©mon.', 37);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (319, 'tm15', 'Teaches Hyper Beam to a compatible PokÃ©mon.', 37);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (320, 'tm16', 'Teaches Light Screen to a compatible PokÃ©mon. (Gen II: Icy Wind Gen I: Pay Day)', 37);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (321, 'tm17', 'Teaches Protect to a compatible PokÃ©mon. (Gen I: Submission)', 37);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (322, 'tm18', 'Teaches Rain Dance to a compatible PokÃ©mon. (Gen I: Counter)', 37);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (323, 'tm19', 'Teaches Telekinesis to a compatible PokÃ©mon. (Gen IV & III & II: Giga Drain Gen I: Seismic Toss)', 37);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (324, 'tm20', 'Teaches Safeguard to a compatible PokÃ©mon. (Gen II: Endure Gen I: Rage)', 37);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (325, 'tm21', 'Teaches Frustration to a compatible PokÃ©mon. (Gen I: Mega Drain)', 37);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (326, 'tm22', 'Teaches SolarBeam to a compatible PokÃ©mon.', 37);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (327, 'tm23', 'Teaches Smack Down to a compatible PokÃ©mon. (Gen IV & III & II: Iron Tail Gen I: Dragon Rage)', 37);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (328, 'tm24', 'Teaches Thunderbolt to a compatible PokÃ©mon. (Gen II: DragonBreath)', 37);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (329, 'tm25', 'Teaches Thunder to a compatible PokÃ©mon.', 37);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (330, 'tm26', 'Teaches Earthquake to a compatible PokÃ©mon.', 37);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (331, 'tm27', 'Teaches Return to a compatible PokÃ©mon. (Gen I: Fissure)', 37);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (332, 'tm28', 'Teaches Dig to a compatible PokÃ©mon.', 37);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (333, 'tm29', 'Teaches Psychic to a compatible PokÃ©mon.', 37);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (334, 'tm30', 'Teaches Shadow Ball to a compatible PokÃ©mon. (Gen I: Teleport)', 37);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (335, 'tm31', 'Teaches Brick Break to a compatible PokÃ©mon. (Gen II: Mud-Slap Gen I: Mimic)', 37);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (336, 'tm32', 'Teaches Double Team to a compatible PokÃ©mon.', 37);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (337, 'tm33', 'Teaches Reflect to a compatible PokÃ©mon. (Gen II: Ice Punch)', 37);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (338, 'tm34', 'Teaches Sludge Wave to a compatible PokÃ©mon. (Gen IV & III: Shock Wave Gen II: Swagger Gen I: Bide)', 37);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (339, 'tm35', 'Teaches Flamethrower to a compatible PokÃ©mon. (Gen II: Sleep Talk Gen I: Metronome)', 37);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (340, 'tm36', 'Teaches Sludge Bomb to a compatible PokÃ©mon. (Gen I: Selfdestruct)', 37);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (341, 'tm37', 'Teaches Sandstorm to a compatible PokÃ©mon. (Gen I: Egg Bomb)', 37);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (342, 'tm38', 'Teaches Fire Blast to a compatible PokÃ©mon.', 37);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (343, 'tm39', 'Teaches Rock Tomb to a compatible PokÃ©mon. (Gen II & I: Swift)', 37);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (344, 'tm40', 'Teaches Aerial Ace to a compatible PokÃ©mon. (Gen II: Defense Curl Gen I: Skull Bash)', 37);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (345, 'tm41', 'Teaches Torment to a compatible PokÃ©mon. (Gen II: ThunderPunch Gen I: Softboiled)', 37);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (346, 'tm42', 'Teaches Facade to a compatible PokÃ©mon. (Gen II & I: Dream Eater)', 37);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (347, 'tm43', 'Teaches Flame Charge to a compatible PokÃ©mon. (Gen IV & III: Secret Power Gen II: Detect Gen I: Sky Attack)', 37);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (348, 'tm44', 'Teaches Rest to a compatible PokÃ©mon.', 37);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (349, 'tm45', 'Teaches Attract to a compatible PokÃ©mon. (Gen I: Thunder Wave)', 37);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (350, 'tm46', 'Teaches Thief to a compatible PokÃ©mon. (Gen I: Psywave)', 37);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (351, 'tm47', 'Teaches Low Sweep to a compatible PokÃ©mon. (Gen IV & III & II: Steel Wing Gen I: Explosion)', 37);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (352, 'tm48', 'Teaches Round to a compatible PokÃ©mon. (Gen IV & III: Skill Swap Gen II: Fire Punch Gen I: Rock Slide)', 37);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (353, 'tm49', 'Teaches Echoed Voice to a compatible PokÃ©mon. (Gen IV & III: Snatch Gen II: Fury Cutter Gen I: Tri Attack)', 37);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (354, 'tm50', 'Teaches Overheat to a compatible PokÃ©mon. (Gen II: Nightmare Gen I: Substitute)', 37);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (355, 'tm51', 'Teaches Ally Switch to a compatible PokÃ©mon. (Gen IV: Roost)', 37);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (356, 'tm52', 'Teaches Focus Blast to a compatible PokÃ©mon.', 37);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (357, 'tm53', 'Teaches Energy Ball to a compatible PokÃ©mon.', 37);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (358, 'tm54', 'Teaches False Swipe to a compatible PokÃ©mon.', 37);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (359, 'tm55', 'Teaches Scald to a compatible PokÃ©mon. (Gen IV: Brine)', 37);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (360, 'tm56', 'Teaches Fling to a compatible PokÃ©mon.', 37);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (361, 'tm57', 'Teaches Charge Beam to a compatible PokÃ©mon.', 37);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (362, 'tm58', 'Teaches Sky Drop to a compatible PokÃ©mon. (Gen IV: Endure)', 37);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (363, 'tm59', 'Teaches Incinerate to a compatible PokÃ©mon. (Gen IV: Dragon Pulse)', 37);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (364, 'tm60', 'Teaches Quash to a compatible PokÃ©mon. (Gen IV: Drain Punch)', 37);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (365, 'tm61', 'Teaches Will-O-Wisp to a compatible PokÃ©mon.', 37);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (366, 'tm62', 'Teaches Acrobatics to a compatible PokÃ©mon. (Gen IV: Silver Wind)', 37);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (367, 'tm63', 'Teaches Embargo to a compatible PokÃ©mon.', 37);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (368, 'tm64', 'Teaches Explosion to a compatible PokÃ©mon.', 37);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (369, 'tm65', 'Teaches Shadow Claw to a compatible PokÃ©mon.', 37);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (370, 'tm66', 'Teaches Payback to a compatible PokÃ©mon.', 37);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (371, 'tm67', 'Teaches Retaliate to a compatible PokÃ©mon. (Gen IV: Recycle)', 37);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (372, 'tm68', 'Teaches Giga Impact to a compatible PokÃ©mon.', 37);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (373, 'tm69', 'Teaches Rock Polish to a compatible PokÃ©mon.', 37);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (374, 'tm70', 'Teaches Flash to a compatible PokÃ©mon.', 37);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (375, 'tm71', 'Teaches Stone Edge to a compatible PokÃ©mon.', 37);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (376, 'tm72', 'Teaches Volt Switch to a compatible PokÃ©mon. (Gen IV: Avalanche)', 37);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (377, 'tm73', 'Teaches Thunder Wave to a compatible PokÃ©mon.', 37);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (378, 'tm74', 'Teaches Gyro Ball to a compatible PokÃ©mon.', 37);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (379, 'tm75', 'Teaches Swords Dance to a compatible PokÃ©mon.', 37);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (380, 'tm76', 'Teaches Struggle Bug to a compatible PokÃ©mon. (Gen IV: Stealth Rock)', 37);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (381, 'tm77', 'Teaches Psych Up to a compatible PokÃ©mon.', 37);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (382, 'tm78', 'Teaches Bulldoze to a compatible PokÃ©mon. (Gen IV: Captivate)', 37);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (383, 'tm79', 'Teaches Frost Breath to a compatible PokÃ©mon. (Gen IV: Dark Pulse)', 37);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (384, 'tm80', 'Teaches Rock Slide to a compatible PokÃ©mon.', 37);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (385, 'tm81', 'Teaches X-Scissor to a compatible PokÃ©mon.', 37);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (386, 'tm82', 'Teaches Dragon Tail to a compatible PokÃ©mon. (Gen IV: Sleep Talk)', 37);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (387, 'tm83', 'Teaches Work Up to a compatible PokÃ©mon. (Gen IV: Natural Gift)', 37);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (388, 'tm84', 'Teaches Poison Jab to a compatible PokÃ©mon.', 37);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (389, 'tm85', 'Teaches Dream Eater to a compatible PokÃ©mon.', 37);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (390, 'tm86', 'Teaches Grass Knot to a compatible PokÃ©mon.', 37);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (391, 'tm87', 'Teaches Swagger to a compatible PokÃ©mon.', 37);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (392, 'tm88', 'Teaches Pluck to a compatible PokÃ©mon.', 37);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (393, 'tm89', 'Teaches U-turn to a compatible PokÃ©mon.', 37);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (394, 'tm90', 'Teaches Substitute to a compatible PokÃ©mon.', 37);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (395, 'tm91', 'Teaches Flash Cannon to a compatible PokÃ©mon.', 37);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (396, 'tm92', 'Teaches Trick Room to a compatible PokÃ©mon.', 37);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (397, 'hm01', 'Teaches Cut to a compatible PokÃ©mon.', 37);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (398, 'hm02', 'Teaches Fly to a compatible PokÃ©mon.', 37);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (399, 'hm03', 'Teaches Surf to a compatible PokÃ©mon.', 37);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (400, 'hm04', 'Teaches Strength to a compatible PokÃ©mon.', 37);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (401, 'hm05', 'Teaches Waterfall to a compatible PokÃ©mon. (HS: Whirlpool DPP: Defog Gen III & II & I: Flash)', 37);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (402, 'hm06', 'Teaches Dive to a compatible PokÃ©mon. (Gen IV & III: Rock Smash Gen II: Whirlpool)', 37);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (403, 'hm07', 'Teaches a move to a compatible PokÃ©mon. (Gen IV & III & II: Waterfall)', 37);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (404, 'hm08', 'Teaches a move to a compatible PokÃ©mon. (Gen IV: Rock Climb Gen III: Dive)', 37);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (405, 'explorer-kit', 'Allows visiting the Underground.', 21);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (406, 'loot-sack', 'Carries coal mine loot.', 23);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (407, 'rule-book', 'List of battle types and their rules.', 23);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (408, 'poke-radar', 'Use to track down rare or shiny Pokémon. 50 steps to recharge.', 21);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (408, 'poke-radar', 'Use to track down rare or shiny PokÃ©mon. 50 steps to recharge.', 21);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (409, 'point-card', 'Keeps count of Battle Points earned.', 21);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (410, 'journal', 'Records prior significant activities the player took.', 21);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (411, 'seal-case', 'Stores Seals that can be applied to Poké Ball capsules.', 21);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (412, 'fashion-case', 'Holds Pokémon Accessories for use in Contests.', 21);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (413, 'seal-bag', 'Holds ten Seals for Poké Balls.', 23);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (411, 'seal-case', 'Stores Seals that can be applied to PokÃ© Ball capsules.', 21);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (412, 'fashion-case', 'Holds PokÃ©mon Accessories for use in Contests.', 21);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (413, 'seal-bag', 'Holds ten Seals for PokÃ© Balls.', 23);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (414, 'pal-pad', 'Use to record Friend Codes and check your own.', 21);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (415, 'works-key', 'Grants access to Valley Windworks.', 22);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (416, 'old-charm', 'Trade to Cynthia''s grandmother in Celestic Town for HM04 (Surf).', 22);
@@ -420,9 +420,9 @@ INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (418, 'red-
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (419, 'town-map', 'Use to see the overworld map.', 21);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (420, 'vs-seeker', 'Allows rebattling of on-screen trainers. 100 steps to recharge.', 21);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (421, 'coin-case', 'Holds coins for the Game Corner.', 21);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (422, 'old-rod', 'Used to catch Pokémon in bodies of water.', 21);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (423, 'good-rod', 'Used to catch Pokémon in bodies of water.', 21);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (424, 'super-rod', 'Used to catch Pokémon in bodies of water.', 21);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (422, 'old-rod', 'Used to catch PokÃ©mon in bodies of water.', 21);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (423, 'good-rod', 'Used to catch PokÃ©mon in bodies of water.', 21);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (424, 'super-rod', 'Used to catch PokÃ©mon in bodies of water.', 21);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (425, 'sprayduck', 'Used to water berries.', 21);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (426, 'poffin-case', 'Holds Poffins.', 21);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (427, 'bicycle', 'Use for fast transit.', 21);
@@ -432,12 +432,12 @@ INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (430, 'luna
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (431, 'member-card', 'Allows access to Newmoon Island and Darkrai.', 20);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (432, 'azure-flute', 'Allows entry into the Hall of Origin. Unreleased.', 20);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (433, 'ss-ticket', 'Ticket for a ship. (RSE: S.S. Tidal LF: S.S. Anne HG: S.S. Aqua)', 22);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (434, 'contest-pass', 'Allows participation in Pokémon Contests.', 21);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (434, 'contest-pass', 'Allows participation in PokÃ©mon Contests.', 21);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (435, 'magma-stone', 'Magma is sealed inside.', 22);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (436, 'parcel', 'Given to the trainer''s rival in Jubilife City. Contains Town Maps.', 22);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (437, 'coupon-1', 'The first of three tickets used to obtain a Pokétch.', 22);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (438, 'coupon-2', 'The second of three tickets used to obtain a Pokétch.', 22);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (439, 'coupon-3', 'The last of three tickets used to obtain a Pokétch.', 22);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (437, 'coupon-1', 'The first of three tickets used to obtain a PokÃ©tch.', 22);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (438, 'coupon-2', 'The second of three tickets used to obtain a PokÃ©tch.', 22);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (439, 'coupon-3', 'The last of three tickets used to obtain a PokÃ©tch.', 22);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (440, 'storage-key', 'Grants access to the Team Galactic warehouse in Veilstone City.', 22);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (441, 'secret-potion', 'Used to heal the Ampharos at the top of Olivine Lighthouse.', 22);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (442, 'griseous-orb', 'Boosts the damage from Giratina''s Dragon-type and Ghost-type moves by 20%, and transforms it into Origin Forme.', 18);
@@ -447,15 +447,15 @@ INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (445, 'secr
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (446, 'apricorn-box', 'Holds Apricorns.', 21);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (447, 'berry-pots', 'Allows portable berry growing.', 21);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (448, 'squirt-bottle', 'Use on Sudowoodo blocking the path on Route 36. Also waters berries.', 22);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (449, 'lure-ball', '3× effectiveness while fishing. Made from Blu Apricorn.', 39);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (450, 'level-ball', 'Success rate based off of fraction target Pokémon is of user''s Pokémon. Made from Red Apricorn.', 39);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (451, 'moon-ball', '4× effectiveness on familes of Pokémon with a Moon Stone evolution. Made from Ylw Apricorn.', 39);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (449, 'lure-ball', '3Ã— effectiveness while fishing. Made from Blu Apricorn.', 39);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (450, 'level-ball', 'Success rate based off of fraction target PokÃ©mon is of user''s PokÃ©mon. Made from Red Apricorn.', 39);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (451, 'moon-ball', '4Ã— effectiveness on familes of PokÃ©mon with a Moon Stone evolution. Made from Ylw Apricorn.', 39);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (452, 'heavy-ball', 'Has flat bonus or penalty to catch rate depending on weight class of target. Made from Blk Apricorn.', 39);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (453, 'fast-ball', '4× effectiveness on Pokémon with 100 or greater base speed. (Gen II: Roaming or Fleeing Pokémon). Made from Wht Apricorn.', 39);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (454, 'friend-ball', 'Caught Pokémon start with 200 happiness. Made from Grn Apricorn.', 39);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (455, 'love-ball', '8× effectiveness on opposite sex, same species targets of the Active Pokémon. Made from Pnk Apricorn.', 39);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (456, 'park-ball', 'Catches Pokémon in the Pal Park every time.', 34);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (457, 'sport-ball', 'Tries to catch a Pokémon in the Bug-Catching contest in National Park. (Gen II: Park Ball)', 34);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (453, 'fast-ball', '4Ã— effectiveness on PokÃ©mon with 100 or greater base speed. (Gen II: Roaming or Fleeing PokÃ©mon). Made from Wht Apricorn.', 39);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (454, 'friend-ball', 'Caught PokÃ©mon start with 200 happiness. Made from Grn Apricorn.', 39);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (455, 'love-ball', '8Ã— effectiveness on opposite sex, same species targets of the Active PokÃ©mon. Made from Pnk Apricorn.', 39);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (456, 'park-ball', 'Catches PokÃ©mon in the Pal Park every time.', 34);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (457, 'sport-ball', 'Tries to catch a PokÃ©mon in the Bug-Catching contest in National Park. (Gen II: Park Ball)', 34);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (458, 'red-apricorn', 'Used to make a Level Ball.', 40);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (459, 'blue-apricorn', 'Used to make a Lure Ball.', 40);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (460, 'yellow-apricorn', 'Used to make a Moon Ball.', 40);
@@ -475,8 +475,8 @@ INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (473, 'slow
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (474, 'clear-bell', 'HS: Allows Kimono-girls to summon Ho-oh. C: Summons Suicune to the Tin Tower.', 22);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (475, 'card-key', 'HS: Opens doors in the Radio Tower. Gen III: Unlocks Silph Co Doors.', 22);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (476, 'basement-key', 'HS: Key to the tunnel under Goldenrod City. Gen III: Key to New Mauville.', 22);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (477, 'red-scale', 'Trade to Mr. Pokémon for an Exp. Share.', 22);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (478, 'lost-item', 'A Poké Doll lost by the Copycat who lives in Saffron City. Trade for a Pass.', 22);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (477, 'red-scale', 'Trade to Mr. PokÃ©mon for an Exp. Share.', 22);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (478, 'lost-item', 'A PokÃ© Doll lost by the Copycat who lives in Saffron City. Trade for a Pass.', 22);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (479, 'pass', 'Grants access to ride the Magnet Train between Goldenrod City and Saffron City.', 22);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (480, 'machine-part', 'Must be replaced in the Power Plant to power the Magnet Train.', 22);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (481, 'silver-wing', 'Summons Lugia to the Whirl Islands.', 22);
@@ -484,53 +484,53 @@ INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (482, 'rain
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (483, 'mystery-egg', 'Deliver to Professor Elm.', 22);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (484, 'gb-sounds', 'Use to listen to GameBoy era audio.', 21);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (485, 'tidal-bell', 'Allows Kimono-girls to summon Lugia.', 22);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (486, 'data-card-01', 'Records the number of times the trainer has come in first place overall in the Pokéathlon.', 41);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (487, 'data-card-02', 'Records the number of times the trainer has come in last place overall in the Pokéathlon.', 41);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (488, 'data-card-03', 'Records the number of times the trainer''s Pokémon have dashed in the Pokéathlon.', 41);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (489, 'data-card-04', 'Records the number of times the trainer''s Pokémon have jumped in the Pokéathlon.', 41);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (490, 'data-card-05', 'Records the number of times the trainer has come in first in the Pokéathlon Hurdle Dash.', 41);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (491, 'data-card-06', 'Records the number of times the trainer has come in first in the Pokéathlon Relay Run.', 41);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (492, 'data-card-07', 'Records the number of times the trainer has come in first in the Pokéathlon Pennant Capture.', 41);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (493, 'data-card-08', 'Records the number of times the trainer has come in first in the Pokéathlon Block Smash.', 41);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (494, 'data-card-09', 'Records the number of times the trainer has come in first in the Pokéathlon Disc Catch.', 41);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (495, 'data-card-10', 'Records the number of times the trainer has come in first in the Pokéathlon Snow Throw.', 41);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (496, 'data-card-11', 'Records the number of points the trainer has earned in the Pokéathlon.', 41);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (497, 'data-card-12', 'Records the number of times the trainer''s Pokémon have messed up in the Pokéathlon.', 41);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (498, 'data-card-13', 'Records the number of times the trainer''s Pokémon have defeated themselves in the Pokéathlon.', 41);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (499, 'data-card-14', 'Records the number of times the trainer''s Pokémon have tackled in the Pokéathlon.', 41);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (500, 'data-card-15', 'Records the number of times the trainer''s Pokémon have fallen in the Pokéathlon.', 41);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (501, 'data-card-16', 'Records the number of times the trainer has come in first in the Pokéathlon Ring Drop.', 41);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (502, 'data-card-17', 'Records the number of times the trainer has come in first in the Pokéathlon Lamp Jump.', 41);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (503, 'data-card-18', 'Records the number of times the trainer has come in first in the Pokéathlon Circle Push.', 41);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (504, 'data-card-19', 'Records the number of times the trainer has come in first place overall in the Pokéathlon over wirelss.', 41);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (505, 'data-card-20', 'Records the number of times the trainer has come in last place overall in the Pokéathlon over wireless.', 41);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (506, 'data-card-21', 'Records the number of times the trainer has come in first across all Pokéathlon events.', 41);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (507, 'data-card-22', 'Records the number of times the trainer has come in last across all Pokéathlon events.', 41);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (508, 'data-card-23', 'Records the number of times the trainer has switched Pokémon in the Pokéathlon.', 41);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (509, 'data-card-24', 'Records the number of times the trainer has come in first in the Pokéathlon Goal Roll.', 41);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (510, 'data-card-25', 'Records the number of times the trainer''s Pokémon received prizes in the Pokéathlon.', 41);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (511, 'data-card-26', 'Records the number of times the trainer has instructed Pokémon in the Pokéathlon.', 41);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (512, 'data-card-27', 'Records the total time spent in the Pokéathlon.', 41);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (486, 'data-card-01', 'Records the number of times the trainer has come in first place overall in the PokÃ©athlon.', 41);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (487, 'data-card-02', 'Records the number of times the trainer has come in last place overall in the PokÃ©athlon.', 41);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (488, 'data-card-03', 'Records the number of times the trainer''s PokÃ©mon have dashed in the PokÃ©athlon.', 41);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (489, 'data-card-04', 'Records the number of times the trainer''s PokÃ©mon have jumped in the PokÃ©athlon.', 41);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (490, 'data-card-05', 'Records the number of times the trainer has come in first in the PokÃ©athlon Hurdle Dash.', 41);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (491, 'data-card-06', 'Records the number of times the trainer has come in first in the PokÃ©athlon Relay Run.', 41);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (492, 'data-card-07', 'Records the number of times the trainer has come in first in the PokÃ©athlon Pennant Capture.', 41);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (493, 'data-card-08', 'Records the number of times the trainer has come in first in the PokÃ©athlon Block Smash.', 41);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (494, 'data-card-09', 'Records the number of times the trainer has come in first in the PokÃ©athlon Disc Catch.', 41);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (495, 'data-card-10', 'Records the number of times the trainer has come in first in the PokÃ©athlon Snow Throw.', 41);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (496, 'data-card-11', 'Records the number of points the trainer has earned in the PokÃ©athlon.', 41);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (497, 'data-card-12', 'Records the number of times the trainer''s PokÃ©mon have messed up in the PokÃ©athlon.', 41);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (498, 'data-card-13', 'Records the number of times the trainer''s PokÃ©mon have defeated themselves in the PokÃ©athlon.', 41);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (499, 'data-card-14', 'Records the number of times the trainer''s PokÃ©mon have tackled in the PokÃ©athlon.', 41);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (500, 'data-card-15', 'Records the number of times the trainer''s PokÃ©mon have fallen in the PokÃ©athlon.', 41);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (501, 'data-card-16', 'Records the number of times the trainer has come in first in the PokÃ©athlon Ring Drop.', 41);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (502, 'data-card-17', 'Records the number of times the trainer has come in first in the PokÃ©athlon Lamp Jump.', 41);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (503, 'data-card-18', 'Records the number of times the trainer has come in first in the PokÃ©athlon Circle Push.', 41);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (504, 'data-card-19', 'Records the number of times the trainer has come in first place overall in the PokÃ©athlon over wirelss.', 41);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (505, 'data-card-20', 'Records the number of times the trainer has come in last place overall in the PokÃ©athlon over wireless.', 41);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (506, 'data-card-21', 'Records the number of times the trainer has come in first across all PokÃ©athlon events.', 41);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (507, 'data-card-22', 'Records the number of times the trainer has come in last across all PokÃ©athlon events.', 41);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (508, 'data-card-23', 'Records the number of times the trainer has switched PokÃ©mon in the PokÃ©athlon.', 41);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (509, 'data-card-24', 'Records the number of times the trainer has come in first in the PokÃ©athlon Goal Roll.', 41);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (510, 'data-card-25', 'Records the number of times the trainer''s PokÃ©mon received prizes in the PokÃ©athlon.', 41);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (511, 'data-card-26', 'Records the number of times the trainer has instructed PokÃ©mon in the PokÃ©athlon.', 41);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (512, 'data-card-27', 'Records the total time spent in the PokÃ©athlon.', 41);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (513, 'lock-capsule', 'Contains TM95 (Snarl).', 23);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (514, 'photo-album', 'Stores photos from your adventure.', 23);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (515, 'orange-mail', 'Lets a Trainer write a message and send it via Pokémon trade.', 25);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (516, 'harbor-mail', 'Lets a Trainer write a message and send it via Pokémon trade.', 25);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (517, 'glitter-mail', 'Lets a Trainer write a message and send it via Pokémon trade.', 25);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (518, 'mech-mail', 'Lets a Trainer write a message and send it via Pokémon trade.', 25);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (519, 'wood-mail', 'Lets a Trainer write a message and send it via Pokémon trade.', 25);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (520, 'wave-mail', 'Lets a Trainer write a message and send it via Pokémon trade.', 25);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (521, 'bead-mail', 'Lets a Trainer write a message and send it via Pokémon trade.', 25);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (522, 'shadow-mail', 'Lets a Trainer write a message and send it via Pokémon trade.', 25);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (523, 'tropic-mail', 'Lets a Trainer write a message and send it via Pokémon trade.', 25);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (524, 'dream-mail', 'Lets a Trainer write a message and send it via Pokémon trade.', 25);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (525, 'fab-mail', 'Lets a Trainer write a message and send it via Pokémon trade.', 25);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (526, 'retro-mail', 'Lets a Trainer write a message and send it via Pokémon trade.', 25);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (515, 'orange-mail', 'Lets a Trainer write a message and send it via PokÃ©mon trade.', 25);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (516, 'harbor-mail', 'Lets a Trainer write a message and send it via PokÃ©mon trade.', 25);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (517, 'glitter-mail', 'Lets a Trainer write a message and send it via PokÃ©mon trade.', 25);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (518, 'mech-mail', 'Lets a Trainer write a message and send it via PokÃ©mon trade.', 25);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (519, 'wood-mail', 'Lets a Trainer write a message and send it via PokÃ©mon trade.', 25);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (520, 'wave-mail', 'Lets a Trainer write a message and send it via PokÃ©mon trade.', 25);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (521, 'bead-mail', 'Lets a Trainer write a message and send it via PokÃ©mon trade.', 25);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (522, 'shadow-mail', 'Lets a Trainer write a message and send it via PokÃ©mon trade.', 25);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (523, 'tropic-mail', 'Lets a Trainer write a message and send it via PokÃ©mon trade.', 25);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (524, 'dream-mail', 'Lets a Trainer write a message and send it via PokÃ©mon trade.', 25);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (525, 'fab-mail', 'Lets a Trainer write a message and send it via PokÃ©mon trade.', 25);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (526, 'retro-mail', 'Lets a Trainer write a message and send it via PokÃ©mon trade.', 25);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (527, 'mach-bike', 'Faster than the Acro Bike, and can ride up sandy slopes and across cracked floors.', 21);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (528, 'acro-bike', 'More maneuverable than the Mach Bike, and allows hopping along rails.', 21);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (529, 'wailmer-pail', 'Used to water berries.', 21);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (530, 'devon-goods', 'Contains mechanical parts to be delivered to Captain Stern.', 22);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (531, 'soot-sack', 'Stores volcanic ash from Route 113.', 21);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (532, 'pokeblock-case', 'Holds Pokéblocks.', 21);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (532, 'pokeblock-case', 'Holds PokÃ©blocks.', 21);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (533, 'letter', 'A letter to Steven from the Devon Corp president.', 22);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (534, 'eon-ticket', 'Provides access to Southern Island and Latias or Latios.', 20);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (535, 'scanner', 'Trade to Captain Stern for a DeepSeaTooth or DeepSeaScale.', 22);
@@ -541,12 +541,12 @@ INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (539, 'rm-2
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (540, 'rm-4-key', 'Unlocks room 4 on the Abandoned Ship.', 22);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (541, 'rm-6-key', 'Unlocks room 6 on the Abandoned Ship.', 22);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (542, 'devon-scope', 'Allows spotting of invisible Kecleon.', 21);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (543, 'oaks-parcel', 'Trade to Prof. Oak for a Pokédex.', 22);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (544, 'poke-flute', 'Use to awaken sleeping Pokémon, including Snorlax on roads.', 22);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (543, 'oaks-parcel', 'Trade to Prof. Oak for a PokÃ©dex.', 22);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (544, 'poke-flute', 'Use to awaken sleeping PokÃ©mon, including Snorlax on roads.', 22);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (545, 'bike-voucher', 'Trade in Cerulean bike shop for a Bicycle.', 22);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (546, 'gold-teeth', 'The Safari Zone Warden''s dentures. Trade for HM04 (Strength).', 22);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (547, 'lift-key', 'Operates the elevator in Team Rocket''s Celadon Hideout.', 22);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (548, 'silph-scope', 'Used to identify the true forms of ghosts in Pokémon Tower.', 22);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (548, 'silph-scope', 'Used to identify the true forms of ghosts in PokÃ©mon Tower.', 22);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (549, 'fame-checker', 'Records information about NPCs.', 21);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (550, 'tm-case', 'Holds TMs.', 21);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (551, 'berry-pouch', 'Holds berries.', 21);
@@ -566,70 +566,70 @@ INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (564, 'shoc
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (565, 'burn-drive', 'Grants Genesect a red, Fire-type Techno Blast.', 18);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (566, 'chill-drive', 'Grants Genesect a white, Ice-type Techno Blast.', 18);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (567, 'sweet-heart', 'Restores 20 HP.', 27);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (568, 'greet-mail', 'Lets a Trainer write a message and send it via Pokémon trade.', 25);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (569, 'favored-mail', 'Lets a Trainer write a message and send it via Pokémon trade.', 25);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (570, 'rsvp-mail', 'Lets a Trainer write a message and send it via Pokémon trade.', 25);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (571, 'thanks-mail', 'Lets a Trainer write a message and send it via Pokémon trade.', 25);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (572, 'inquiry-mail', 'Lets a Trainer write a message and send it via Pokémon trade.', 25);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (573, 'like-mail', 'Lets a Trainer write a message and send it via Pokémon trade.', 25);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (574, 'reply-mail', 'Lets a Trainer write a message and send it via Pokémon trade.', 25);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (575, 'bridge-mail-s', 'Lets a Trainer write a message and send it via Pokémon trade.', 25);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (576, 'bridge-mail-d', 'Lets a Trainer write a message and send it via Pokémon trade.', 25);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (577, 'bridge-mail-t', 'Lets a Trainer write a message and send it via Pokémon trade.', 25);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (578, 'bridge-mail-v', 'Lets a Trainer write a message and send it via Pokémon trade.', 25);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (579, 'bridge-mail-m', 'Lets a Trainer write a message and send it via Pokémon trade.', 25);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (568, 'greet-mail', 'Lets a Trainer write a message and send it via PokÃ©mon trade.', 25);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (569, 'favored-mail', 'Lets a Trainer write a message and send it via PokÃ©mon trade.', 25);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (570, 'rsvp-mail', 'Lets a Trainer write a message and send it via PokÃ©mon trade.', 25);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (571, 'thanks-mail', 'Lets a Trainer write a message and send it via PokÃ©mon trade.', 25);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (572, 'inquiry-mail', 'Lets a Trainer write a message and send it via PokÃ©mon trade.', 25);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (573, 'like-mail', 'Lets a Trainer write a message and send it via PokÃ©mon trade.', 25);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (574, 'reply-mail', 'Lets a Trainer write a message and send it via PokÃ©mon trade.', 25);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (575, 'bridge-mail-s', 'Lets a Trainer write a message and send it via PokÃ©mon trade.', 25);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (576, 'bridge-mail-d', 'Lets a Trainer write a message and send it via PokÃ©mon trade.', 25);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (577, 'bridge-mail-t', 'Lets a Trainer write a message and send it via PokÃ©mon trade.', 25);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (578, 'bridge-mail-v', 'Lets a Trainer write a message and send it via PokÃ©mon trade.', 25);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (579, 'bridge-mail-m', 'Lets a Trainer write a message and send it via PokÃ©mon trade.', 25);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (580, 'prism-scale', 'Traded on a Feebas: Holder evolves into Milotic.', 10);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (581, 'eviolite', 'Held: Holder has 1.5× Defense and Special Defense, as long as it''s not fully evolved.', 12);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (582, 'float-stone', 'Held: Holder has 0.5× weight.', 12);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (583, 'rocky-helmet', 'Held: When the holder is hit by a contact move, the attacking Pokémon takes 1/6 its max HP in damage.', 12);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (581, 'eviolite', 'Held: Holder has 1.5Ã— Defense and Special Defense, as long as it''s not fully evolved.', 12);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (582, 'float-stone', 'Held: Holder has 0.5Ã— weight.', 12);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (583, 'rocky-helmet', 'Held: When the holder is hit by a contact move, the attacking PokÃ©mon takes 1/6 its max HP in damage.', 12);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (584, 'air-balloon', 'Held: Grants immunity to Ground-type moves, Spikes, and Toxic Spikes. Consumed when the holder takes damage from a move.', 12);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (585, 'red-card', 'Held: When the holder takes damage from a move, the opponent switches out for another random party Pokémon. Consumed after use.', 12);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (585, 'red-card', 'Held: When the holder takes damage from a move, the opponent switches out for another random party PokÃ©mon. Consumed after use.', 12);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (586, 'ring-target', 'Held: Negates the holder''s type immunities. Ability immunities are not removed.', 12);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (587, 'binding-band', 'Held: Doubles the per-turn damage of multi-turn trapping moves.', 12);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (588, 'absorb-bulb', 'Held: Raises the holder''s Special Attack by one stage when it takes Water-type damage.', 12);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (589, 'cell-battery', 'Held: Raises the holder''s Attack by one stage when it takes Electric-type damage.', 12);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (590, 'eject-button', 'Held: When the holder takes damage from a move, it switches out for a party Pokémon of the Trainer''s choice.', 12);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (591, 'fire-gem', 'Held: When the holder uses a damaging fire-type move, the move has 1.5× power and this item is consumed.', 42);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (592, 'water-gem', 'Held: When the holder uses a damaging water-type move, the move has 1.5× power and this item is consumed.', 42);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (593, 'electric-gem', 'Held: When the holder uses a damaging electric-type move, the move has 1.5× power and this item is consumed.', 42);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (594, 'grass-gem', 'Held: When the holder uses a damaging grass-type move, the move has 1.5× power and this item is consumed.', 42);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (595, 'ice-gem', 'Held: When the holder uses a damaging ice-type move, the move has 1.5× power and this item is consumed.', 42);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (596, 'fighting-gem', 'Held: When the holder uses a damaging fighting-type move, the move has 1.5× power and this item is consumed.', 42);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (597, 'poison-gem', 'Held: When the holder uses a damaging poison-type move, the move has 1.5× power and this item is consumed.', 42);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (598, 'ground-gem', 'Held: When the holder uses a damaging ground-type move, the move has 1.5× power and this item is consumed.', 42);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (599, 'flying-gem', 'Held: When the holder uses a damaging flying-type move, the move has 1.5× power and this item is consumed.', 42);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (600, 'psychic-gem', 'Held: When the holder uses a damaging psychic-type move, the move has 1.5× power and this item is consumed.', 42);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (601, 'bug-gem', 'Held: When the holder uses a damaging bug-type move, the move has 1.5× power and this item is consumed.', 42);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (602, 'rock-gem', 'Held: When the holder uses a damaging rock-type move, the move has 1.5× power and this item is consumed.', 42);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (603, 'ghost-gem', 'Held: When the holder uses a damaging ghost-type move, the move has 1.5× power and this item is consumed.', 42);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (604, 'dark-gem', 'Held: When the holder uses a damaging dark-type move, the move has 1.5× power and this item is consumed.', 42);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (605, 'steel-gem', 'Held: When the holder uses a damaging steel-type move, the move has 1.5× power and this item is consumed.', 42);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (590, 'eject-button', 'Held: When the holder takes damage from a move, it switches out for a party PokÃ©mon of the Trainer''s choice.', 12);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (591, 'fire-gem', 'Held: When the holder uses a damaging fire-type move, the move has 1.5Ã— power and this item is consumed.', 42);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (592, 'water-gem', 'Held: When the holder uses a damaging water-type move, the move has 1.5Ã— power and this item is consumed.', 42);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (593, 'electric-gem', 'Held: When the holder uses a damaging electric-type move, the move has 1.5Ã— power and this item is consumed.', 42);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (594, 'grass-gem', 'Held: When the holder uses a damaging grass-type move, the move has 1.5Ã— power and this item is consumed.', 42);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (595, 'ice-gem', 'Held: When the holder uses a damaging ice-type move, the move has 1.5Ã— power and this item is consumed.', 42);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (596, 'fighting-gem', 'Held: When the holder uses a damaging fighting-type move, the move has 1.5Ã— power and this item is consumed.', 42);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (597, 'poison-gem', 'Held: When the holder uses a damaging poison-type move, the move has 1.5Ã— power and this item is consumed.', 42);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (598, 'ground-gem', 'Held: When the holder uses a damaging ground-type move, the move has 1.5Ã— power and this item is consumed.', 42);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (599, 'flying-gem', 'Held: When the holder uses a damaging flying-type move, the move has 1.5Ã— power and this item is consumed.', 42);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (600, 'psychic-gem', 'Held: When the holder uses a damaging psychic-type move, the move has 1.5Ã— power and this item is consumed.', 42);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (601, 'bug-gem', 'Held: When the holder uses a damaging bug-type move, the move has 1.5Ã— power and this item is consumed.', 42);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (602, 'rock-gem', 'Held: When the holder uses a damaging rock-type move, the move has 1.5Ã— power and this item is consumed.', 42);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (603, 'ghost-gem', 'Held: When the holder uses a damaging ghost-type move, the move has 1.5Ã— power and this item is consumed.', 42);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (604, 'dark-gem', 'Held: When the holder uses a damaging dark-type move, the move has 1.5Ã— power and this item is consumed.', 42);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (605, 'steel-gem', 'Held: When the holder uses a damaging steel-type move, the move has 1.5Ã— power and this item is consumed.', 42);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (606, 'health-wing', 'Increases HP effort by 1.', 26);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (607, 'muscle-wing', 'Increases Attack effort by 1.', 26);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (608, 'resist-wing', 'Increases Defense effort by 1.', 26);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (609, 'genius-wing', 'Increases Special Attack effort by 1.', 26);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (610, 'clever-wing', 'Increases Special Defense effort by 1.', 26);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (611, 'swift-wing', 'Increases Speed effort by 1.', 26);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (612, 'pretty-wing', 'Sell for 100 Pokédollars.', 24);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (612, 'pretty-wing', 'Sell for 100 PokÃ©dollars.', 24);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (613, 'cover-fossil', 'Can be revived into a tirtouga.', 35);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (614, 'plume-fossil', 'Can be revived into a archen.', 35);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (615, 'liberty-pass', 'Allows access to Liberty Garden and Victini.', 20);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (616, 'pass-orb', 'Activates Pass Powers.', 12);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (617, 'dream-ball', 'Catches Pokémon found in the Dream World.', 33);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (617, 'dream-ball', 'Catches PokÃ©mon found in the Dream World.', 33);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (618, 'poke-toy', 'Ends a wild battle.', 11);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (619, 'prop-case', 'Stores props for the Pokémon Musical.', 21);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (619, 'prop-case', 'Stores props for the PokÃ©mon Musical.', 21);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (620, 'dragon-skull', 'Return to the museum in Nacrene City.', 22);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (621, 'balm-mushroom', 'Sell to Hungry Maid for 25000 Pokédollars.', 24);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (622, 'big-nugget', 'Sell to Ore Collector for 30000 Pokédollars.', 24);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (623, 'pearl-string', 'Sell to Ore Collector for 25000 Pokédollars.', 24);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (624, 'comet-shard', 'Sell to Ore Collector for 60000 Pokédollars.', 24);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (625, 'relic-copper', 'Sell to Villa Owner for 1000 Pokédollars.', 24);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (626, 'relic-silver', 'Sell to Villa Owner 5000 Pokédollars.', 24);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (627, 'relic-gold', 'Sell to Villa Owner 10000 Pokédollars.', 24);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (628, 'relic-vase', 'Sell to Villa Owner 50000 Pokédollars.', 24);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (629, 'relic-band', 'Sell to Villa Owner for 100000 Pokédollars.', 24);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (630, 'relic-statue', 'Sell to Villa Owner 200000 Pokédollars.', 24);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (631, 'relic-crown', 'Sell to Villa Owner for 300000 Pokédollars.', 24);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (621, 'balm-mushroom', 'Sell to Hungry Maid for 25000 PokÃ©dollars.', 24);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (622, 'big-nugget', 'Sell to Ore Collector for 30000 PokÃ©dollars.', 24);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (623, 'pearl-string', 'Sell to Ore Collector for 25000 PokÃ©dollars.', 24);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (624, 'comet-shard', 'Sell to Ore Collector for 60000 PokÃ©dollars.', 24);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (625, 'relic-copper', 'Sell to Villa Owner for 1000 PokÃ©dollars.', 24);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (626, 'relic-silver', 'Sell to Villa Owner 5000 PokÃ©dollars.', 24);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (627, 'relic-gold', 'Sell to Villa Owner 10000 PokÃ©dollars.', 24);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (628, 'relic-vase', 'Sell to Villa Owner 50000 PokÃ©dollars.', 24);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (629, 'relic-band', 'Sell to Villa Owner for 100000 PokÃ©dollars.', 24);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (630, 'relic-statue', 'Sell to Villa Owner 200000 PokÃ©dollars.', 24);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (631, 'relic-crown', 'Sell to Villa Owner for 300000 PokÃ©dollars.', 24);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (632, 'casteliacone', 'Cures any status ailment and confusion.', 30);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (633, 'dire-hit-2', 'Raises critical hit rate by two stages in battle.  Wonder Launcher only.', 43);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (634, 'x-speed-2', 'Raises Speed by two stages in battle.  Wonder Launcher only.', 43);
@@ -650,37 +650,37 @@ INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (648, 'x-sp
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (649, 'x-defense-6', 'Raises Defense by six stages in battle.  Wonder Launcher only.', 43);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (650, 'x-attack-6', 'Raises Attack by six stages in battle.  Wonder Launcher only.', 43);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (651, 'x-accuracy-6', 'Raises accuracy by six stages in battle.  Wonder Launcher only.', 43);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (652, 'ability-urge', 'Forcibly activates a friendly Pokémon''s ability.', 43);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (653, 'item-drop', 'Forces a friendly Pokémon to drop its held item.', 43);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (654, 'item-urge', 'Forcibly activates a friendly Pokémon''s held item.', 43);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (655, 'reset-urge', 'Resets a friendly Pokémon''s stat changes.', 43);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (652, 'ability-urge', 'Forcibly activates a friendly PokÃ©mon''s ability.', 43);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (653, 'item-drop', 'Forces a friendly PokÃ©mon to drop its held item.', 43);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (654, 'item-urge', 'Forcibly activates a friendly PokÃ©mon''s held item.', 43);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (655, 'reset-urge', 'Resets a friendly PokÃ©mon''s stat changes.', 43);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (656, 'dire-hit-3', 'Raises critical hit rate by three stages in battle.  Wonder Launcher only.', 43);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (657, 'light-stone', 'Summons Reshiram for the final battle against N.', 22);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (658, 'dark-stone', 'Summons Zekrom for the final battle against N.', 22);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (659, 'tm93', 'Teaches Wild Charge to a compatible Pokémon.', 37);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (660, 'tm94', 'Teaches Rock Smash to a compatible Pokémon.', 37);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (661, 'tm95', 'Teaches Snarl to a compatible Pokémon.', 37);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (659, 'tm93', 'Teaches Wild Charge to a compatible PokÃ©mon.', 37);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (660, 'tm94', 'Teaches Rock Smash to a compatible PokÃ©mon.', 37);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (661, 'tm95', 'Teaches Snarl to a compatible PokÃ©mon.', 37);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (662, 'xtransceiver', 'Makes four-way video calls.', 21);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (663, 'god-stone', 'Unknown.  Currently unused.', 23);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (664, 'gram-1', 'Part of a sidequest to obtain tm89.', 22);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (665, 'gram-2', 'Part of a sidequest to obtain tm89.', 22);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (666, 'gram-3', 'Part of a sidequest to obtain tm89.', 22);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (668, 'dragon-gem', 'Held: When the holder uses a damaging dragon-type move, the move has 1.5× power and this item is consumed.', 42);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (669, 'normal-gem', 'Held: When the holder uses a damaging normal-type move, the move has 1.5× power and this item is consumed.', 42);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (668, 'dragon-gem', 'Held: When the holder uses a damaging dragon-type move, the move has 1.5Ã— power and this item is consumed.', 42);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (669, 'normal-gem', 'Held: When the holder uses a damaging normal-type move, the move has 1.5Ã— power and this item is consumed.', 42);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (670, 'medal-box', 'Holds medals recieved in the medal rally.', 21);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (671, 'dna-splicers', 'Fuses Kyurem with Reshiram or Zekrom, or splits them apart again.', 21);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (673, 'permit', 'Grants access to the Nature Preserve.', 21);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (674, 'oval-charm', 'Doubles the chance of two Pokémon producing an egg at the daycare every 255 steps.', 21);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (675, 'shiny-charm', 'Raises the chance of finding a shiny Pokémon.', 21);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (674, 'oval-charm', 'Doubles the chance of two PokÃ©mon producing an egg at the daycare every 255 steps.', 21);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (675, 'shiny-charm', 'Raises the chance of finding a shiny PokÃ©mon.', 21);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (676, 'plasma-card', 'Required to progress in the Plasma Frigate.', 22);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (677, 'grubby-hanky', 'Appears in the Café Warehouse on Sunday; return to the customer with a Patrat on Thursday.', 22);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (677, 'grubby-hanky', 'Appears in the CafÃ© Warehouse on Sunday; return to the customer with a Patrat on Thursday.', 22);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (678, 'colress-machine', 'Wakes up the Crustle blocking the way in Seaside Cave.', 22);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (679, 'dropped-item', 'Returned to Curtis or Yancy as part of a sidequest.', 22);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (681, 'reveal-glass', 'Switches Tornadus, Thundurus, and Landorus between Incarnate and Therian Forme.', 21);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (682, 'weakness-policy', 'Held: When the holder is hit by a super effective move, its Attack and Special Attack raise by two stages.', 12);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (683, 'assault-vest', 'Raises the holder''s Special Defense to 1.5×.  Prevents the holder from selecting a status move.', 12);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (683, 'assault-vest', 'Raises the holder''s Special Defense to 1.5Ã—.  Prevents the holder from selecting a status move.', 12);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (684, 'pixie-plate', 'Held: Fairy-Type moves from holder do 20% more damage. Changes Arceus''s and Judgment''s type to Fairy.', 17);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (685, 'ability-capsule', 'Switches a Pokémon between its two possible (non-Hidden) Abilities.', 26);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (685, 'ability-capsule', 'Switches a PokÃ©mon between its two possible (non-Hidden) Abilities.', 26);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (686, 'whipped-dream', 'Traded on a Swirlix: Holder evolves into Slurpuff.', 10);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (687, 'sachet', 'Traded on a Spritzee: Holder evolves into Aromatisse.', 10);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (688, 'luminous-moss', 'Held: If the holder is hit by a damaging Water move, raises its Special Defense by one stage.', 12);
@@ -726,7 +726,7 @@ INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (727, 'stra
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (728, 'lumiose-galette', 'Cures all major status ailments and confusion.', 30);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (729, 'jaw-fossil', 'Can be revived into a Tyrunt.', 35);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (730, 'sail-fossil', 'Can be revived into an Amaura.', 35);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (731, 'fairy-gem', 'Held: When the holder uses a damaging Fairy move, the move has 1.5× power and this item is consumed.', 42);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (731, 'fairy-gem', 'Held: When the holder uses a damaging Fairy move, the move has 1.5Ã— power and this item is consumed.', 42);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (732, 'adventure-rules', 'Contains basic gameplay information.', 21);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (733, 'elevator-key', 'Unlocks the elevator in Lysandre Labs.', 22);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (734, 'holo-caster', 'Displays cutscene conversations as the plot advances.', 21);
@@ -734,17 +734,17 @@ INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (735, 'hono
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (736, 'intriguing-stone', 'Trade for a Sun Stone in X and Y, or Pidgeotite in Omega Ruby and Alpha Sapphire.', 22);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (737, 'lens-case', 'Allows the player to change their eye color.', 21);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (738, 'looker-ticket', 'Advances the Looker postgame plot.', 22);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (739, 'mega-ring', 'Allows the player''s Pokémon to Mega Evolve.', 21);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (739, 'mega-ring', 'Allows the player''s PokÃ©mon to Mega Evolve.', 21);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (740, 'power-plant-pass', 'Permits entry to the Kalos Power Plant.', 22);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (741, 'profs-letter', 'Traded to the player''s mom for the Town Map and a Potion.', 22);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (742, 'roller-skates', 'Allows the player to move quickly and off the grid.', 21);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (743, 'sprinklotad', 'Waters Berry plants.', 21);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (744, 'tmv-pass', 'Permits access to Kiloude City.', 21);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (745, 'tm96', 'Teaches a Pokémon TM96.', 37);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (746, 'tm97', 'Teaches a Pokémon TM97.', 37);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (747, 'tm98', 'Teaches a Pokémon TM98.', 37);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (748, 'tm99', 'Teaches a Pokémon TM99.', 37);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (749, 'tm100', 'Teaches a Pokémon TM100.', 37);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (745, 'tm96', 'Teaches a PokÃ©mon TM96.', 37);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (746, 'tm97', 'Teaches a PokÃ©mon TM97.', 37);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (747, 'tm98', 'Teaches a PokÃ©mon TM98.', 37);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (748, 'tm99', 'Teaches a PokÃ©mon TM99.', 37);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (749, 'tm100', 'Teaches a PokÃ©mon TM100.', 37);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (760, 'latiasite', 'Held: Allows Latias to Mega Evolve into Mega Latias.', 44);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (761, 'latiosite', 'Held: Allows Latios to Mega Evolve into Mega Latios.', 44);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (762, 'common-stone', 'Unknown.', 23);
@@ -754,17 +754,17 @@ INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (765, 'shal
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (768, 'mega-charm', 'Unused Key Stone.', 23);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (769, 'mega-glove', 'Unused NPC Key Stone.', 23);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (770, 'devon-parts', 'Allows Captain Stern to set out on his expedition.', 22);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (772, 'pokeblock-kit', 'Creates and stores Pokéblocks.', 21);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (772, 'pokeblock-kit', 'Creates and stores PokÃ©blocks.', 21);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (773, 'key-to-room-1', 'Unlocks the door to Room 1 in Sea Mauville.', 22);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (774, 'key-to-room-2', 'Unlocks the door to Room 2 in Sea Mauville.', 22);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (775, 'key-to-room-4', 'Unlocks the door to Room 4 in Sea Mauville.', 22);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (776, 'key-to-room-6', 'Unlocks the door to Room 6 in Sea Mauville.', 22);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (779, 'devon-scuba-gear', 'Worn by the player while underwater.', 22);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (780, 'contest-costume--jacket', 'Worn during Pokémon Contests.', 21);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (780, 'contest-costume--jacket', 'Worn during PokÃ©mon Contests.', 21);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (782, 'magma-suit', 'Allows the player to ride Groudon in the Cave of Origin.', 22);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (783, 'aqua-suit', 'Allows the player to ride Kyogre in the Cave of Origin.', 22);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (784, 'pair-of-tickets', 'Allows the player and their mother to see the star show in the Mossdeep Space Center.', 22);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (785, 'mega-bracelet', 'Allows the player''s Pokémon to Mega Evolve.', 21);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (785, 'mega-bracelet', 'Allows the player''s PokÃ©mon to Mega Evolve.', 21);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (786, 'mega-pendant', 'Unused NPC Key Stone.', 23);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (787, 'mega-glasses', 'Unused NPC Key Stone.', 23);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (788, 'mega-anchor', 'Unused NPC Key Stone.', 23);
@@ -789,31 +789,31 @@ INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (807, 'mega
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (808, 'cameruptite', 'Held: Allows Camerupt to Mega Evolve into Mega Camerupt.', 44);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (809, 'lopunnite', 'Held: Allows Lopunny to Mega Evolve into Mega Lopunny.', 44);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (811, 'beedrillite', 'Held: Allows Beedrill to Mega Evolve into Mega Beedrill.', 44);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (814, 'key-stone', 'Allows the player''s Pokémon to Mega Evolve.', 21);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (814, 'key-stone', 'Allows the player''s PokÃ©mon to Mega Evolve.', 21);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (815, 'meteorite-shard', 'Causes the Meteorite to transform to its final form, allowing Rayquaza to Mega Evolve.', 22);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (816, 'eon-flute', 'Summons Latias or Latios for a ride.', 21);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (817, 'normalium-z--held', 'Held: Allows a Pokémon to use the Z-move equivalents of its Normal moves.', 46);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (818, 'firium-z--held', 'Held: Allows a Pokémon to use the Z-move equivalents of its Fire moves.', 46);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (819, 'waterium-z--held', 'Held: Allows a Pokémon to use the Z-move equivalents of its Water moves.', 46);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (820, 'electrium-z--held', 'Held: Allows a Pokémon to use the Z-move equivalents of its Electric moves.', 46);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (821, 'grassium-z--held', 'Held: Allows a Pokémon to use the Z-move equivalents of its Grass moves.', 46);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (822, 'icium-z--held', 'Held: Allows a Pokémon to use the Z-move equivalents of its Ice moves.', 46);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (823, 'fightinium-z--held', 'Held: Allows a Pokémon to use the Z-move equivalents of its Fighting moves.', 46);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (824, 'poisonium-z--held', 'Held: Allows a Pokémon to use the Z-move equivalents of its Poison moves.', 46);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (825, 'groundium-z--held', 'Held: Allows a Pokémon to use the Z-move equivalents of its Ground moves.', 46);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (826, 'flyinium-z--held', 'Held: Allows a Pokémon to use the Z-move equivalents of its Flying moves.', 46);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (827, 'psychium-z--held', 'Held: Allows a Pokémon to use the Z-move equivalents of its Psychic moves.', 46);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (828, 'buginium-z--held', 'Held: Allows a Pokémon to use the Z-move equivalents of its Bug moves.', 46);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (829, 'rockium-z--held', 'Held: Allows a Pokémon to use the Z-move equivalents of its Rock moves.', 46);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (830, 'ghostium-z--held', 'Held: Allows a Pokémon to use the Z-move equivalents of its Ghost moves.', 46);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (831, 'dragonium-z--held', 'Held: Allows a Pokémon to use the Z-move equivalents of its Dragon moves.', 46);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (832, 'darkinium-z--held', 'Held: Allows a Pokémon to use the Z-move equivalents of its Dark moves.', 46);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (833, 'steelium-z--held', 'Held: Allows a Pokémon to use the Z-move equivalents of its Steel moves.', 46);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (834, 'fairium-z--held', 'Held: Allows a Pokémon to use the Z-move equivalents of its Fairy moves.', 46);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (817, 'normalium-z--held', 'Held: Allows a PokÃ©mon to use the Z-move equivalents of its Normal moves.', 46);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (818, 'firium-z--held', 'Held: Allows a PokÃ©mon to use the Z-move equivalents of its Fire moves.', 46);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (819, 'waterium-z--held', 'Held: Allows a PokÃ©mon to use the Z-move equivalents of its Water moves.', 46);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (820, 'electrium-z--held', 'Held: Allows a PokÃ©mon to use the Z-move equivalents of its Electric moves.', 46);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (821, 'grassium-z--held', 'Held: Allows a PokÃ©mon to use the Z-move equivalents of its Grass moves.', 46);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (822, 'icium-z--held', 'Held: Allows a PokÃ©mon to use the Z-move equivalents of its Ice moves.', 46);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (823, 'fightinium-z--held', 'Held: Allows a PokÃ©mon to use the Z-move equivalents of its Fighting moves.', 46);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (824, 'poisonium-z--held', 'Held: Allows a PokÃ©mon to use the Z-move equivalents of its Poison moves.', 46);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (825, 'groundium-z--held', 'Held: Allows a PokÃ©mon to use the Z-move equivalents of its Ground moves.', 46);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (826, 'flyinium-z--held', 'Held: Allows a PokÃ©mon to use the Z-move equivalents of its Flying moves.', 46);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (827, 'psychium-z--held', 'Held: Allows a PokÃ©mon to use the Z-move equivalents of its Psychic moves.', 46);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (828, 'buginium-z--held', 'Held: Allows a PokÃ©mon to use the Z-move equivalents of its Bug moves.', 46);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (829, 'rockium-z--held', 'Held: Allows a PokÃ©mon to use the Z-move equivalents of its Rock moves.', 46);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (830, 'ghostium-z--held', 'Held: Allows a PokÃ©mon to use the Z-move equivalents of its Ghost moves.', 46);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (831, 'dragonium-z--held', 'Held: Allows a PokÃ©mon to use the Z-move equivalents of its Dragon moves.', 46);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (832, 'darkinium-z--held', 'Held: Allows a PokÃ©mon to use the Z-move equivalents of its Dark moves.', 46);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (833, 'steelium-z--held', 'Held: Allows a PokÃ©mon to use the Z-move equivalents of its Steel moves.', 46);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (834, 'fairium-z--held', 'Held: Allows a PokÃ©mon to use the Z-move equivalents of its Fairy moves.', 46);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (835, 'pikanium-z--held', 'Held: Allows Pikachu to upgrade Volt Tackle into Catastropika.', 46);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (836, 'bottle-cap', 'Trade to Mr. Hyper to maximize one of a Pokémon''s genes.', 24);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (837, 'gold-bottle-cap', 'Trade to Mr. Hyper to maximize all of a Pokémon''s genes.', 24);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (838, 'z-ring', 'Allows the player''s Pokémon to use Z-moves.', 21);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (836, 'bottle-cap', 'Trade to Mr. Hyper to maximize one of a PokÃ©mon''s genes.', 24);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (837, 'gold-bottle-cap', 'Trade to Mr. Hyper to maximize all of a PokÃ©mon''s genes.', 24);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (838, 'z-ring', 'Allows the player''s PokÃ©mon to use Z-moves.', 21);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (839, 'decidium-z--held', 'Held: Allows Decidueye to upgrade Spirit Shackle into Sinister Arrow Raid.', 46);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (840, 'incinium-z--held', 'Held: Allows Incineroar to upgrade Darkest Lariat into Malicious Moonsault.', 46);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (841, 'primarium-z--held', 'Held: Allows Primarina to upgrade Sparkling Aria into Oceanic Operetta.', 46);
@@ -825,19 +825,19 @@ INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (846, 'eevi
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (847, 'mewnium-z--held', 'Held: Allows Mew to upgrade Psychic into Genesis Supernova.', 46);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (877, 'pikashunium-z--held', 'Held: Allows cap-wearing Pikachu to upgrade Thunderbolt into 10,000,000 Volt Thunderbolt.', 46);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (878, 'forage-bag', 'Holds ingredients during Mallow''s trial.', 21);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (879, 'fishing-rod', 'Allows the player to fish for Pokémon.', 21);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (879, 'fishing-rod', 'Allows the player to fish for PokÃ©mon.', 21);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (880, 'professors-mask', 'Lost by Professor Kukui.', 22);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (881, 'festival-ticket', 'Hosts a mission in Festival Plaza.', 21);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (882, 'sparkling-stone', 'Required to obtain a Z-Ring.', 22);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (883, 'adrenaline-orb', 'Makes wild Pokémon more likely to summon allies.  Held: increases the holder''s Speed by one stage when affected by Intimidate.', 12);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (883, 'adrenaline-orb', 'Makes wild PokÃ©mon more likely to summon allies.  Held: increases the holder''s Speed by one stage when affected by Intimidate.', 12);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (884, 'zygarde-cube', 'Contains collected Zygarde cells/cores.  Can teach Zygarde moves.', 21);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (885, 'ice-stone', 'Evolves an Alola Sandshrew into Alola Sandslash or an Alola Vulpix into Alola Ninetales.', 10);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (886, 'ride-pager', 'Allows the player to summon a Ride Pokémon.', 23);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (887, 'beast-ball', 'Tries to catch a wild Pokémon.  Success rate is 5× for Ultra Beasts and 0.1× for all other Pokémon.', 33);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (886, 'ride-pager', 'Allows the player to summon a Ride PokÃ©mon.', 23);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (887, 'beast-ball', 'Tries to catch a wild PokÃ©mon.  Success rate is 5Ã— for Ultra Beasts and 0.1Ã— for all other PokÃ©mon.', 33);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (888, 'big-malasada', 'Cures major status ailments and confusion.', 30);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (889, 'red-nectar', 'Changes Oricorio to Baile Style.', 18);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (890, 'yellow-nectar', 'Changes Oricorio to Pom-Pom Style.', 18);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (891, 'pink-nectar', 'Changes Oricorio to Pa’u Style.', 18);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (891, 'pink-nectar', 'Changes Oricorio to Paâ€™u Style.', 18);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (892, 'purple-nectar', 'Changes Oricorio to Sensu Style.', 18);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (893, 'sun-flute', 'Evolves Nebby into Solgaleo when used at the Altar of the Sunne.', 22);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (894, 'moon-flute', 'Evolves Nebby into Lunala when used at the Altar of the Moone.', 22);
@@ -1613,12 +1613,12 @@ INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (1663, 'str
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (1664, 'legend-plate', '', 17);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (1665, 'rotom-phone', '', 20);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (1666, 'sandwich', '', 20);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (1667, 'koraidon’s-poké-ball', '', 20);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (1668, 'miraidon’s-poké-ball', '', 20);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (1667, 'koraidonâ€™s-pokÃ©-ball', '', 20);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (1668, 'miraidonâ€™s-pokÃ©-ball', '', 20);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (1669, 'tera-orb', '', 20);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (1670, 'scarlet-book', '', 20);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (1671, 'violet-book', '', 20);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (1672, 'kofu’s-wallet', '', 22);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (1672, 'kofuâ€™s-wallet', '', 22);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (1673, 'tiny-bamboo-shoot', '', 24);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (1674, 'big-bamboo-shoot', '', 24);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (1675, 'scroll-of-darkness', '', 21);
@@ -1702,7 +1702,7 @@ INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (1752, 'str
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (1753, 'apple', '', 53);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (1754, 'kiwi', '', 53);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (1755, 'pineapple', '', 53);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (1756, 'jalapeño', '', 53);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (1756, 'jalapeÃ±o', '', 53);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (1757, 'horseradish', '', 53);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (1758, 'curry-powder', '', 53);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (1759, 'wasabi', '', 53);
@@ -1808,7 +1808,7 @@ INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (1858, 'lar
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (1859, 'fletchling-feather', '', 54);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (1860, 'scatterbug-powder', '', 54);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (1861, 'litleo-tuft', '', 54);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (1862, 'flabébé-pollen', '', 54);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (1862, 'flabÃ©bÃ©-pollen', '', 54);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (1863, 'skiddo-leaf', '', 54);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (1864, 'skrelp-kelp', '', 54);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (1865, 'clauncher-claw', '', 54);
@@ -1990,9 +1990,9 @@ INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (2040, 'pik
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (2041, 'winking-pika-pick', '', 55);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (2042, 'vee-vee-pick', '', 55);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (2043, 'smiling-vee-pick', '', 55);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (2044, 'blue-poké-ball-pick', '', 55);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (2044, 'blue-pokÃ©-ball-pick', '', 55);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (2045, 'auspicious-armor', '', 55);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (2046, 'leader’s-crest', '', 55);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (2046, 'leaderâ€™s-crest', '', 55);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (2047, 'pink-bottle', '', 55);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (2048, 'blue-bottle', '', 55);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (2049, 'yellow-bottle', '', 55);
@@ -2030,8 +2030,8 @@ INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (2080, 'gol
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (2081, 'bronze-bottle', '', 55);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (2082, 'gold-cup', '', 55);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (2083, 'bronze-cup', '', 55);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (2084, 'green-poké-ball-pick', '', 55);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (2085, 'red-poké-ball-pick', '', 55);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (2084, 'green-pokÃ©-ball-pick', '', 55);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (2085, 'red-pokÃ©-ball-pick', '', 55);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (2086, 'party-sparkler-pick', '', 55);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (2087, 'heroic-sword-pick', '', 55);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (2088, 'magical-star-pick', '', 55);
@@ -2169,85 +2169,85 @@ INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (10001, 'bl
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (10002, 'peat-block', '', 10);
 -- Inserts for TABLE: ITEMS
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (1, 'master-ball', 'The best BALL that
-catches a POKéMON
+catches a POKÃ©MON
 without fail.', 34);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (2, 'ultra-ball', 'A better BALL with
 a higher catch rate
 than a GREAT BALL.', 34);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (3, 'great-ball', 'A good BALL with a
 higher catch rate
-than a POKé BALL.', 34);
+than a POKÃ© BALL.', 34);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (4, 'poke-ball', 'A tool used for
 catching wild
-POKéMON.', 34);
+POKÃ©MON.', 34);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (5, 'safari-ball', 'A special BALL that
 is used only in the
 SAFARI ZONE.', 34);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (6, 'net-ball', 'A BALL that works
 well on WATER- and
-BUG-type POKéMON.', 33);
+BUG-type POKÃ©MON.', 33);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (7, 'dive-ball', 'A BALL that works
-better on POKéMON
+better on POKÃ©MON
 on the ocean floor.', 33);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (8, 'nest-ball', 'A BALL that works
 better on weaker
-POKéMON.', 33);
+POKÃ©MON.', 33);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (9, 'repeat-ball', 'A BALL that works
-better on POKéMON
+better on POKÃ©MON
 caught before.', 33);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (10, 'timer-ball', 'More effective as
 more turns are
 taken in battle.', 33);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (11, 'luxury-ball', 'A cozy BALL that
-makes POKéMON
+makes POKÃ©MON
 more friendly.', 33);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (12, 'premier-ball', 'A rare BALL made
 in commemoration
 of some event.', 33);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (13, 'dusk-ball', 'A somewhat different Poké Ball that
-makes it easier to catch wild Pokémon
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (13, 'dusk-ball', 'A somewhat different PokÃ© Ball that
+makes it easier to catch wild PokÃ©mon
 at night or in dark places like caves.', 33);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (14, 'heal-ball', 'A remedial Poké Ball that restores the
-caught Pokémon’s HP and eliminates
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (14, 'heal-ball', 'A remedial PokÃ© Ball that restores the
+caught PokÃ©monâ€™s HP and eliminates
 any status problem.', 33);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (15, 'quick-ball', 'A somewhat different Poké Ball that
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (15, 'quick-ball', 'A somewhat different PokÃ© Ball that
 provides a better catch rate if it is
 used at the start of a wild encounter.', 33);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (16, 'cherish-ball', 'A quite rare Poké Ball that has been
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (16, 'cherish-ball', 'A quite rare PokÃ© Ball that has been
 specially crafted to commemorate
 an occasion of some sort.', 33);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (17, 'potion', 'Restores the HP of
-a POKéMON by
+a POKÃ©MON by
 20 points.', 27);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (18, 'antidote', 'Heals a poisoned
-POKéMON.', 30);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (19, 'burn-heal', 'Heals POKéMON
+POKÃ©MON.', 30);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (19, 'burn-heal', 'Heals POKÃ©MON
 of a burn.', 30);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (20, 'ice-heal', 'Defrosts a frozen
-POKéMON.', 30);
+POKÃ©MON.', 30);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (21, 'awakening', 'Awakens a sleeping
-POKéMON.', 30);
+POKÃ©MON.', 30);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (22, 'paralyze-heal', 'Heals a paralyzed
-POKéMON.', 30);
+POKÃ©MON.', 30);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (23, 'full-restore', 'Fully restores the
 HP and status of a
-POKéMON.', 27);
+POKÃ©MON.', 27);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (24, 'max-potion', 'Fully restores the
-HP of a POKéMON.', 27);
+HP of a POKÃ©MON.', 27);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (25, 'hyper-potion', 'Restores the HP of
-a POKéMON by
+a POKÃ©MON by
 200 points.', 27);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (26, 'super-potion', 'Restores the HP of
-a POKéMON by
+a POKÃ©MON by
 50 points.', 27);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (27, 'full-heal', 'Heals all the status
 problems of one
-POKéMON.', 30);
+POKÃ©MON.', 30);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (28, 'revive', 'Revives a fainted
-POKéMON with half
+POKÃ©MON with half
 its HP.', 29);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (29, 'max-revive', 'Revives a fainted
-POKéMON with all
+POKÃ©MON with all
 its HP.', 29);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (30, 'fresh-water', 'A mineral water
 that restores HP
@@ -2272,7 +2272,7 @@ that heals all
 status problems.', 30);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (37, 'revival-herb', 'A very bitter herb
 that revives a
-fainted POKéMON.', 29);
+fainted POKÃ©MON.', 29);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (38, 'ether', 'Restores the PP
 of a selected move
 by 10.', 28);
@@ -2282,7 +2282,7 @@ move.', 28);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (40, 'elixir', 'Restores the PP
 of all moves by 10.', 28);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (41, 'max-elixir', 'Fully restores the
-PP of a POKéMON’s
+PP of a POKÃ©MONâ€™s
 moves.', 28);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (42, 'lava-cookie', 'A local specialty
 that heals all
@@ -2292,36 +2292,36 @@ that restores HP
 by 20 points.', 27);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (44, 'sacred-ash', 'Fully revives and
 restores all
-fainted POKéMON.', 29);
+fainted POKÃ©MON.', 29);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (45, 'hp-up', 'Raises the HP of
-one POKéMON.', 26);
+one POKÃ©MON.', 26);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (46, 'protein', 'Raises the stat
 ATTACK of one
-POKéMON.', 26);
+POKÃ©MON.', 26);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (47, 'iron', 'Raises the stat
 DEFENSE of one
-POKéMON.', 26);
+POKÃ©MON.', 26);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (48, 'carbos', 'Raises the stat
 SPEED of one
-POKéMON.', 26);
+POKÃ©MON.', 26);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (49, 'calcium', 'Raises the stat
 SP. ATK of one
-POKéMON.', 26);
+POKÃ©MON.', 26);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (50, 'rare-candy', 'Raises the level
-of a POKéMON by
+of a POKÃ©MON by
 one.', 26);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (51, 'pp-up', 'Raises the maximum
 PP of a selected
 move.', 26);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (52, 'zinc', 'Raises the base
 SP. DEF stat of one
-POKéMON.', 26);
+POKÃ©MON.', 26);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (53, 'pp-max', 'Raises the PP of a
 move to its maximum
 points.', 26);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (54, 'old-gateau', 'Old Chateau’s hidden specialty.
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (54, 'old-gateau', 'Old Chateauâ€™s hidden specialty.
 It heals all the status problems of a
-single Pokémon.', 30);
+single PokÃ©mon.', 30);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (55, 'guard-spec', 'Prevents stat
 reduction when
 used in battle.', 1);
@@ -2344,28 +2344,28 @@ INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (61, 'x-sp-
 SP. ATK during one
 battle.', 1);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (62, 'x-sp-def', 'An item that raises the Sp. Def stat
-of a Pokémon in battle. It wears off if
-the Pokémon is withdrawn.', 1);
+of a PokÃ©mon in battle. It wears off if
+the PokÃ©mon is withdrawn.', 1);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (63, 'poke-doll', 'Use to flee from
 any battle with
-a wild POKéMON.', 11);
+a wild POKÃ©MON.', 11);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (64, 'fluffy-tail', 'Use to flee from
 any battle with
-a wild POKéMON.', 11);
+a wild POKÃ©MON.', 11);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (65, 'blue-flute', 'A glass flute that
 awakens sleeping
-POKéMON.', 38);
+POKÃ©MON.', 38);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (66, 'yellow-flute', 'A glass flute that
-snaps POKéMON
+snaps POKÃ©MON
 out of confusion.', 38);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (67, 'red-flute', 'A glass flute that
-snaps POKéMON
+snaps POKÃ©MON
 out of attraction.', 38);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (68, 'black-flute', 'A glass flute that
 keeps away wild
-POKéMON.', 11);
+POKÃ©MON.', 11);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (69, 'white-flute', 'A glass flute that
-lures wild POKéMON.', 11);
+lures wild POKÃ©MON.', 11);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (70, 'shoal-salt', 'Salt obtained from
 deep inside the
 SHOAL CAVE.', 9);
@@ -2383,34 +2383,34 @@ INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (75, 'green
 ancient item.
 Can be sold cheaply.', 9);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (76, 'super-repel', 'Repels weak wild
-POKéMON for 200
+POKÃ©MON for 200
 steps.', 11);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (77, 'max-repel', 'Repels weak wild
-POKéMON for 250
+POKÃ©MON for 250
 steps.', 11);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (78, 'escape-rope', 'Use to escape
 instantly from a
 cave or a dungeon.', 11);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (79, 'repel', 'Repels weak wild
-POKéMON for 100
+POKÃ©MON for 100
 steps.', 11);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (80, 'sun-stone', 'Makes certain
-species of POKéMON
+species of POKÃ©MON
 evolve.', 10);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (81, 'moon-stone', 'Makes certain
-species of POKéMON
+species of POKÃ©MON
 evolve.', 10);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (82, 'fire-stone', 'Makes certain
-species of POKéMON
+species of POKÃ©MON
 evolve.', 10);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (83, 'thunder-stone', 'Makes certain
-species of POKéMON
+species of POKÃ©MON
 evolve.', 10);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (84, 'water-stone', 'Makes certain
-species of POKéMON
+species of POKÃ©MON
 evolve.', 10);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (85, 'leaf-stone', 'Makes certain
-species of POKéMON
+species of POKÃ©MON
 evolve.', 10);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (86, 'tiny-mushroom', 'A plain, ordinary
 mushroom.
@@ -2436,7 +2436,7 @@ INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (93, 'heart
 It is coveted by
 collectors.', 9);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (94, 'honey', 'A sweet honey with a lush aroma that
-attracts wild Pokémon when it is used
+attracts wild PokÃ©mon when it is used
 in grass, caves, or on special trees.', 35);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (95, 'growth-mulch', 'A plant fertilizer spread on soft soil.
 It speeds up the growth of Berries.
@@ -2452,39 +2452,39 @@ It ups the number of times new plants
 grow where mature plants withered.', 32);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (99, 'root-fossil', 'A fossil of an
 ancient, seafloor-
-dwelling POKéMON.', 35);
+dwelling POKÃ©MON.', 35);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (100, 'claw-fossil', 'A fossil of an
 ancient, seafloor-
-dwelling POKéMON.', 35);
+dwelling POKÃ©MON.', 35);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (101, 'helix-fossil', 'A piece of an
 ancient marine
-POKéMON’s seashell.', 35);
+POKÃ©MONâ€™s seashell.', 35);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (102, 'dome-fossil', 'A piece of an
 ancient marine
-POKéMON’s shell.', 35);
+POKÃ©MONâ€™s shell.', 35);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (103, 'old-amber', 'A stone containing
 the genes of an
-ancient POKéMON.', 35);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (104, 'armor-fossil', 'A fossil from a prehistoric Pokémon
+ancient POKÃ©MON.', 35);
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (104, 'armor-fossil', 'A fossil from a prehistoric PokÃ©mon
 that lived on the land. It appears to
 be part of a collar.', 35);
-INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (105, 'skull-fossil', 'A fossil from a prehistoric Pokémon
+INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (105, 'skull-fossil', 'A fossil from a prehistoric PokÃ©mon
 that lived on the land. It appears to
 be part of a head.', 35);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (106, 'rare-bone', 'A bone that is extremely valuable for
-Pokémon archaeology. It can be sold
+PokÃ©mon archaeology. It can be sold
 for a high price to shops.', 24);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (107, 'shiny-stone', 'A peculiar stone that makes certain
-species of Pokémon evolve.
+species of PokÃ©mon evolve.
 It shines with a dazzling light.', 10);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (108, 'dusk-stone', 'A peculiar stone that makes certain
-species of Pokémon evolve.
+species of PokÃ©mon evolve.
 It is as dark as dark can be.', 10);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (109, 'dawn-stone', 'A peculiar stone that makes certain
-species of Pokémon evolve.
+species of PokÃ©mon evolve.
 It sparkles like eyes.', 10);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (110, 'oval-stone', 'A peculiar stone that makes certain
-species of Pokémon evolve.
+species of PokÃ©mon evolve.
 It is shaped like an egg.', 10);
 INSERT INTO ITEM (item_id, item_name, item_desc, item_cat_id) VALUES (111, 'odd-keystone', 'A vital item that is needed to keep a
 stone tower from collapsing. Voices

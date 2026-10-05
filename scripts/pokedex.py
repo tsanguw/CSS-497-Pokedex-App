@@ -2,6 +2,10 @@ import time
 import requests
 import sys
 
+# Every get_* function prints its SQL to stdout. On Windows stdout defaults to
+# the legacy code page, which turned "Pokémon" into "Pok�mon" in the data.
+sys.stdout.reconfigure(encoding='utf-8')
+
 # Base URL for the Pokémon API
 BASE_URL = "https://pokeapi.co/api/v2/"
 # Limit to how many generations get created
