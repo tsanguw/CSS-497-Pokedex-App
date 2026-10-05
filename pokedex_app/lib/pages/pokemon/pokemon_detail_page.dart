@@ -1,5 +1,14 @@
 import 'package:flutter/material.dart';
 import '../../database_helper.dart';
+import '../../theme/type_colors.dart';
+import '../../widgets/fact_tile.dart';
+import '../../widgets/format.dart';
+import '../../widgets/move_filters.dart';
+import '../../widgets/move_tile.dart';
+import '../../widgets/pokemon_tile.dart';
+import '../../widgets/section_card.dart';
+import '../../widgets/stat_bar.dart';
+import '../../widgets/type_chip.dart';
 
 class PokemonDetailPage extends StatefulWidget {
   final Map<String, dynamic> pokemon;
@@ -20,7 +29,7 @@ class PokemonDetailPage extends StatefulWidget {
   });
 
   @override
-  _PokemonDetailPageState createState() => _PokemonDetailPageState();
+  State<PokemonDetailPage> createState() => _PokemonDetailPageState();
 }
 
 class _PokemonDetailPageState extends State<PokemonDetailPage> {
@@ -40,197 +49,243 @@ class _PokemonDetailPageState extends State<PokemonDetailPage> {
       generation: _selectedGeneration,
       method: _selectedMethod,
     );
+    if (!mounted) return;
     setState(() {
       _moveset = moveset;
     });
   }
 
+  String _fmt(Object? v) => fmtNum(v);
+
   @override
   Widget build(BuildContext context) {
+    final p = widget.pokemon;
+    final text = Theme.of(context).textTheme;
+    final scheme = Theme.of(context).colorScheme;
+    final types = splitTypes(p['types']);
+    final tint = typeColor(types.isEmpty ? null : types.first);
+    final id = p['pok_id'] as int;
+
+    final statValues = <String, int>{
+      'HP': p['b_hp'] as int,
+      'Attack': p['b_atk'] as int,
+      'Defense': p['b_def'] as int,
+      'Sp. Atk': p['b_sp_atk'] as int,
+      'Sp. Def': p['b_sp_def'] as int,
+      'Speed': p['b_speed'] as int,
+    };
+    final total = statValues.values.fold<int>(0, (a, b) => a + b);
+
+    final evolutionRows = <String>{};
+    final evolutionTiles = <Widget>[];
+    for (final e in widget.evolutions) {
+      if (e['evol_pok_name'] == null) continue;
+      final key =
+          '${e['current_pok_name']}>${e['evol_pok_name']}>${e['evol_method_name']}>${e['evol_min_lvl']}';
+      if (!evolutionRows.add(key)) continue;
+      final detail = [
+        if (e['evol_min_lvl'] != null) 'Level ${e['evol_min_lvl']}',
+        if (e['evol_method_name'] != null) prettyName(e['evol_method_name']),
+      ].join(' · ');
+      evolutionTiles.add(ListTile(
+        contentPadding: EdgeInsets.zero,
+        dense: true,
+        title: Text(
+            '${pokemonName(e['current_pok_name'])}  →  ${pokemonName(e['evol_pok_name'])}',
+            style: text.bodyLarge),
+        subtitle: detail.isEmpty ? null : Text(detail),
+      ));
+    }
+
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.pokemon['pok_name']),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+      appBar: AppBar(title: Text(pokemonName(p['pok_name']))),
+      body: ListView(
+        padding: const EdgeInsets.fromLTRB(16, 8, 16, 32),
+        children: [
+          Container(
+            decoration: BoxDecoration(
+              color: tint.withValues(alpha: 0.22),
+              borderRadius: BorderRadius.circular(28),
+            ),
+            padding: const EdgeInsets.all(20),
+            child: Column(
+              children: [
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: Text('#${id.toString().padLeft(3, '0')}',
+                      style: text.titleMedium
+                          ?.copyWith(color: scheme.onSurfaceVariant)),
+                ),
+                PokemonArtwork(id: id, size: 200),
+                const SizedBox(height: 12),
+                Text(pokemonName(p['pok_name']), style: text.headlineMedium),
+                const SizedBox(height: 8),
+                TypeChips(types: p['types'], alignment: WrapAlignment.center),
+              ],
+            ),
+          ),
+          const SizedBox(height: 12),
+          Row(
             children: [
-              Center(
-                child: Image.asset(
-                  'assets/sprites/pokemon/other/official-artwork/${widget.pokemon['pok_id']}.png',
-                  height: 200,
-                  width: 200,
-                  fit: BoxFit.cover,
-                  errorBuilder: (context, error, stackTrace) {
-                    return const Text('Image not available');
-                  },
-                ),
-              ),
-              const SizedBox(height: 16),
-              Text('Name: ${widget.pokemon['pok_name']}',
-                  style: const TextStyle(fontSize: 24)),
-              const SizedBox(height: 8),
-              Text('Type: ${widget.pokemon['types']}',
-                  style: const TextStyle(fontSize: 18)),
-              const SizedBox(height: 8),
-              Text('Height: ${widget.pokemon['pok_height'].toString()} meters',
-                  style: const TextStyle(fontSize: 18)),
-              const SizedBox(height: 8),
-              Text('Weight: ${widget.pokemon['pok_weight'].toString()} kg',
-                  style: const TextStyle(fontSize: 18)),
-              const SizedBox(height: 16),
-              const Text('Base Stats:',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-              const SizedBox(height: 8),
-              Text('HP: ${widget.pokemon['b_hp']}',
-                  style: const TextStyle(fontSize: 18)),
-              Text('Attack: ${widget.pokemon['b_atk']}',
-                  style: const TextStyle(fontSize: 18)),
-              Text('Defense: ${widget.pokemon['b_def']}',
-                  style: const TextStyle(fontSize: 18)),
-              Text('Special Attack: ${widget.pokemon['b_sp_atk']}',
-                  style: const TextStyle(fontSize: 18)),
-              Text('Special Defense: ${widget.pokemon['b_sp_def']}',
-                  style: const TextStyle(fontSize: 18)),
-              Text('Speed: ${widget.pokemon['b_speed']}',
-                  style: const TextStyle(fontSize: 18)),
-              const SizedBox(height: 16),
-              const Text('Abilities:',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-              const SizedBox(height: 8),
-              for (var ability in widget.abilities)
-                ListTile(
-                  title: Text(
-                    ability['abi_name'],
-                    style: TextStyle(
-                      fontWeight: ability['is_hidden'] == 1
-                          ? FontWeight.bold
-                          : FontWeight.normal,
-                      color:
-                          ability['is_hidden'] == 1 ? Colors.red : Colors.black,
-                    ),
-                  ),
-                  subtitle: Text(
-                    ability['is_hidden'] == 1
-                        ? 'Hidden Ability'
-                        : 'Normal Ability',
-                  ),
-                ),
-              const SizedBox(height: 16),
-              const Text('Evolutions:',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-              const SizedBox(height: 8),
-              if (widget.evolutions.isEmpty)
-                const Text('No Evolutions Available')
-              else
-                Column(
-                  children: [
-                    for (var evolution in widget.evolutions)
-                      Column(
-                        children: [
-                          // Current to evolution
-                          if (evolution['evol_pok_name'] != null)
-                            ListTile(
-                              title: Text(
-                                '${evolution['current_pok_name']} -> ${evolution['evol_pok_name']}',
-                              ),
-                              subtitle: Text(
-                                'Min Level: ${evolution['evol_min_lvl'] ?? 'N/A'} | Method: ${evolution['evol_method_name'] ?? 'N/A'}',
-                              ),
-                            ),
-                        ],
-                      ),
-                  ],
-                ),
-              const SizedBox(height: 16),
-              const Text('Weaknesses:',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-              const SizedBox(height: 8),
-              for (var weakness in widget.weaknesses)
-                Text('${weakness['type_name']} (x${weakness['effectiveness']})',
-                    style: const TextStyle(fontSize: 18)),
-              const SizedBox(height: 16),
-              const Text('Resistances:',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-              const SizedBox(height: 8),
-              for (var resistance in widget.resistances)
-                Text(
-                    '${resistance['type_name']} (x${resistance['effectiveness']})',
-                    style: const TextStyle(fontSize: 18)),
-              const SizedBox(height: 16),
-              const Text('Immunities:',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-              const SizedBox(height: 8),
-              for (var immunity in widget.immunities)
-                Text('${immunity['type_name']}',
-                    style: const TextStyle(fontSize: 18)),
-              const SizedBox(height: 16),
-              const Text('Moveset:',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-              const SizedBox(height: 8),
-              Row(
-                children: [
-                  Expanded(
-                    child: DropdownButton<int>(
-                      hint: const Text('Select Generation'),
-                      value: _selectedGeneration,
-                      items: List.generate(9, (index) => index + 1)
-                          .map((gen) => DropdownMenuItem<int>(
-                                value: gen,
-                                child: Text('Generation $gen'),
-                              ))
-                          .toList(),
-                      onChanged: (value) {
-                        setState(() {
-                          _selectedGeneration = value;
-                          _fetchMoveset();
-                        });
-                      },
-                    ),
-                  ),
-                  const SizedBox(width: 8),
-                  Expanded(
-                    child: DropdownButton<int>(
-                      hint: const Text('Select Method'),
-                      value: _selectedMethod,
-                      items: [
-                        {'id': 1, 'name': 'Level Up'},
-                        {'id': 2, 'name': 'Egg Move'},
-                        {'id': 3, 'name': 'Tutor'},
-                        {'id': 4, 'name': 'TM/HM'}
-                      ].map<DropdownMenuItem<int>>((method) {
-                        return DropdownMenuItem<int>(
-                          value: method['id'] as int,
-                          child: Text(method['name'] as String),
-                        );
-                      }).toList(),
-                      onChanged: (value) {
-                        setState(() {
-                          _selectedMethod = value;
-                          _fetchMoveset();
-                        });
-                      },
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 8),
-              if (_moveset.isEmpty)
-                const Text('No moves available for the selected filters.',
-                    style: TextStyle(fontSize: 18))
-              else
-                for (var move in _moveset)
-                  ListTile(
-                    title:
-                        Text('${move['level_learned']} | ${move['move_name']}'),
-                    subtitle: Text(
-                        'Type: ${move['move_type']} | Power: ${move['move_power'] ?? 'N/A'} | Accuracy: ${move['move_accuracy'] ?? 'N/A'} | PP: ${move['move_pp'] ?? 'N/A'}'),
-                  ),
+              Expanded(
+                  child: FactTile(
+                      label: 'Height', value: '${_fmt(p['pok_height'])} m')),
+              const SizedBox(width: 12),
+              Expanded(
+                  child: FactTile(
+                      label: 'Weight', value: '${_fmt(p['pok_weight'])} kg')),
             ],
           ),
-        ),
+          const SizedBox(height: 12),
+          SectionCard(
+            title: 'Base stats',
+            trailing: Text('Total $total',
+                style:
+                    text.labelLarge?.copyWith(color: scheme.onSurfaceVariant)),
+            child: Column(
+              children: [
+                for (final s in statValues.entries)
+                  StatBar(label: s.key, value: s.value),
+              ],
+            ),
+          ),
+          const SizedBox(height: 12),
+          SectionCard(
+            title: 'Abilities',
+            child: widget.abilities.isEmpty
+                ? Text('No abilities listed.', style: text.bodyMedium)
+                : Wrap(
+                    spacing: 8,
+                    runSpacing: 8,
+                    children: [
+                      for (final a in widget.abilities)
+                        Chip(
+                          label: Text(a['is_hidden'] == 1
+                              ? '${prettyName(a['abi_name'])} (hidden)'
+                              : prettyName(a['abi_name'])),
+                          avatar: a['is_hidden'] == 1
+                              ? const Icon(Icons.visibility_off_outlined,
+                                  size: 16)
+                              : null,
+                          side: BorderSide(color: scheme.outlineVariant),
+                        ),
+                    ],
+                  ),
+          ),
+          const SizedBox(height: 12),
+          SectionCard(
+            title: 'Evolutions',
+            child: evolutionTiles.isEmpty
+                ? Text('Does not evolve.', style: text.bodyMedium)
+                : Column(children: evolutionTiles),
+          ),
+          const SizedBox(height: 12),
+          SectionCard(
+            title: 'Type matchups',
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _MatchupGroup(
+                  label: 'Weak to',
+                  entries: widget.weaknesses,
+                ),
+                _MatchupGroup(
+                  label: 'Resists',
+                  entries: widget.resistances,
+                ),
+                _MatchupGroup(
+                  label: 'Immune to',
+                  entries: widget.immunities,
+                  immune: true,
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 12),
+          SectionCard(
+            title: 'Moveset',
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                MoveFilters(
+                  generation: _selectedGeneration,
+                  method: _selectedMethod,
+                  onGeneration: (g) {
+                    setState(() => _selectedGeneration = g);
+                    _fetchMoveset();
+                  },
+                  onMethod: (m) {
+                    setState(() => _selectedMethod = m);
+                    _fetchMoveset();
+                  },
+                ),
+                const SizedBox(height: 8),
+                if (_moveset.isEmpty)
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    child: Text('No moves for these filters.',
+                        style: text.bodyMedium),
+                  )
+                else
+                  for (final move in _moveset) ...[
+                    const Divider(),
+                    MoveTile(
+                      move: move,
+                      showLevel: true,
+                      padding: const EdgeInsets.symmetric(vertical: 8),
+                    ),
+                  ],
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _MatchupGroup extends StatelessWidget {
+  final String label;
+  final List<Map<String, dynamic>> entries;
+  final bool immune;
+
+  const _MatchupGroup({
+    required this.label,
+    required this.entries,
+    this.immune = false,
+  });
+
+  String _multiplier(Object? v) {
+    final d = (v as num).toDouble();
+    if (d == d.roundToDouble()) return '×${d.toInt()}';
+    return '×$d';
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (entries.isEmpty) return const SizedBox.shrink();
+    final text = Theme.of(context).textTheme;
+    final scheme = Theme.of(context).colorScheme;
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 12),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(label,
+              style: text.labelLarge?.copyWith(color: scheme.onSurfaceVariant)),
+          const SizedBox(height: 6),
+          Wrap(
+            spacing: 6,
+            runSpacing: 6,
+            children: [
+              for (final e in entries)
+                TypeChip(
+                  type: '${e['type_name']}',
+                  suffix: immune ? null : _multiplier(e['effectiveness']),
+                ),
+            ],
+          ),
+        ],
       ),
     );
   }

@@ -1,5 +1,12 @@
 import 'package:flutter/material.dart';
 import '../../database_helper.dart';
+import '../../widgets/fact_tile.dart';
+import '../../widgets/format.dart';
+import '../../widgets/move_filters.dart';
+import '../../widgets/pokemon_tile.dart';
+import '../../widgets/section_card.dart';
+import '../../widgets/state_views.dart';
+import '../../widgets/type_chip.dart';
 
 class MoveDetailPage extends StatefulWidget {
   final int moveId;
@@ -7,7 +14,7 @@ class MoveDetailPage extends StatefulWidget {
   const MoveDetailPage({super.key, required this.moveId});
 
   @override
-  _MoveDetailPageState createState() => _MoveDetailPageState();
+  State<MoveDetailPage> createState() => _MoveDetailPageState();
 }
 
 class _MoveDetailPageState extends State<MoveDetailPage> {
@@ -25,6 +32,7 @@ class _MoveDetailPageState extends State<MoveDetailPage> {
 
   Future<void> _fetchMoveDetails() async {
     final moveDetails = await DatabaseHelper().getMoveDetails(widget.moveId);
+    if (!mounted) return;
     setState(() {
       _moveDetails = moveDetails;
     });
@@ -36,6 +44,7 @@ class _MoveDetailPageState extends State<MoveDetailPage> {
       generation: _selectedGeneration,
       method: _selectedMethod,
     );
+    if (!mounted) return;
     setState(() {
       _pokemonList = pokemonList;
     });
@@ -43,104 +52,108 @@ class _MoveDetailPageState extends State<MoveDetailPage> {
 
   @override
   Widget build(BuildContext context) {
+    final move = _moveDetails;
+    final text = Theme.of(context).textTheme;
+    final scheme = Theme.of(context).colorScheme;
+
     return Scaffold(
       appBar: AppBar(
-        title: Text(_moveDetails?['move_name'] ?? 'Loading...'),
+        title: Text(move == null ? 'Move' : prettyName(move['move_name'])),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: _moveDetails == null
-            ? const Center(child: CircularProgressIndicator())
-            : Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('Name: ${_moveDetails!['move_name'] ?? 'Unknown'}', style: const TextStyle(fontSize: 24)),
-                  const SizedBox(height: 8),
-                  Text('Type: ${_moveDetails!['type_name'] ?? 'Unknown'}', style: const TextStyle(fontSize: 18)),
-                  const SizedBox(height: 8),
-                  Text('Power: ${_moveDetails!['move_power'] ?? 'N/A'}', style: const TextStyle(fontSize: 18)),
-                  const SizedBox(height: 8),
-                  Text('Accuracy: ${_moveDetails!['move_accuracy'] ?? 'N/A'}%', style: const TextStyle(fontSize: 18)),
-                  const SizedBox(height: 8),
-                  Text('PP: ${_moveDetails!['move_pp'] ?? 'N/A'}', style: const TextStyle(fontSize: 18)),
-                  const SizedBox(height: 8),
-                  Text('Effect: ${_moveDetails!['move_effect'] ?? 'No effect description available'}', style: const TextStyle(fontSize: 18)),
-                  const SizedBox(height: 16),
-                  const Text('Can be learned by:', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-                  const SizedBox(height: 8),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: DropdownButton<int>(
-                          hint: const Text('Select Generation'),
-                          value: _selectedGeneration,
-                          items: List.generate(9, (index) => index + 1)
-                              .map((gen) => DropdownMenuItem<int>(
-                                    value: gen,
-                                    child: Text('Generation $gen'),
-                                  ))
-                              .toList(),
-                          onChanged: (value) {
-                            setState(() {
-                              _selectedGeneration = value;
-                            });
-                            _fetchPokemonList(); // Fetch Pokémon list based on filters
-                          },
-                        ),
-                      ),
-                      const SizedBox(width: 8),
-                      Expanded(
-                        child: DropdownButton<int>(
-                          hint: const Text('Select Method'),
-                          value: _selectedMethod,
-                          items: [
-                            {'id': 1, 'name': 'Level Up'},
-                            {'id': 2, 'name': 'Egg Move'},
-                            {'id': 3, 'name': 'Tutor'},
-                            {'id': 4, 'name': 'TM/HM'}
-                          ].map<DropdownMenuItem<int>>((method) {
-                            return DropdownMenuItem<int>(
-                              value: method['id'] as int,
-                              child: Text(method['name'] as String),
-                            );
-                          }).toList(),
-                          onChanged: (value) {
-                            setState(() {
-                              _selectedMethod = value;
-                            });
-                            _fetchPokemonList(); // Fetch Pokémon list based on filters
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 8),
-                  Expanded(
-                    child: _pokemonList.isEmpty
-                        ? const Text('No Pokémon found for the selected filters.', style: TextStyle(fontSize: 18))
-                        : ListView.builder(
-                            itemCount: _pokemonList.length,
-                            itemBuilder: (context, index) {
-                              final pokemon = _pokemonList[index];
-                              return ListTile(
-                                leading: Image.asset(
-                                  'assets/sprites/pokemon/other/official-artwork/${pokemon['pok_id']}.png',
-                                  height: 50,
-                                  width: 50,
-                                  fit: BoxFit.cover,
-                                  errorBuilder: (context, error, stackTrace) {
-                                    return const Text('Image not available');
-                                  },
-                                ),
-                                title: Text('${pokemon['pok_id']}. ${pokemon['pok_name']}'),
-                                subtitle: Text('Type: ${pokemon['types']}'),
-                              );
-                            },
+      body: move == null
+          ? const LoadingView()
+          : CustomScrollView(
+              slivers: [
+                SliverPadding(
+                  padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
+                  sliver: SliverList(
+                    delegate: SliverChildListDelegate([
+                      Card(
+                        child: Padding(
+                          padding: const EdgeInsets.all(20),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(prettyName(move['move_name']),
+                                  style: text.headlineMedium),
+                              const SizedBox(height: 10),
+                              if (move['type_name'] != null)
+                                TypeChip(type: '${move['type_name']}'),
+                            ],
                           ),
+                        ),
+                      ),
+                      const SizedBox(height: 12),
+                      Row(
+                        children: [
+                          Expanded(
+                              child: FactTile(
+                                  label: 'Power',
+                                  value: fmtNum(move['move_power']))),
+                          const SizedBox(width: 8),
+                          Expanded(
+                              child: FactTile(
+                                  label: 'Accuracy',
+                                  value: move['move_accuracy'] == null
+                                      ? '—'
+                                      : '${fmtNum(move['move_accuracy'])}%')),
+                          const SizedBox(width: 8),
+                          Expanded(
+                              child: FactTile(
+                                  label: 'PP', value: fmtNum(move['move_pp']))),
+                        ],
+                      ),
+                      const SizedBox(height: 12),
+                      SectionCard(
+                        title: 'Effect',
+                        child: Text(
+                          '${move['move_effect'] ?? 'No effect description available.'}',
+                          style: text.bodyMedium,
+                        ),
+                      ),
+                      const SizedBox(height: 12),
+                      SectionCard(
+                        title: 'Can be learned by',
+                        child: MoveFilters(
+                          generation: _selectedGeneration,
+                          method: _selectedMethod,
+                          onGeneration: (g) {
+                            setState(() => _selectedGeneration = g);
+                            _fetchPokemonList();
+                          },
+                          onMethod: (m) {
+                            setState(() => _selectedMethod = m);
+                            _fetchPokemonList();
+                          },
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                    ]),
                   ),
-                ],
-              ),
-      ),
+                ),
+                if (_pokemonList.isEmpty)
+                  SliverToBoxAdapter(
+                    child: Padding(
+                      padding: const EdgeInsets.all(32),
+                      child: Text(
+                        'No Pokémon found for these filters.',
+                        textAlign: TextAlign.center,
+                        style: text.bodyMedium
+                            ?.copyWith(color: scheme.onSurfaceVariant),
+                      ),
+                    ),
+                  )
+                else
+                  SliverList.separated(
+                    itemCount: _pokemonList.length,
+                    separatorBuilder: (_, __) =>
+                        const Divider(indent: 88, endIndent: 16),
+                    itemBuilder: (context, index) =>
+                        PokemonTile(pokemon: _pokemonList[index]),
+                  ),
+                const SliverToBoxAdapter(child: SizedBox(height: 24)),
+              ],
+            ),
     );
   }
 }

@@ -13,6 +13,27 @@ class DatabaseHelper {
 
   static Database? _database;
 
+  // Bump this whenever assets/pokedex.db is replaced so devices re-copy it.
+  static const int _assetDbVersion = 2;
+  static const String _assetDbVersionKey = 'assetDbVersion';
+
+  // The cached items list is derived from the bundled DB, so its key carries
+  // the DB version: replacing the DB (bumping the version above) invalidates
+  // it. The unversioned key was used before this and is cleaned up below.
+  static const String _legacyItemsCacheKey = 'cachedItems';
+  static const String _itemsCacheKey = 'cachedItems_v$_assetDbVersion';
+
+  // Comma-joined type names for the row's POKEMON alias `P`, in slot order
+  // (primary type first). POKEMON_BEARS_TYPE rows are inserted in slot order,
+  // so ordering by rowid keeps that; a plain join sorts by type_id instead.
+  static const String _typesSql =
+      '''(SELECT GROUP_CONCAT(type_name, ', ') FROM (
+        SELECT T2.type_name AS type_name
+        FROM POKEMON_BEARS_TYPE PBT2
+        JOIN TYPE T2 ON PBT2.type_id = T2.type_id
+        WHERE PBT2.pok_id = P.pok_id
+        ORDER BY PBT2.rowid))''';
+
   Future<Database> get database async {
     if (_database != null) return _database!;
 
@@ -24,31 +45,30 @@ class DatabaseHelper {
     String databasesPath = await getDatabasesPath();
     String path = join(databasesPath, 'pokedex.db');
 
-    // Always copy the database from assets
-    await _copyDatabaseFromAssets(path);
+    // Only copy the bundled database on first launch or when it has changed.
+    final prefs = await SharedPreferences.getInstance();
+    final installedVersion = prefs.getInt(_assetDbVersionKey);
+    if (installedVersion != _assetDbVersion || !await File(path).exists()) {
+      await _copyDatabaseFromAssets(path);
+      await prefs.setInt(_assetDbVersionKey, _assetDbVersion);
+    }
 
-    bool fileExists = await File(path).exists();
-    print("Database file exists: $fileExists at path: $path");
-
-    return await openDatabase(path, version: 1);
+    // No `version` here: sqflite would try to write PRAGMA user_version,
+    // which fails on a read-only database.
+    return await openDatabase(path, readOnly: true);
   }
 
   Future<void> _copyDatabaseFromAssets(String path) async {
     try {
-      // Delete the existing database file if it exists
-      if (await File(path).exists()) {
-        await File(path).delete();
-        print("Deleted existing database file at $path");
-      }
+      // Close any open handle and clear stale files before overwriting.
+      await databaseFactory.deleteDatabase(path);
 
       ByteData data = await rootBundle.load(join('assets', 'pokedex.db'));
       List<int> bytes =
           data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
 
       await File(path).writeAsBytes(bytes, flush: true);
-      print("Database copied successfully from assets to $path");
     } catch (e) {
-      print("Error copying database: $e");
       throw Exception("Error copying database: $e");
     }
   }
@@ -62,20 +82,16 @@ class DatabaseHelper {
         P.pok_name,
         P.pok_height,
         P.pok_weight,
-        GROUP_CONCAT(T.type_name, ', ') AS types,
+        $_typesSql AS types,
         B.b_hp,
         B.b_atk,
         B.b_def,
         B.b_sp_atk,
         B.b_sp_def,
         B.b_speed
-      FROM 
+      FROM
         POKEMON P
-      JOIN 
-        POKEMON_BEARS_TYPE PBT ON P.pok_id = PBT.pok_id
-      JOIN 
-        TYPE T ON PBT.type_id = T.type_id
-      JOIN 
+      JOIN
         BASE_STATS B ON P.pok_id = B.pok_id
     ''';
 
@@ -86,9 +102,7 @@ class DatabaseHelper {
     }
 
     query += '''
-      GROUP BY 
-        P.pok_id, P.pok_name
-      ORDER BY 
+      ORDER BY
         P.pok_id ASC
     ''';
 
@@ -106,21 +120,16 @@ class DatabaseHelper {
       P.pok_name,
       P.pok_height,
       P.pok_weight,
-      GROUP_CONCAT(T.type_name, ', ') AS types,
-      GROUP_CONCAT(T.type_id, ', ') AS type_ids,
+      $_typesSql AS types,
       B.b_hp,
       B.b_atk,
       B.b_def,
       B.b_sp_atk,
       B.b_sp_def,
       B.b_speed
-    FROM 
+    FROM
       POKEMON P
-    JOIN 
-      POKEMON_BEARS_TYPE PBT ON P.pok_id = PBT.pok_id
-    JOIN 
-      TYPE T ON PBT.type_id = T.type_id
-    JOIN 
+    JOIN
       BASE_STATS B ON P.pok_id = B.pok_id
     WHERE
       P.pok_id = ?
@@ -279,16 +288,19 @@ class DatabaseHelper {
         M.move_id,
         M.move_name,
         M.move_type,
+        T.type_name AS move_type_name,
         M.move_power,
         M.move_accuracy,
         M.move_pp,
         MM.move_method_name,
         G.gen_name,
         MS.level_learned
-      FROM 
+      FROM
         MOVESET MS
-      JOIN 
+      JOIN
         MOVE M ON MS.move_id = M.move_id
+      LEFT JOIN
+        TYPE T ON M.type_id = T.type_id
       JOIN 
         MOVE_METHOD MM ON MS.method_id = MM.move_method_id
       JOIN 
@@ -333,8 +345,9 @@ class DatabaseHelper {
         M.move_name,
         M.move_power,
         M.move_accuracy,
+        M.move_pp,
         T.type_name
-      FROM 
+      FROM
         MOVE M
       JOIN 
         TYPE T ON M.type_id = T.type_id
@@ -386,16 +399,12 @@ class DatabaseHelper {
       SELECT 
         P.pok_id,
         P.pok_name,
-        GROUP_CONCAT(T.type_name, ', ') AS types
-      FROM 
+        $_typesSql AS types
+      FROM
         POKEMON P
-      JOIN 
+      JOIN
         MOVESET MS ON P.pok_id = MS.pok_id
-      JOIN 
-        POKEMON_BEARS_TYPE PBT ON P.pok_id = PBT.pok_id
-      JOIN 
-        TYPE T ON PBT.type_id = T.type_id
-      WHERE 
+      WHERE
         MS.move_id = ?
     ''';
 
@@ -472,16 +481,12 @@ class DatabaseHelper {
         P.pok_name,
         P.pok_height,
         P.pok_weight,
-        GROUP_CONCAT(T.type_name, ', ') AS types
-      FROM 
+        $_typesSql AS types
+      FROM
         POKEMON P
-      JOIN 
+      JOIN
         POKEMON_POSSESSES_ABILITY PA ON P.pok_id = PA.pok_id
-      JOIN 
-        POKEMON_BEARS_TYPE PBT ON P.pok_id = PBT.pok_id
-      JOIN 
-        TYPE T ON PBT.type_id = T.type_id
-      WHERE 
+      WHERE
         PA.abi_id = ?
       GROUP BY 
         P.pok_id, P.pok_name
@@ -589,12 +594,13 @@ class DatabaseHelper {
   Future<void> _saveCachedItems(List<Map<String, dynamic>> items) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String encodedItems = jsonEncode(items);
-    await prefs.setString('cachedItems', encodedItems);
+    await prefs.setString(_itemsCacheKey, encodedItems);
+    await prefs.remove(_legacyItemsCacheKey);
   }
 
   Future<List<Map<String, dynamic>>?> _loadCachedItems() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? encodedItems = prefs.getString('cachedItems');
+    String? encodedItems = prefs.getString(_itemsCacheKey);
     if (encodedItems != null) {
       List<dynamic> decodedItems = jsonDecode(encodedItems);
       return decodedItems.cast<Map<String, dynamic>>();

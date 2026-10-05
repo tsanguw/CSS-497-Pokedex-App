@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../database_helper.dart';
+import '../../widgets/format.dart';
+import '../../widgets/state_views.dart';
 
 class PokemonAbilitiesPage extends StatefulWidget {
   final int pokemonId;
@@ -12,7 +14,7 @@ class PokemonAbilitiesPage extends StatefulWidget {
   });
 
   @override
-  _PokemonAbilitiesPageState createState() => _PokemonAbilitiesPageState();
+  State<PokemonAbilitiesPage> createState() => _PokemonAbilitiesPageState();
 }
 
 class _PokemonAbilitiesPageState extends State<PokemonAbilitiesPage> {
@@ -27,6 +29,7 @@ class _PokemonAbilitiesPageState extends State<PokemonAbilitiesPage> {
   Future<void> _fetchAbilities() async {
     final abilities =
         await DatabaseHelper().getPokemonAbilities(widget.pokemonId);
+    if (!mounted) return;
     setState(() {
       _abilities = abilities;
     });
@@ -34,42 +37,42 @@ class _PokemonAbilitiesPageState extends State<PokemonAbilitiesPage> {
 
   @override
   Widget build(BuildContext context) {
+    final text = Theme.of(context).textTheme;
+    final scheme = Theme.of(context).colorScheme;
     return Scaffold(
       appBar: AppBar(
-        title: Text('Select Ability - ${widget.pokemonName}'),
+        title: Text('Select Ability - ${pokemonName(widget.pokemonName)}'),
       ),
       body: _abilities.isEmpty
-          ? const Center(child: CircularProgressIndicator())
-          : ListView.builder(
+          ? const LoadingView()
+          : ListView.separated(
               itemCount: _abilities.length,
+              separatorBuilder: (_, __) =>
+                  const Divider(indent: 16, endIndent: 16),
               itemBuilder: (context, index) {
                 final ability = _abilities[index];
+                final hidden = ability['is_hidden'] == 1;
                 return ListTile(
-                  title: Text(
-                    ability['abi_name'],
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  subtitle: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  title: Row(
                     children: [
-                      Text(
-                        ability['abi_desc'] ?? 'No description available',
-                        style: const TextStyle(fontSize: 14),
+                      Flexible(
+                        child: Text(prettyName(ability['abi_name']),
+                            style: text.titleMedium),
                       ),
-                      const SizedBox(height: 4),
-                      Text(
-                        ability['is_hidden'] == 1
-                            ? 'Hidden Ability'
-                            : 'Normal Ability',
-                        style: TextStyle(
-                          color: ability['is_hidden'] == 1
-                              ? Colors.red
-                              : Colors.black,
+                      if (hidden) ...[
+                        const SizedBox(width: 8),
+                        Chip(
+                          label: const Text('Hidden'),
+                          visualDensity: VisualDensity.compact,
+                          side: BorderSide(color: scheme.outlineVariant),
                         ),
-                      ),
+                      ],
                     ],
+                  ),
+                  subtitle: Text(
+                    ability['abi_desc'] ?? 'No description available',
+                    style: text.bodyMedium
+                        ?.copyWith(color: scheme.onSurfaceVariant),
                   ),
                   onTap: () {
                     Navigator.pop(context, ability);

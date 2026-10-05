@@ -1,6 +1,7 @@
 // ignore_for_file: constant_identifier_names
 
 import 'package:flutter/material.dart';
+import 'theme/app_theme.dart';
 import 'pages/pokemon/pokemon_page.dart';
 import 'pages/moves/moves_page.dart';
 import 'pages/abilities/abilities_page.dart';
@@ -11,7 +12,6 @@ import 'pages/gym leaders/gym_leaders_page.dart';
 import 'pages/team builder/team_builder_page.dart';
 import 'pages/damage_calculator_page.dart';
 
-
 void main() {
   runApp(const MainApp());
 }
@@ -21,22 +21,33 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: MyHomePage(),
+    return MaterialApp(
+      title: 'Pokedex',
+      theme: lightTheme,
+      darkTheme: darkTheme,
+      themeMode: ThemeMode.system,
+      home: const MyHomePage(),
     );
   }
 }
 
 enum Section {
-  POKEMON,
-  MOVES,
-  ABILITIES,
-  ITEMS,
-  NATURES,
-  LOCATIONS,
-  GYMLEADERS,
-  TEAMBUILDER,
-  DAMAGECALCULATOR,
+  POKEMON('Pokemon', Icons.catching_pokemon_outlined, Icons.catching_pokemon),
+  MOVES('Moves', Icons.flash_on_outlined, Icons.flash_on),
+  ABILITIES('Abilities', Icons.star_outline, Icons.star),
+  ITEMS('Items', Icons.backpack_outlined, Icons.backpack),
+  NATURES(
+      'Natures', Icons.energy_savings_leaf_outlined, Icons.energy_savings_leaf),
+  LOCATIONS('Locations', Icons.map_outlined, Icons.map),
+  GYMLEADERS('Gym Leaders', Icons.stadium_outlined, Icons.stadium),
+  TEAMBUILDER('Team Builder', Icons.build_circle_outlined, Icons.build_circle),
+  DAMAGECALCULATOR(
+      'Damage Calculator', Icons.calculate_outlined, Icons.calculate);
+
+  final String label;
+  final IconData icon;
+  final IconData selectedIcon;
+  const Section(this.label, this.icon, this.selectedIcon);
 }
 
 class MyHomePage extends StatefulWidget {
@@ -56,181 +67,80 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  @override
-  Widget build(BuildContext context) {
-    Widget body;
+  bool get _hasSearch =>
+      _selectedSection != Section.DAMAGECALCULATOR &&
+      _selectedSection != Section.TEAMBUILDER &&
+      _selectedSection != Section.LOCATIONS;
 
+  Widget _buildBody() {
     switch (_selectedSection) {
       case Section.POKEMON:
-        body = PokemonPage(searchQuery: _searchQuery);
-        break;
+        return PokemonPage(searchQuery: _searchQuery);
       case Section.MOVES:
-        body = MovesPage(searchQuery: _searchQuery);
-        break;
+        return MovesPage(searchQuery: _searchQuery);
       case Section.ABILITIES:
-        body = AbilitiesPage(searchQuery: _searchQuery);
-        break;
+        return AbilitiesPage(searchQuery: _searchQuery);
       case Section.ITEMS:
-        body = ItemsPage(searchQuery: _searchQuery);
-        break;
+        return ItemsPage(searchQuery: _searchQuery);
       case Section.NATURES:
-        body = NaturesPage(searchQuery: _searchQuery);
-        break;
+        return NaturesPage(searchQuery: _searchQuery);
       case Section.LOCATIONS:
-        body = const LocationsPage();
-        break;
+        return const LocationsPage();
       case Section.GYMLEADERS:
-        body = GymLeadersPage(searchQuery: _searchQuery);
-        break;
+        return GymLeadersPage(searchQuery: _searchQuery);
       case Section.TEAMBUILDER:
-        body = const TeamBuilderPage();
-        break;
+        return const TeamBuilderPage();
       case Section.DAMAGECALCULATOR:
-        body = const DamageCalculatorPage();
-        break;
-      default:
-        body = const Center(child: Text('Default Page!'));
-        break;
+        return const DamageCalculatorPage();
     }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
 
     return Scaffold(
       appBar: AppBar(
-        leading: Builder(
-          builder: (context) {
-            return IconButton(
-              icon: const Icon(Icons.menu),
-              color: Colors.white,
-              onPressed: () {
-                Scaffold.of(context).openDrawer();
-              },
-            );
-          },
-        ),
-        centerTitle: true,
-        title: _selectedSection == Section.DAMAGECALCULATOR || _selectedSection == Section.TEAMBUILDER
-            ? const Text('Pokedex', style: TextStyle(color: Colors.white))
-            : TextField(
+        title: _hasSearch
+            ? TextField(
                 onChanged: _onSearchChanged,
-                decoration: const InputDecoration(
-                  hintText: 'Search',
-                  hintStyle: TextStyle(color: Colors.white70),
-                  border: InputBorder.none,
+                textInputAction: TextInputAction.search,
+                decoration: InputDecoration(
+                  hintText: 'Search ${_selectedSection.label.toLowerCase()}',
+                  prefixIcon: const Icon(Icons.search),
+                  isDense: true,
                 ),
-                style: const TextStyle(color: Colors.white, fontSize: 18),
-              ),
-        backgroundColor: Colors.red,
+              )
+            : Text(_selectedSection.label),
       ),
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: [
-            buildDrawerHeader(),
-            ListTile(
-              leading: const Icon(Icons.catching_pokemon),
-              title: const Text('Pokemon'),
-              onTap: () {
-                setState(() {
-                  _selectedSection = Section.POKEMON;
-                });
-                Navigator.of(context).pop();
-              },
+      drawer: NavigationDrawer(
+        selectedIndex: _selectedSection.index,
+        onDestinationSelected: (index) {
+          setState(() {
+            _selectedSection = Section.values[index];
+          });
+          Navigator.of(context).pop();
+        },
+        children: [
+          Padding(
+            padding: const EdgeInsets.fromLTRB(28, 24, 16, 16),
+            child: Row(
+              children: [
+                Icon(Icons.catching_pokemon, color: scheme.primary, size: 32),
+                const SizedBox(width: 12),
+                Text('Pokedex', style: Theme.of(context).textTheme.titleLarge),
+              ],
             ),
-            ListTile(
-              leading: const Icon(Icons.flash_on),
-              title: const Text('Moves'),
-              onTap: () {
-                setState(() {
-                  _selectedSection = Section.MOVES;
-                });
-                Navigator.of(context).pop();
-              },
+          ),
+          for (final s in Section.values)
+            NavigationDrawerDestination(
+              icon: Icon(s.icon),
+              selectedIcon: Icon(s.selectedIcon),
+              label: Text(s.label),
             ),
-            ListTile(
-              leading: const Icon(Icons.star),
-              title: const Text('Abilities'),
-              onTap: () {
-                setState(() {
-                  _selectedSection = Section.ABILITIES;
-                });
-                Navigator.of(context).pop();
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.backpack),
-              title: const Text('Items'),
-              onTap: () {
-                setState(() {
-                  _selectedSection = Section.ITEMS;
-                });
-                Navigator.of(context).pop();
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.energy_savings_leaf),
-              title: const Text('Natures'),
-              onTap: () {
-                setState(() {
-                  _selectedSection = Section.NATURES;
-                });
-                Navigator.of(context).pop();
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.map),
-              title: const Text('Locations'),
-              onTap: () {
-                setState(() {
-                  _selectedSection = Section.LOCATIONS;
-                });
-                Navigator.of(context).pop();
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.stadium),
-              title: const Text('Gym Leaders'),
-              onTap: () {
-                setState(() {
-                  _selectedSection = Section.GYMLEADERS;
-                });
-                Navigator.of(context).pop();
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.build_circle),
-              title: const Text('Team Builder'),
-              onTap: () {
-                setState(() {
-                  _selectedSection = Section.TEAMBUILDER;
-                });
-                Navigator.of(context).pop();
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.calculate),
-              title: const Text('Damage Calculator'),
-              onTap: () {
-                setState(() {
-                  _selectedSection = Section.DAMAGECALCULATOR;
-                });
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        ),
+        ],
       ),
-      body: Container(
-        child: body,
-      ),
+      body: _buildBody(),
     );
   }
-}
-
-// Define the custom DrawerHeader function
-Widget buildDrawerHeader() {
-  return const DrawerHeader(
-    decoration: BoxDecoration(
-      color: Colors.red,
-    ),
-    child: Text('Pokedex', style: TextStyle(color: Colors.white)),
-  );
 }

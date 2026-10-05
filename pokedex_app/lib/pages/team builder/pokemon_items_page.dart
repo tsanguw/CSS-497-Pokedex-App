@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../database_helper.dart';
+import '../../widgets/format.dart';
+import '../../widgets/state_views.dart';
 
 class PokemonItemsPage extends StatefulWidget {
   final int pokemonId;
@@ -12,13 +14,12 @@ class PokemonItemsPage extends StatefulWidget {
   });
 
   @override
-  _PokemonItemsPageState createState() => _PokemonItemsPageState();
+  State<PokemonItemsPage> createState() => _PokemonItemsPageState();
 }
 
 class _PokemonItemsPageState extends State<PokemonItemsPage> {
   List<Map<String, dynamic>> _items = [];
   List<Map<String, dynamic>> _filteredItems = [];
-  String _searchQuery = '';
 
   @override
   void initState() {
@@ -28,6 +29,7 @@ class _PokemonItemsPageState extends State<PokemonItemsPage> {
 
   Future<void> _fetchItems() async {
     final items = await DatabaseHelper().getPokemonItems();
+    if (!mounted) return;
     setState(() {
       _items = items;
       _filteredItems = items;
@@ -36,7 +38,6 @@ class _PokemonItemsPageState extends State<PokemonItemsPage> {
 
   void _filterItems(String query) {
     setState(() {
-      _searchQuery = query;
       _filteredItems = _items
           .where((item) =>
               item['item_name'].toLowerCase().contains(query.toLowerCase()))
@@ -46,41 +47,61 @@ class _PokemonItemsPageState extends State<PokemonItemsPage> {
 
   @override
   Widget build(BuildContext context) {
+    final text = Theme.of(context).textTheme;
+    final scheme = Theme.of(context).colorScheme;
     return Scaffold(
       appBar: AppBar(
-        title: Text('Select Item - ${widget.pokemonName}'),
+        title: Text('Select Item - ${pokemonName(widget.pokemonName)}'),
       ),
       body: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
             child: TextField(
               decoration: const InputDecoration(
-                labelText: 'Search Items',
-                border: OutlineInputBorder(),
+                hintText: 'Search items',
+                prefixIcon: Icon(Icons.search),
               ),
               onChanged: _filterItems,
             ),
           ),
           Expanded(
             child: _filteredItems.isEmpty
-                ? const Center(child: Text('No items found.'))
-                : ListView.builder(
+                ? const EmptyView('No items found.')
+                : ListView.separated(
                     itemCount: _filteredItems.length,
+                    separatorBuilder: (_, __) =>
+                        const Divider(indent: 88, endIndent: 16),
                     itemBuilder: (context, index) {
                       final item = _filteredItems[index];
                       return ListTile(
-                        leading: Image.asset(
-                          'assets/sprites/items/${item['item_name']}.png',
-                          height: 50,
-                          width: 50,
-                          fit: BoxFit.cover,
-                          errorBuilder: (context, error, stackTrace) {
-                            return const Text('Image not available');
-                          },
+                        minTileHeight: 72,
+                        leading: Container(
+                          width: 56,
+                          height: 56,
+                          decoration: BoxDecoration(
+                            color: scheme.surfaceContainerHighest,
+                            shape: BoxShape.circle,
+                          ),
+                          padding: const EdgeInsets.all(10),
+                          child: Image.asset(
+                            'assets/sprites/items/${item['item_name']}.png',
+                            cacheWidth: 150,
+                            fit: BoxFit.contain,
+                            errorBuilder: (context, error, stackTrace) => Icon(
+                                Icons.image_not_supported_outlined,
+                                color: scheme.outline),
+                          ),
                         ),
-                        title: Text(item['item_name']),
-                        subtitle: Text(item['item_desc']),
+                        title: Text(prettyName(item['item_name']),
+                            style: text.titleMedium),
+                        subtitle: Text(
+                          '${item['item_desc'] ?? ''}',
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: text.bodyMedium
+                              ?.copyWith(color: scheme.onSurfaceVariant),
+                        ),
                         onTap: () {
                           Navigator.pop(context, item);
                         },

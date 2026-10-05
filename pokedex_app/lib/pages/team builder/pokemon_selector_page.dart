@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import '../../database_helper.dart';
+import '../../widgets/format.dart';
+import '../../widgets/pokemon_tile.dart';
+import '../../widgets/state_views.dart';
 import '../pokemon/pokemon_detail_page.dart';
 
 class PokemonSelectorPage extends StatefulWidget {
@@ -8,12 +11,18 @@ class PokemonSelectorPage extends StatefulWidget {
   const PokemonSelectorPage({super.key, required this.teamName});
 
   @override
-  _PokemonSelectorPageState createState() => _PokemonSelectorPageState();
+  State<PokemonSelectorPage> createState() => _PokemonSelectorPageState();
 }
 
 class _PokemonSelectorPageState extends State<PokemonSelectorPage> {
   String searchQuery = '';
   TextEditingController searchController = TextEditingController();
+
+  @override
+  void dispose() {
+    searchController.dispose();
+    super.dispose();
+  }
 
   void _updateSearchQuery(String newQuery) {
     setState(() {
@@ -30,12 +39,11 @@ class _PokemonSelectorPageState extends State<PokemonSelectorPage> {
       body: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
             child: TextField(
               controller: searchController,
               decoration: const InputDecoration(
-                labelText: 'Search Pokémon',
-                border: OutlineInputBorder(),
+                hintText: 'Search Pokémon',
                 prefixIcon: Icon(Icons.search),
               ),
               onChanged: _updateSearchQuery,
@@ -46,33 +54,21 @@ class _PokemonSelectorPageState extends State<PokemonSelectorPage> {
               future: DatabaseHelper().getAllPokemon(searchQuery: searchQuery),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Center(child: CircularProgressIndicator());
+                  return const LoadingView();
                 } else if (snapshot.hasError) {
-                  return Center(child: Text('Error: ${snapshot.error}'));
+                  return ErrorView(snapshot.error);
                 } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                  return const Center(child: Text('No Pokémon found.'));
+                  return const EmptyView('No Pokémon found.');
                 } else {
-                  return ListView.builder(
+                  return ListView.separated(
                     itemCount: snapshot.data!.length,
+                    separatorBuilder: (_, __) =>
+                        const Divider(indent: 88, endIndent: 16),
                     itemBuilder: (context, index) {
                       final pokemon = snapshot.data![index];
-                      return ListTile(
-                        leading: Image.asset(
-                          'assets/sprites/pokemon/other/official-artwork/${pokemon['pok_id']}.png',
-                          height: 50,
-                          width: 50,
-                          fit: BoxFit.cover,
-                          errorBuilder: (context, error, stackTrace) {
-                            return const Text('Image not available');
-                          },
-                        ),
-                        title: Text('${pokemon['pok_id']}. ${pokemon['pok_name']}'),
-                        subtitle: Text(
-                          'Type: ${pokemon['types']} | Height: ${pokemon['pok_height']} m | Weight: ${pokemon['pok_weight']} kg',
-                        ),
-                        onTap: () {
-                          _showAddOrViewDialog(context, pokemon);
-                        },
+                      return PokemonTile(
+                        pokemon: pokemon,
+                        onTap: () => _showAddOrViewDialog(context, pokemon),
                       );
                     },
                   );
@@ -85,20 +81,21 @@ class _PokemonSelectorPageState extends State<PokemonSelectorPage> {
     );
   }
 
-  void _showAddOrViewDialog(BuildContext context, Map<String, dynamic> pokemon) {
+  void _showAddOrViewDialog(
+      BuildContext context, Map<String, dynamic> pokemon) {
     showDialog(
       context: context,
-      builder: (BuildContext context) {
+      builder: (BuildContext dialogContext) {
         return AlertDialog(
           title: const Text('Select Action'),
           content: Text(
-            'Do you want to view or add ${pokemon['pok_name']} to the team?',
+            'Do you want to view or add ${pokemonName(pokemon['pok_name'])} to the team?',
           ),
           actions: <Widget>[
             TextButton(
               child: const Text('Cancel'),
               onPressed: () {
-                Navigator.of(context).pop();
+                Navigator.of(dialogContext).pop();
               },
             ),
             TextButton(
@@ -106,7 +103,9 @@ class _PokemonSelectorPageState extends State<PokemonSelectorPage> {
               onPressed: () async {
                 final pokemonDetails =
                     await DatabaseHelper().getPokemonDetails(pokemon['pok_id']);
-                Navigator.of(context).pop();
+                if (!dialogContext.mounted) return;
+                Navigator.of(dialogContext).pop();
+                if (!context.mounted) return;
                 Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -122,10 +121,10 @@ class _PokemonSelectorPageState extends State<PokemonSelectorPage> {
                 );
               },
             ),
-            TextButton(
+            FilledButton(
               child: const Text('Add to Team'),
               onPressed: () {
-                Navigator.of(context).pop();
+                Navigator.of(dialogContext).pop();
                 Navigator.pop(context, pokemon);
               },
             ),

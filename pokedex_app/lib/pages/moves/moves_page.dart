@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../database_helper.dart';
+import '../../widgets/move_tile.dart';
+import '../../widgets/state_views.dart';
 import 'move_detail_page.dart';
 
 class MovesPage extends StatelessWidget {
@@ -13,24 +15,26 @@ class MovesPage extends StatelessWidget {
       future: DatabaseHelper().getAllMoves(searchQuery: searchQuery),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(child: CircularProgressIndicator());
+          return const LoadingView();
         } else if (snapshot.hasError) {
-          return Center(child: Text('Error: ${snapshot.error}'));
+          return ErrorView(snapshot.error);
         } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-          return const Center(child: Text('No moves found.'));
+          return const EmptyView('No moves found.');
         } else {
-          return ListView.builder(
+          return ListView.separated(
             itemCount: snapshot.data!.length,
+            separatorBuilder: (_, __) =>
+                const Divider(indent: 16, endIndent: 16),
             itemBuilder: (context, index) {
               final move = snapshot.data![index];
-              return ListTile(
-                title: Text('${move['move_name']}'),
-                subtitle: Text('Type: ${move['type_name']} | Power: ${move['move_power']} | Accuracy: ${move['move_accuracy']}%'),
+              return MoveTile(
+                move: move,
                 onTap: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => MoveDetailPage(moveId: move['move_id']),
+                      builder: (context) =>
+                          MoveDetailPage(moveId: move['move_id']),
                     ),
                   );
                 },

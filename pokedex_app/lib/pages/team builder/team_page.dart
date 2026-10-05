@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:pokedex_app/database_helper.dart';
+import '../../widgets/format.dart';
+import '../../widgets/pokemon_tile.dart';
+import '../../widgets/state_views.dart';
+import '../../widgets/type_chip.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 
@@ -9,9 +13,69 @@ import 'pokemon_moves_page.dart';
 import 'pokemon_abilities_page.dart';
 import 'pokemon_items_page.dart';
 
+/// Owns its text controller so it is disposed only after the dialog's exit
+/// animation has finished. (Disposing it when showDialog completes is too
+/// early: the field is still on screen and throws "used after being disposed".)
+class _RenameTeamDialog extends StatefulWidget {
+  final String currentName;
+  final Future<String?> Function(String) onRename;
+
+  const _RenameTeamDialog({required this.currentName, required this.onRename});
+
+  @override
+  State<_RenameTeamDialog> createState() => _RenameTeamDialogState();
+}
+
+class _RenameTeamDialogState extends State<_RenameTeamDialog> {
+  late final TextEditingController _controller =
+      TextEditingController(text: widget.currentName);
+  String? _error;
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  Future<void> _submit() async {
+    final problem = await widget.onRename(_controller.text);
+    if (!mounted) return;
+    if (problem != null) {
+      setState(() => _error = problem);
+      return;
+    }
+    Navigator.of(context).pop();
+    Navigator.of(context).pop(); // Go back to the previous screen
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      title: const Text('Rename Team'),
+      content: TextField(
+        controller: _controller,
+        autofocus: true,
+        decoration: InputDecoration(
+          hintText: 'Enter new team name',
+          errorText: _error,
+        ),
+      ),
+      actions: <Widget>[
+        TextButton(
+          child: const Text('Cancel'),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        FilledButton(onPressed: _submit, child: const Text('Rename')),
+      ],
+    );
+  }
+}
+
 class TeamPage extends StatefulWidget {
   final String teamName;
-  final Function(String) onRename;
+
+  /// Returns an error message to show in the dialog, or null on success.
+  final Future<String?> Function(String) onRename;
   final VoidCallback onDelete;
 
   const TeamPage({
@@ -137,8 +201,12 @@ class _TeamPageState extends State<TeamPage> {
       body: Column(
         children: [
           if (_team.isEmpty)
-            const Center(
-              child: Text('No Pokémon in the team. Add some!'),
+            const Expanded(
+              child: MessageView(
+                icon: Icons.catching_pokemon,
+                message:
+                    'No Pokémon in this team yet. Tap Add Pokémon to pick some.',
+              ),
             )
           else
             Expanded(
@@ -147,25 +215,32 @@ class _TeamPageState extends State<TeamPage> {
                 itemBuilder: (context, index) {
                   final pokemon = _team[index];
                   return ExpansionTile(
-                    leading: Image.asset(
-                      'assets/sprites/pokemon/other/official-artwork/${pokemon['pok_id']}.png',
-                      height: 50,
-                      width: 50,
-                      fit: BoxFit.cover,
-                      errorBuilder: (context, error, stackTrace) {
-                        return const Text('Image not available');
-                      },
+                    shape: const Border(),
+                    collapsedShape: const Border(),
+                    leading: PokemonArtwork(
+                      id: pokemon['pok_id'] as int,
+                      size: 56,
+                      cacheWidth: 150,
                     ),
-                    title: Text('${pokemon['pok_id']}. ${pokemon['pok_name']}'),
-                    subtitle: Text('Type: ${pokemon['types']}'),
+                    title: Text(
+                      '${pokemonName(pokemon['pok_name'])}  #${(pokemon['pok_id'] as int).toString().padLeft(3, '0')}',
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
+                    subtitle: Padding(
+                      padding: const EdgeInsets.only(top: 4),
+                      child: TypeChips(types: pokemon['types'], compact: true),
+                    ),
                     children: [
                       GridView.builder(
                         shrinkWrap: true,
-                        padding: const EdgeInsets.all(8.0),
+                        physics: const NeverScrollableScrollPhysics(),
+                        padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
                         gridDelegate:
                             const SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 2,
                           childAspectRatio: 3,
+                          crossAxisSpacing: 8,
+                          mainAxisSpacing: 8,
                         ),
                         itemCount: 4,
                         itemBuilder: (context, moveIndex) {
@@ -188,7 +263,9 @@ class _TeamPageState extends State<TeamPage> {
                               }
                             },
                             child: Card(
-                              color: Colors.grey[200],
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .surfaceContainerHighest,
                               child: Center(
                                 child: move != null
                                     ? Column(
@@ -196,7 +273,7 @@ class _TeamPageState extends State<TeamPage> {
                                             MainAxisAlignment.center,
                                         children: [
                                           Text(
-                                            move['move_name'],
+                                            prettyName(move['move_name']),
                                             style: const TextStyle(
                                               fontWeight: FontWeight.bold,
                                               fontSize: 14,
@@ -204,9 +281,9 @@ class _TeamPageState extends State<TeamPage> {
                                             textAlign: TextAlign.center,
                                           ),
                                           Text(
-                                            'Power: ${move['move_power'] ?? 'N/A'} | '
-                                            'Acc: ${move['move_accuracy'] ?? 'N/A'}% | '
-                                            'PP: ${move['move_pp'] ?? 'N/A'}',
+                                            'Power ${fmtNum(move['move_power'])} · '
+                                            'Acc ${fmtNum(move['move_accuracy'])} · '
+                                            'PP ${fmtNum(move['move_pp'])}',
                                             style: const TextStyle(
                                               fontSize: 10,
                                             ),
@@ -223,7 +300,7 @@ class _TeamPageState extends State<TeamPage> {
                         },
                       ),
                       Padding(
-                        padding: const EdgeInsets.all(8.0),
+                        padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
                         child: Row(
                           children: [
                             Expanded(
@@ -246,7 +323,9 @@ class _TeamPageState extends State<TeamPage> {
                                 child: SizedBox(
                                   height: 65,
                                   child: Card(
-                                    color: Colors.grey[200],
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .surfaceContainerHighest,
                                     child: Center(
                                       child: Column(
                                         mainAxisAlignment:
@@ -254,8 +333,8 @@ class _TeamPageState extends State<TeamPage> {
                                         children: [
                                           Text(
                                             pokemon['ability'] != null
-                                                ? pokemon['ability']![
-                                                    'abi_name']
+                                                ? prettyName(pokemon[
+                                                    'ability']!['abi_name'])
                                                 : 'Select Ability',
                                             style: const TextStyle(
                                               fontSize: 14,
@@ -289,7 +368,9 @@ class _TeamPageState extends State<TeamPage> {
                                 child: SizedBox(
                                   height: 65,
                                   child: Card(
-                                    color: Colors.grey[200],
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .surfaceContainerHighest,
                                     child: Center(
                                       child: Column(
                                         mainAxisAlignment:
@@ -297,7 +378,8 @@ class _TeamPageState extends State<TeamPage> {
                                         children: [
                                           Text(
                                             pokemon['item'] != null
-                                                ? pokemon['item']!['item_name']
+                                                ? prettyName(pokemon['item']![
+                                                    'item_name'])
                                                 : 'Select Item',
                                             style: const TextStyle(
                                               fontSize: 14,
@@ -327,7 +409,7 @@ class _TeamPageState extends State<TeamPage> {
             ),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: FloatingActionButton.extended(
         onPressed: () async {
           final selectedPokemon = await Navigator.push(
             context,
@@ -341,7 +423,8 @@ class _TeamPageState extends State<TeamPage> {
             _addPokemonToTeam(selectedPokemon);
           }
         },
-        child: const Icon(Icons.add),
+        icon: const Icon(Icons.add),
+        label: const Text('Add Pokémon'),
       ),
     );
   }
@@ -352,7 +435,7 @@ class _TeamPageState extends State<TeamPage> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Options for ${pokemon['pok_name']}'),
+          title: Text('Options for ${pokemonName(pokemon['pok_name'])}'),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -416,38 +499,12 @@ class _TeamPageState extends State<TeamPage> {
   }
 
   void _renameTeam(BuildContext context) {
-    final TextEditingController renameController = TextEditingController();
-    renameController.text = widget.teamName;
-
-    showDialog(
+    showDialog<void>(
       context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Rename Team'),
-          content: TextField(
-            controller: renameController,
-            decoration: const InputDecoration(hintText: "Enter new team name"),
-          ),
-          actions: <Widget>[
-            TextButton(
-              child: const Text('Cancel'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-            TextButton(
-              child: const Text('Rename'),
-              onPressed: () {
-                if (renameController.text.isNotEmpty) {
-                  widget.onRename(renameController.text);
-                  Navigator.of(context).pop();
-                  Navigator.of(context).pop(); // Go back to the previous screen
-                }
-              },
-            ),
-          ],
-        );
-      },
+      builder: (BuildContext context) => _RenameTeamDialog(
+        currentName: widget.teamName,
+        onRename: widget.onRename,
+      ),
     );
   }
 

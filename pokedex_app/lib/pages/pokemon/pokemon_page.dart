@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../database_helper.dart';
+import '../../widgets/pokemon_tile.dart';
+import '../../widgets/state_views.dart';
 import 'pokemon_detail_page.dart';
 
 class PokemonPage extends StatelessWidget {
@@ -13,30 +15,24 @@ class PokemonPage extends StatelessWidget {
       future: DatabaseHelper().getAllPokemon(searchQuery: searchQuery),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(child: CircularProgressIndicator());
+          return const LoadingView();
         } else if (snapshot.hasError) {
-          return Center(child: Text('Error: ${snapshot.error}'));
+          return ErrorView(snapshot.error);
         } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-          return const Center(child: Text('No Pokémon found.'));
+          return const EmptyView('No Pokémon found.');
         } else {
-          return ListView.builder(
+          return ListView.separated(
             itemCount: snapshot.data!.length,
+            separatorBuilder: (_, __) =>
+                const Divider(indent: 88, endIndent: 16),
             itemBuilder: (context, index) {
               final pokemon = snapshot.data![index];
-              return ListTile(
-                leading: Image.asset(
-                  'assets/sprites/pokemon/other/official-artwork/${pokemon['pok_id']}.png',
-                  width: 50,
-                  height: 50,
-                  fit: BoxFit.cover,
-                  errorBuilder: (context, error, stackTrace) {
-                    return const Icon(Icons.image_not_supported);
-                  },
-                ),
-                title: Text('${pokemon['pok_id']}. ${pokemon['pok_name']}'),
-                subtitle: Text('Type: ${pokemon['types']} | Height: ${pokemon['pok_height']} m | Weight: ${pokemon['pok_weight']} kg'),
+              return PokemonTile(
+                pokemon: pokemon,
                 onTap: () async {
-                  final pokemonDetails = await DatabaseHelper().getPokemonDetails(pokemon['pok_id']);
+                  final pokemonDetails = await DatabaseHelper()
+                      .getPokemonDetails(pokemon['pok_id']);
+                  if (!context.mounted) return;
                   Navigator.push(
                     context,
                     MaterialPageRoute(
