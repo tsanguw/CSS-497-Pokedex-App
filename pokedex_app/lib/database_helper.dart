@@ -95,10 +95,12 @@ class DatabaseHelper {
         BASE_STATS B ON P.pok_id = B.pok_id
     ''';
 
+    final args = <Object?>[];
     if (searchQuery.isNotEmpty) {
       query += '''
-        WHERE P.pok_name LIKE '%$searchQuery%'
+        WHERE P.pok_name LIKE ?
       ''';
+      args.add('%$searchQuery%');
     }
 
     query += '''
@@ -106,7 +108,7 @@ class DatabaseHelper {
         P.pok_id ASC
     ''';
 
-    final result = await db.rawQuery(query);
+    final result = await db.rawQuery(query, args);
     return result;
   }
 
@@ -353,10 +355,12 @@ class DatabaseHelper {
         TYPE T ON M.type_id = T.type_id
     ''';
 
+    final args = <Object?>[];
     if (searchQuery.isNotEmpty) {
       query += '''
-        WHERE M.move_name LIKE '%$searchQuery%'
+        WHERE M.move_name LIKE ?
       ''';
+      args.add('%$searchQuery%');
     }
 
     query += '''
@@ -364,7 +368,7 @@ class DatabaseHelper {
         M.move_name ASC
     ''';
 
-    final result = await db.rawQuery(query);
+    final result = await db.rawQuery(query, args);
     return result;
   }
 
@@ -439,10 +443,12 @@ class DatabaseHelper {
         ABILITIES
     ''';
 
+    final args = <Object?>[];
     if (searchQuery.isNotEmpty) {
       query += '''
-        WHERE abi_name LIKE '%$searchQuery%'
+        WHERE abi_name LIKE ?
       ''';
+      args.add('%$searchQuery%');
     }
 
     query += '''
@@ -450,7 +456,7 @@ class DatabaseHelper {
         abi_name ASC
     ''';
 
-    final result = await db.rawQuery(query);
+    final result = await db.rawQuery(query, args);
     return result;
   }
 
@@ -510,10 +516,12 @@ class DatabaseHelper {
         NATURE
     ''';
 
+    final args = <Object?>[];
     if (searchQuery.isNotEmpty) {
       query += '''
-        WHERE nat_name LIKE '%$searchQuery%'
+        WHERE nat_name LIKE ?
       ''';
+      args.add('%$searchQuery%');
     }
 
     query += '''
@@ -521,7 +529,7 @@ class DatabaseHelper {
         nat_name ASC
     ''';
 
-    final result = await db.rawQuery(query);
+    final result = await db.rawQuery(query, args);
     return result;
   }
 
@@ -561,10 +569,12 @@ class DatabaseHelper {
         ITEM_CATEGORY IC ON I.item_cat_id = IC.item_cat_id
     ''';
 
+    final args = <Object?>[];
     if (searchQuery.isNotEmpty) {
       query += '''
-        WHERE I.item_name LIKE '%$searchQuery%'
+        WHERE I.item_name LIKE ?
       ''';
+      args.add('%$searchQuery%');
     }
 
     query += '''
@@ -572,7 +582,7 @@ class DatabaseHelper {
         I.item_name ASC
     ''';
 
-    final result = await db.rawQuery(query);
+    final result = await db.rawQuery(query, args);
 
     List<Map<String, dynamic>> filteredResult = [];
     for (var item in result) {
@@ -622,10 +632,12 @@ class DatabaseHelper {
         TRAINER
     ''';
 
+    final args = <Object?>[];
     if (searchQuery.isNotEmpty) {
       query += '''
-        WHERE trainer_name LIKE '%$searchQuery%'
+        WHERE trainer_name LIKE ?
       ''';
+      args.add('%$searchQuery%');
     }
 
     query += '''
@@ -633,7 +645,7 @@ class DatabaseHelper {
         trainer_id ASC
     ''';
 
-    final result = await db.rawQuery(query);
+    final result = await db.rawQuery(query, args);
     return result;
   }
 

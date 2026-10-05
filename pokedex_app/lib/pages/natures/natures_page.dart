@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../database_helper.dart';
 import '../../widgets/format.dart';
-import '../../widgets/state_views.dart';
+import '../../widgets/search_results.dart';
 
 class NaturesPage extends StatelessWidget {
   final String searchQuery;
@@ -12,47 +12,37 @@ class NaturesPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final text = Theme.of(context).textTheme;
     final scheme = Theme.of(context).colorScheme;
-    return FutureBuilder<List<Map<String, dynamic>>>(
-      future: DatabaseHelper().getAllNatures(searchQuery: searchQuery),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const LoadingView();
-        } else if (snapshot.hasError) {
-          return ErrorView(snapshot.error);
-        } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-          return const EmptyView('No natures found.');
-        } else {
-          return ListView.separated(
-            itemCount: snapshot.data!.length,
-            separatorBuilder: (_, __) =>
-                const Divider(indent: 16, endIndent: 16),
-            itemBuilder: (context, index) {
-              final nature = snapshot.data![index];
-              final up = nature['nat_increase'];
-              final down = nature['nat_decrease'];
-              final neutral = up == null || down == null || up == down;
-              return ListTile(
-                title: Text(prettyName(nature['nat_name']),
-                    style: text.titleMedium),
-                trailing: neutral
-                    ? Text('Neutral',
-                        style: text.labelLarge
-                            ?.copyWith(color: scheme.onSurfaceVariant))
-                    : Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          _StatChange(
-                              up: true, label: prettyName(up), text: text),
-                          _StatChange(
-                              up: false, label: prettyName(down), text: text),
-                        ],
-                      ),
-              );
-            },
+    return SearchResults(
+      searchQuery: searchQuery,
+      load: (q) => DatabaseHelper().getAllNatures(searchQuery: q),
+      emptyMessage: 'No natures found.',
+      builder: (context, rows) => ListView.separated(
+        itemCount: rows.length,
+        separatorBuilder: (_, __) => const Divider(indent: 16, endIndent: 16),
+        itemBuilder: (context, index) {
+          final nature = rows[index];
+          final up = nature['nat_increase'];
+          final down = nature['nat_decrease'];
+          final neutral = up == null || down == null || up == down;
+          return ListTile(
+            title:
+                Text(prettyName(nature['nat_name']), style: text.titleMedium),
+            trailing: neutral
+                ? Text('Neutral',
+                    style: text.labelLarge
+                        ?.copyWith(color: scheme.onSurfaceVariant))
+                : Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      _StatChange(up: true, label: prettyName(up), text: text),
+                      _StatChange(
+                          up: false, label: prettyName(down), text: text),
+                    ],
+                  ),
           );
-        }
-      },
+        },
+      ),
     );
   }
 }

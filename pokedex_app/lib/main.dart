@@ -1,5 +1,7 @@
 // ignore_for_file: constant_identifier_names
 
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'theme/app_theme.dart';
 import 'pages/pokemon/pokemon_page.dart';
@@ -58,12 +60,39 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  // How long typing must pause before the list re-queries the database.
+  static const _searchDelay = Duration(milliseconds: 250);
+
   Section _selectedSection = Section.POKEMON;
   String _searchQuery = '';
+  final TextEditingController _searchController = TextEditingController();
+  Timer? _debounce;
+
+  @override
+  void dispose() {
+    _debounce?.cancel();
+    _searchController.dispose();
+    super.dispose();
+  }
 
   void _onSearchChanged(String query) {
+    _debounce?.cancel();
+    _debounce = Timer(_searchDelay, () {
+      if (!mounted) return;
+      setState(() {
+        _searchQuery = query.trim();
+      });
+    });
+  }
+
+  void _selectSection(Section section) {
+    // Each section starts with an empty search, so the box and the filter
+    // can't disagree after switching.
+    _debounce?.cancel();
+    _searchController.clear();
     setState(() {
-      _searchQuery = query;
+      _selectedSection = section;
+      _searchQuery = '';
     });
   }
 
@@ -103,6 +132,7 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: _hasSearch
             ? TextField(
+                controller: _searchController,
                 onChanged: _onSearchChanged,
                 textInputAction: TextInputAction.search,
                 decoration: InputDecoration(
@@ -116,9 +146,7 @@ class _MyHomePageState extends State<MyHomePage> {
       drawer: NavigationDrawer(
         selectedIndex: _selectedSection.index,
         onDestinationSelected: (index) {
-          setState(() {
-            _selectedSection = Section.values[index];
-          });
+          _selectSection(Section.values[index]);
           Navigator.of(context).pop();
         },
         children: [
