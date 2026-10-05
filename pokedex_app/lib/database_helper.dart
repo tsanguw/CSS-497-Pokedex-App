@@ -14,7 +14,7 @@ class DatabaseHelper {
   static Database? _database;
 
   // Bump this whenever assets/pokedex.db is replaced so devices re-copy it.
-  static const int _assetDbVersion = 2;
+  static const int _assetDbVersion = 3;
   static const String _assetDbVersionKey = 'assetDbVersion';
 
   // The cached items list is derived from the bundled DB, so its key carries

@@ -130,6 +130,10 @@ CREATE TABLE MOVESET (
     FOREIGN KEY (method_id) REFERENCES MOVE_METHOD(move_method_id)
 );
 
+-- The MOVESET primary key leads with pok_id; this speeds up searching by move
+-- (Move detail: which Pokemon learn this move). See scripts/add_indexes.py.
+CREATE INDEX idx_moveset_move ON MOVESET (move_id, pok_id);
+
 -- Create TYPE EFFICACY table
 CREATE TABLE TYPE_EFFICACY (
     type_id INT,
