@@ -20,11 +20,12 @@ class DatabaseHelper {
   static const int _assetDbVersion = 3;
   static const String _assetDbVersionKey = 'assetDbVersion';
 
-  // The cached items list is derived from the bundled DB, so its key carries
+  // The saved items list is derived from the bundled DB, so its key carries
   // the DB version: replacing the DB (bumping the version above) invalidates
-  // it. The unversioned key was used before this and is cleaned up below.
-  static const String _legacyItemsCacheKey = 'cachedItems';
-  static const String _itemsCacheKey = 'cachedItems_v$_assetDbVersion';
+  // it. Saving also deletes copies left by older versions, including the
+  // original unversioned 'cachedItems'.
+  static const String _itemsCachePrefix = 'cachedItems';
+  static const String _itemsCacheKey = '${_itemsCachePrefix}_v$_assetDbVersion';
 
   // Comma-joined type names for the row's POKEMON alias `P`, in slot order
   // (primary type first). POKEMON_BEARS_TYPE rows are inserted in slot order,
@@ -88,10 +89,8 @@ class DatabaseHelper {
 
   // Only the columns the list screens read; the detail screen loads the
   // rest (height, weight, base stats) through getPokemonDetails.
-  Future<List<Map<String, dynamic>>> _queryAllPokemon() async {
-    final db = await database;
-    final timer = Stopwatch()..start();
-    final result = await db.rawQuery('''
+  Future<List<Map<String, dynamic>>> _queryAllPokemon() =>
+      _loadList('Pokemon', '''
       SELECT
         P.pok_id,
         P.pok_name,
@@ -101,8 +100,15 @@ class DatabaseHelper {
       ORDER BY
         P.pok_id ASC
     ''');
+
+  // Runs [sql] once for a list that is then kept for the rest of the run. In
+  // debug builds it logs how long that one load took.
+  Future<List<Map<String, dynamic>>> _loadList(String label, String sql) async {
+    final db = await database;
+    final timer = Stopwatch()..start();
+    final result = await db.rawQuery(sql);
     if (kDebugMode) {
-      debugPrint('[pokedex] loaded ${result.length} Pokemon in '
+      debugPrint('[pokedex] loaded ${result.length} $label in '
           '${timer.elapsedMilliseconds} ms (cached for this run)');
     }
     return List.unmodifiable(result);
@@ -334,11 +340,16 @@ class DatabaseHelper {
     return result;
   }
 
+  final AsyncCache<List<Map<String, dynamic>>> _movesCache = AsyncCache();
+
   Future<List<Map<String, dynamic>>> getAllMoves(
       {String searchQuery = ''}) async {
-    final db = await database;
-    String query = '''
-      SELECT 
+    final all = await _movesCache.get(_queryAllMoves);
+    return filterByName(all, 'move_name', searchQuery);
+  }
+
+  Future<List<Map<String, dynamic>>> _queryAllMoves() => _loadList('moves', '''
+      SELECT
         M.move_id,
         M.move_name,
         M.move_power,
@@ -347,26 +358,11 @@ class DatabaseHelper {
         T.type_name
       FROM
         MOVE M
-      JOIN 
+      JOIN
         TYPE T ON M.type_id = T.type_id
-    ''';
-
-    final args = <Object?>[];
-    if (searchQuery.isNotEmpty) {
-      query += '''
-        WHERE M.move_name LIKE ?
-      ''';
-      args.add('%$searchQuery%');
-    }
-
-    query += '''
-      ORDER BY 
+      ORDER BY
         M.move_name ASC
-    ''';
-
-    final result = await db.rawQuery(query, args);
-    return result;
-  }
+    ''');
 
   Future<Map<String, dynamic>> getMoveDetails(int moveId) async {
     final db = await database;
@@ -427,34 +423,25 @@ class DatabaseHelper {
     return result;
   }
 
+  final AsyncCache<List<Map<String, dynamic>>> _abilitiesCache = AsyncCache();
+
   Future<List<Map<String, dynamic>>> getAllAbilities(
       {String searchQuery = ''}) async {
-    final db = await database;
-    String query = '''
-      SELECT 
+    final all = await _abilitiesCache.get(_queryAllAbilities);
+    return filterByName(all, 'abi_name', searchQuery);
+  }
+
+  Future<List<Map<String, dynamic>>> _queryAllAbilities() =>
+      _loadList('abilities', '''
+      SELECT
         abi_id,
         abi_name,
         abi_desc
-      FROM 
+      FROM
         ABILITIES
-    ''';
-
-    final args = <Object?>[];
-    if (searchQuery.isNotEmpty) {
-      query += '''
-        WHERE abi_name LIKE ?
-      ''';
-      args.add('%$searchQuery%');
-    }
-
-    query += '''
-      ORDER BY 
+      ORDER BY
         abi_name ASC
-    ''';
-
-    final result = await db.rawQuery(query, args);
-    return result;
-  }
+    ''');
 
   Future<Map<String, dynamic>> getAbilityDetails(int abilityId) async {
     final db = await database;
@@ -499,35 +486,26 @@ class DatabaseHelper {
     return result;
   }
 
+  final AsyncCache<List<Map<String, dynamic>>> _naturesCache = AsyncCache();
+
   Future<List<Map<String, dynamic>>> getAllNatures(
       {String searchQuery = ''}) async {
-    final db = await database;
-    String query = '''
-      SELECT 
+    final all = await _naturesCache.get(_queryAllNatures);
+    return filterByName(all, 'nat_name', searchQuery);
+  }
+
+  Future<List<Map<String, dynamic>>> _queryAllNatures() =>
+      _loadList('natures', '''
+      SELECT
         nat_id,
         nat_name,
         nat_increase,
         nat_decrease
-      FROM 
+      FROM
         NATURE
-    ''';
-
-    final args = <Object?>[];
-    if (searchQuery.isNotEmpty) {
-      query += '''
-        WHERE nat_name LIKE ?
-      ''';
-      args.add('%$searchQuery%');
-    }
-
-    query += '''
-      ORDER BY 
+      ORDER BY
         nat_name ASC
-    ''';
-
-    final result = await db.rawQuery(query, args);
-    return result;
-  }
+    ''');
 
   Future<bool> _imageExists(String path) async {
     try {
@@ -538,70 +516,56 @@ class DatabaseHelper {
     }
   }
 
-  List<Map<String, dynamic>>? _cachedItems;
+  final AsyncCache<List<Map<String, dynamic>>> _itemsCache = AsyncCache();
 
   Future<List<Map<String, dynamic>>> getAllItems(
       {String searchQuery = ''}) async {
-    // Try to load the cached list from shared preferences if available and the search query is empty
-    if (_cachedItems == null && searchQuery.isEmpty) {
-      _cachedItems = await _loadCachedItems();
-    }
+    final all = await _itemsCache.get(_loadAllItems);
+    return filterByName(all, 'item_name', searchQuery);
+  }
 
-    // Return the cached list if available and the search query is empty
-    if (_cachedItems != null && searchQuery.isEmpty) {
-      return _cachedItems!;
-    }
+  // The items that have a sprite, in name order. Checking which sprites exist
+  // loads one asset per item, which is slow, so the result is also saved to
+  // SharedPreferences and reused on later runs.
+  Future<List<Map<String, dynamic>>> _loadAllItems() async {
+    final saved = await _loadCachedItems();
+    if (saved != null) return List.unmodifiable(saved);
 
-    final db = await database;
-    String query = '''
-      SELECT 
+    final items = await _loadList('items', '''
+      SELECT
         I.item_id,
         I.item_name,
         I.item_desc,
         IC.item_cat_name
-      FROM 
+      FROM
         ITEM I
-      JOIN 
+      JOIN
         ITEM_CATEGORY IC ON I.item_cat_id = IC.item_cat_id
-    ''';
-
-    final args = <Object?>[];
-    if (searchQuery.isNotEmpty) {
-      query += '''
-        WHERE I.item_name LIKE ?
-      ''';
-      args.add('%$searchQuery%');
-    }
-
-    query += '''
-      ORDER BY 
+      ORDER BY
         I.item_name ASC
-    ''';
+    ''');
 
-    final result = await db.rawQuery(query, args);
-
-    List<Map<String, dynamic>> filteredResult = [];
-    for (var item in result) {
-      final imagePath = 'assets/sprites/items/${item['item_name']}.png';
-      if (await _imageExists(imagePath)) {
-        filteredResult.add(item);
+    final withSprites = <Map<String, dynamic>>[];
+    for (final item in items) {
+      if (await _imageExists('assets/sprites/items/${item['item_name']}.png')) {
+        withSprites.add(item);
       }
     }
-
-    // Cache and persist the filtered list if the search query is empty
-    if (searchQuery.isEmpty) {
-      _cachedItems = filteredResult;
-      await _saveCachedItems(filteredResult);
-    }
-
-    return filteredResult;
+    await _saveCachedItems(withSprites);
+    return List.unmodifiable(withSprites);
   }
 
   Future<void> _saveCachedItems(List<Map<String, dynamic>> items) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String encodedItems = jsonEncode(items);
     await prefs.setString(_itemsCacheKey, encodedItems);
-    await prefs.remove(_legacyItemsCacheKey);
+    final stale = prefs
+        .getKeys()
+        .where((k) => k.startsWith(_itemsCachePrefix) && k != _itemsCacheKey)
+        .toList();
+    for (final key in stale) {
+      await prefs.remove(key);
+    }
   }
 
   Future<List<Map<String, dynamic>>?> _loadCachedItems() async {
@@ -614,36 +578,27 @@ class DatabaseHelper {
     return null;
   }
 
+  final AsyncCache<List<Map<String, dynamic>>> _gymLeadersCache = AsyncCache();
+
   Future<List<Map<String, dynamic>>> getAllGymLeaders(
       {String searchQuery = ''}) async {
-    final db = await database;
-    String query = '''
-      SELECT 
+    final all = await _gymLeadersCache.get(_queryAllGymLeaders);
+    return filterByName(all, 'trainer_name', searchQuery);
+  }
+
+  Future<List<Map<String, dynamic>>> _queryAllGymLeaders() =>
+      _loadList('gym leaders', '''
+      SELECT
         trainer_id,
         trainer_name,
         trainer_gym_name,
         trainer_game,
         trainer_gen
-      FROM 
+      FROM
         TRAINER
-    ''';
-
-    final args = <Object?>[];
-    if (searchQuery.isNotEmpty) {
-      query += '''
-        WHERE trainer_name LIKE ?
-      ''';
-      args.add('%$searchQuery%');
-    }
-
-    query += '''
-      ORDER BY 
+      ORDER BY
         trainer_id ASC
-    ''';
-
-    final result = await db.rawQuery(query, args);
-    return result;
-  }
+    ''');
 
   Future<Map<String, dynamic>> getGymLeaderDetails(int trainerId) async {
     final db = await database;
