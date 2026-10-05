@@ -1,9 +1,12 @@
 import 'dart:io';
+import 'package:flutter/foundation.dart' show debugPrint, kDebugMode;
 import 'package:flutter/services.dart' show ByteData, rootBundle;
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'async_cache.dart';
+import 'search_filter.dart';
 
 class DatabaseHelper {
   static final DatabaseHelper _instance = DatabaseHelper._internal();
@@ -73,43 +76,36 @@ class DatabaseHelper {
     }
   }
 
+  // The whole Pokemon list, loaded once per app run. The database is bundled
+  // and read-only, so it can't go stale. Searching filters this in memory.
+  final AsyncCache<List<Map<String, dynamic>>> _pokemonCache = AsyncCache();
+
   Future<List<Map<String, dynamic>>> getAllPokemon(
       {String searchQuery = ''}) async {
+    final all = await _pokemonCache.get(_queryAllPokemon);
+    return filterByName(all, 'pok_name', searchQuery);
+  }
+
+  // Only the columns the list screens read; the detail screen loads the
+  // rest (height, weight, base stats) through getPokemonDetails.
+  Future<List<Map<String, dynamic>>> _queryAllPokemon() async {
     final db = await database;
-    String query = '''
-      SELECT 
+    final timer = Stopwatch()..start();
+    final result = await db.rawQuery('''
+      SELECT
         P.pok_id,
         P.pok_name,
-        P.pok_height,
-        P.pok_weight,
-        $_typesSql AS types,
-        B.b_hp,
-        B.b_atk,
-        B.b_def,
-        B.b_sp_atk,
-        B.b_sp_def,
-        B.b_speed
+        $_typesSql AS types
       FROM
         POKEMON P
-      JOIN
-        BASE_STATS B ON P.pok_id = B.pok_id
-    ''';
-
-    final args = <Object?>[];
-    if (searchQuery.isNotEmpty) {
-      query += '''
-        WHERE P.pok_name LIKE ?
-      ''';
-      args.add('%$searchQuery%');
-    }
-
-    query += '''
       ORDER BY
         P.pok_id ASC
-    ''';
-
-    final result = await db.rawQuery(query, args);
-    return result;
+    ''');
+    if (kDebugMode) {
+      debugPrint('[pokedex] loaded ${result.length} Pokemon in '
+          '${timer.elapsedMilliseconds} ms (cached for this run)');
+    }
+    return List.unmodifiable(result);
   }
 
   Future<Map<String, dynamic>> getPokemonDetails(int pokId) async {
