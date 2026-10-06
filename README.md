@@ -6,12 +6,48 @@ This capstone project focuses on developing a Pokémon database application for 
 
 ![CSS_497_Pokédex_Poster_Updated](https://github.com/user-attachments/assets/0fdd68fb-8929-45d6-bbfd-701125218f3f)
 
+## Features
+* **Pokémon:** searchable list with type-colored chips, and a detail screen with stat bars, type matchups, evolutions and a filterable moveset.
+* **Moves, Abilities, Items, Natures, Gym Leaders:** searchable lists with detail screens.
+* **Team Builder:** create, rename and delete teams of up to six Pokémon, each with four moves, an ability and an item. Teams are saved on the device.
+* **Design:** Material 3 with light and dark themes that follow the system setting.
+* Locations and the Damage Calculator are placeholders for now.
+
 ## Technologies Used
-* Flutter: The primary framework for developing the app.
-* Dart: The programming language used within Flutter.
-* Android Studio: The integrated development environment (IDE) for Android development.
-* SQLite: The database used to store Pokémon data locally on the device.
-* Java Development Kit (JDK): Required for Android development, specifically JDK 11.
+* Flutter / Dart: the app framework and language.
+* Material 3: the design system (`NavigationDrawer`, `FilterChip`, system light/dark theme).
+* SQLite (`sqflite`): local storage for the Pokémon data and for saved teams.
+* `shared_preferences`: a small cache of which item sprites exist.
+* Android Studio and the Android SDK: Android builds and the emulator.
+* Java Development Kit (JDK) 17 or newer: required by the current Android Gradle Plugin (the project builds with Gradle 9, AGP 9 and Kotlin 2).
+
+## How the app stores data
+| Data | Where | Notes |
+|---|---|---|
+| Pokémon, moves, abilities, items, natures, gym leaders | `assets/pokedex.db`, bundled read-only | Copied to the device once per bundled version (`_assetDbVersion` in `lib/database_helper.dart`), not on every launch. |
+| Saved teams | `user.db`, created on the device | Stores IDs only; names and stats are looked up from the bundled data when a team is shown. Teams saved by older versions are imported automatically on first launch. |
+| Item sprite list | `shared_preferences` | A derived cache, rebuilt automatically when the data version changes. |
+| Artwork | `assets/sprites/pokemon/other/official-artwork/*.webp` | WebP, about 24 MB total. |
+
+The main lists are loaded once per run, kept in memory and searched there. Search waits 250 ms after typing stops.
+
+## Project layout
+```
+pokedex_app/
+  lib/
+    main.dart             app shell, drawer, search
+    database_helper.dart  bundled-data access and cached lists
+    user_database.dart    writable user.db and the legacy team import
+    team_repository.dart  team create/rename/delete and member edits
+    theme/                Material 3 theme and type colors
+    widgets/              shared widgets (chips, stat bars, tiles, state views)
+    pages/                one folder per screen
+  assets/                 pokedex.db and artwork
+  test/                   unit tests
+scripts/                  Python tools for building and maintaining the database
+complete-db-inserts/      SQL source for the database
+```
+
 # Instructions for Setting Up and Installing the App
 ## Install Flutter
 ### Download Flutter SDK:
@@ -22,7 +58,7 @@ This capstone project focuses on developing a Pokémon database application for 
 * Extract the downloaded Flutter SDK and add the flutter/bin directory to your system’s PATH to use Flutter commands from the terminal.
 ### Verify Installation:
 
-* Open a terminal and run flutter doctor to verify the installation and see if any dependencies are missing.
+* Open a terminal and run `flutter doctor` to verify the installation and see if any dependencies are missing.
 ## Install Android Studio
 ### Download Android Studio:
 
@@ -31,43 +67,63 @@ This capstone project focuses on developing a Pokémon database application for 
 ### Set Up Android Studio for Flutter:
 
 * Open Android Studio and install the Flutter and Dart plugins by going to File > Settings > Plugins (on macOS, Android Studio > Preferences > Plugins).
+* If you use VS Code instead, install the Flutter and Dart extensions.
 ### Install Android SDK:
 
 * Ensure that the Android SDK is installed and configured. This can be done during the Android Studio setup or via the SDK Manager in Android Studio.
-## Ensure Java SDK Version is 11
+## Ensure the Java SDK Is Version 17 or Newer
 ### Install Java Development Kit (JDK):
 
-* Download and install JDK 11 if you haven’t already.
+* Android Studio bundles a suitable JDK. If you use your own, install JDK 17 or newer.
 ### Set JAVA_HOME:
 
-* Ensure that the JAVA_HOME environment variable is set to point to the JDK 11 installation path. You can verify this by running java -version in the terminal.
-## Set Up an Android Device for Development
-### Enable Developer Mode:
-
+* If you use your own JDK, make sure the JAVA_HOME environment variable points to it. You can verify this by running `java -version` in the terminal.
+## Set Up an Android Device or Emulator for Development
+### Option A: Physical device
 * On your Android device, go to Settings > About phone and tap on the Build number seven times to enable Developer Mode.
-### Enable USB Debugging:
+* In the Developer options (Settings > System > Developer options), enable USB debugging.
+* Connect the device with a USB cable and accept the "Allow USB debugging" prompt on the device.
+### Option B: Emulator
+* In Android Studio, open Device Manager and create or start a virtual device. Wait until its home screen is showing.
+## Run the App
+All Flutter commands are run from the `pokedex_app` folder:
 
-* In the Developer options (accessible from Settings > System > Developer options), enable USB debugging to allow your device to communicate with your computer via USB.
-## Connect Your Device via USB
-### Connect the Device:
+```
+cd pokedex_app
+flutter pub get
+flutter devices
+flutter run -d <device-id>
+```
 
-* Use a USB cable to connect your Android device to your computer.
-### Trust the Computer:
+* `flutter devices` lists the connected phone or running emulator (for example `emulator-5554`). If your device is not listed, start the emulator or reconnect the device first.
+* While the app is running, press `r` for hot reload and `R` for a full restart. After changing the bundled database or startup code, use the full restart.
+* In VS Code you can instead pick the device in the status bar and press F5.
 
-* On your Android device, you may need to authorize the connected computer for USB debugging by accepting a prompt.
-## Build and Install the App
-### Run the App:
-* Open your Flutter project in a terminal or in Android Studio.
-* Run flutter doctor to ensure there are no issues.
-* Run flutter build to create an APK of the application.
-* Run flutter install to build and install the app onto the connected Android device.
+### Build a release APK
+```
+flutter build apk --release --split-per-abi
+```
+The APKs are written to `pokedex_app/build/app/outputs/flutter-apk/`. Install one on a connected device with `adb install -r <file>.apk`.
+
+## Run the Tests and Checks
+```
+flutter test
+flutter analyze
+```
+
 ## Troubleshoot Installation Issues
 ### Ensure All Dependencies Are Met:
 
-* If you encounter issues, re-run flutter doctor to check for any missing dependencies or configuration problems.
+* If you encounter issues, re-run `flutter doctor` to check for any missing dependencies or configuration problems.
 ### Run flutter clean:
 
-* Run flutter clean and flutter pub get to retrieve missing dependencies or configurations.
+* Run `flutter clean` and `flutter pub get` to retrieve missing dependencies or configurations.
+### Device not found during install:
+
+* If the build succeeds but the install fails with "device not found", the emulator was not finished booting. Wait for its home screen and run `flutter run -d <device-id>` again.
+### Old version appears on the device:
+
+* Launching the app from the home screen runs whatever was last installed. Use `flutter run` (or F5) to install your latest code.
 ### Reinstall Dependencies:
 
 * If issues persist, consider reinstalling or updating dependencies like the Android SDK or Flutter SDK.

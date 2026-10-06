@@ -24,7 +24,7 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Pokedex',
+      title: 'LitWiki',
       theme: lightTheme,
       darkTheme: darkTheme,
       themeMode: ThemeMode.system,
@@ -156,7 +156,10 @@ class _MyHomePageState extends State<MyHomePage> {
               children: [
                 Icon(Icons.catching_pokemon, color: scheme.primary, size: 32),
                 const SizedBox(width: 12),
-                Text('Pokedex', style: Theme.of(context).textTheme.titleLarge),
+                Expanded(
+                  child: Text('LitWiki - The Pokémon Pokédex',
+                      style: Theme.of(context).textTheme.titleLarge),
+                ),
               ],
             ),
           ),

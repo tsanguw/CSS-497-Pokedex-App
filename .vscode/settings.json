@@ -1,3 +1,4 @@
 {
-    "java.configuration.updateBuildConfiguration": "interactive"
+    "java.configuration.updateBuildConfiguration": "interactive",
+    "cmake.sourceDirectory": "C:/Users/Daniel Tsang/Projects/CSS-497-Pokedex-App/pokedex_app/linux"
 }
