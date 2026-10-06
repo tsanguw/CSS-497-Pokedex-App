@@ -4,6 +4,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'theme/app_theme.dart';
+import 'view_mode.dart';
 import 'pages/pokemon/pokemon_page.dart';
 import 'pages/moves/moves_page.dart';
 import 'pages/abilities/abilities_page.dart';
@@ -67,6 +68,20 @@ class _MyHomePageState extends State<MyHomePage> {
   String _searchQuery = '';
   final TextEditingController _searchController = TextEditingController();
   Timer? _debounce;
+  bool _gridView = false;
+
+  @override
+  void initState() {
+    super.initState();
+    ViewModePreference.loadGrid().then((grid) {
+      if (mounted && grid != _gridView) setState(() => _gridView = grid);
+    });
+  }
+
+  void _toggleGrid() {
+    setState(() => _gridView = !_gridView);
+    ViewModePreference.saveGrid(_gridView);
+  }
 
   @override
   void dispose() {
@@ -104,7 +119,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget _buildBody() {
     switch (_selectedSection) {
       case Section.POKEMON:
-        return PokemonPage(searchQuery: _searchQuery);
+        return PokemonPage(searchQuery: _searchQuery, gridView: _gridView);
       case Section.MOVES:
         return MovesPage(searchQuery: _searchQuery);
       case Section.ABILITIES:
@@ -142,6 +157,14 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               )
             : Text(_selectedSection.label),
+        actions: [
+          if (_selectedSection == Section.POKEMON)
+            IconButton(
+              tooltip: _gridView ? 'Show as list' : 'Show as grid',
+              icon: Icon(_gridView ? Icons.view_list : Icons.grid_view),
+              onPressed: _toggleGrid,
+            ),
+        ],
       ),
       drawer: NavigationDrawer(
         selectedIndex: _selectedSection.index,

@@ -6,17 +6,25 @@ class TypeChip extends StatelessWidget {
   final String? suffix;
   final bool compact;
 
+  /// When set, the chip is drawn as a translucent pill that stays readable on
+  /// this background (used on the type-colored Pokemon cards).
+  final Color? onBackground;
+
   const TypeChip({
     super.key,
     required this.type,
     this.suffix,
     this.compact = false,
+    this.onBackground,
   });
 
   @override
   Widget build(BuildContext context) {
-    final bg = typeColor(type);
-    final fg = onTypeColor(bg);
+    final onBg = onBackground;
+    final fg = onBg == null ? onTypeColor(typeColor(type)) : onTypeColor(onBg);
+    final bg = onBg == null
+        ? typeColor(type)
+        : fg.withValues(alpha: 0.18);
     return Container(
       padding: EdgeInsets.symmetric(
         horizontal: compact ? 10 : 14,
@@ -42,12 +50,14 @@ class TypeChips extends StatelessWidget {
   final Object? types;
   final bool compact;
   final WrapAlignment alignment;
+  final Color? onBackground;
 
   const TypeChips({
     super.key,
     required this.types,
     this.compact = false,
     this.alignment = WrapAlignment.start,
+    this.onBackground,
   });
 
   @override
@@ -57,7 +67,8 @@ class TypeChips extends StatelessWidget {
       runSpacing: 4,
       alignment: alignment,
       children: [
-        for (final t in splitTypes(types)) TypeChip(type: t, compact: compact),
+        for (final t in splitTypes(types))
+          TypeChip(type: t, compact: compact, onBackground: onBackground),
       ],
     );
   }
